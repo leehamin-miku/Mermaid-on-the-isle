@@ -8,4 +8,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TitleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/GameScene.unity
+    guid: 9283de667d63d07429c5b7f72db06964
+  - enabled: 1
+    path: Assets/Scenes/LoadScene.unity
+    guid: f8581781bd260e544ad07d46e82388fa
+  - enabled: 1
+    path: Assets/Scenes/SaveScene.unity
+    guid: 4a383b02527148745a93039fc129b619
+  - enabled: 1
+    path: Assets/Scenes/VNScene.unity
+    guid: 63ee68dd392e7134da23aefd71bd639a
+  - enabled: 1
+    path: Assets/Scenes/LobbyScene.unity
+    guid: 2ae229a5437fe7b498bdf94482366af4
   m_configObjects: {}

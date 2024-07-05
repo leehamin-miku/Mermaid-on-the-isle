@@ -1,0 +1,14 @@
+using System.Collections;
+using System.Collections.Generic;
+using Photon.Pun;
+using UnityEngine;
+
+public class palette : MonoBehaviour
+{
+    public Color color;
+    // Start is called before the first frame update
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        collision.GetComponent<PlayerController>().PV.RPC("ChangeColor", RpcTarget.AllBuffered, color);
+    }
+}
