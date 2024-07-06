@@ -1,5 +1,4 @@
 using System;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 [Serializable] // 직렬화

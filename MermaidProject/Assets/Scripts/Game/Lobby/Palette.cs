@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class palette : MonoBehaviour
 {
-    public Color color;
+    [SerializeField] int a;
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.GetComponent<PlayerController>().PV.RPC("ChangeColor", RpcTarget.AllBuffered, color);
+        collision.GetComponent<PlayerController>().PV.RPC("ChangeColor", RpcTarget.AllBuffered, a);
     }
 }
