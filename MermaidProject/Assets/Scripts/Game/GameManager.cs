@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
-    // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        PhotonNetwork.Instantiate("Prefab/Game/Player", new Vector3(0, 0, 0), Quaternion.identity, 0).GetComponent<Rigidbody2D>().AddForce(Random.insideUnitCircle*30,ForceMode2D.Impulse);
+        GameObject Pl = PhotonNetwork.Instantiate("Prefab/Game/Player", Vector3.zero, Quaternion.identity);
+        Pl.GetComponent<Rigidbody2D>().AddForce(Random.insideUnitCircle*30,ForceMode2D.Impulse);
     }
 }

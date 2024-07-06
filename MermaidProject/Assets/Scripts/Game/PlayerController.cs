@@ -5,20 +5,21 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Block
 {
+    int b = 0;
     // Start is called before the first frame update
     [SerializeField] Color red;
     [SerializeField] Color yellow;
     [SerializeField] Color green;
     [SerializeField] Color blue;
 
+    Block grabBlock;
 
-    public PhotonView PV;
     public SpriteRenderer SR;
     void Start()
     {
-        GetComponent<SpriteRenderer>().color = UnityEngine.Color.black;
+        ChangeColor(b);
     }
 
     // Update is called once per frame
@@ -30,6 +31,15 @@ public class PlayerController : MonoBehaviour
             float h2 = Input.GetAxis("Vertical");
             GetComponent<Rigidbody2D>().AddTorque(-h1 * Time.deltaTime * 2, ForceMode2D.Impulse);
             GetComponent<Rigidbody2D>().AddForce(transform.up * h2 * Time.deltaTime * 15, ForceMode2D.Impulse);
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                //PV.RPC("ToggleAction", RpcTarget.AllBuffered);
+                ToggleAction();
+            }
+            if (Input.GetKeyDown(KeyCode.X) && GetComponent<FixedJoint2D>().enabled)
+            {
+                UseAction();
+            }
         }
     }
     private void FixedUpdate()
@@ -40,6 +50,15 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+    public void UseAction()
+    {
+        if (GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().isReady)
+        {
+            GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().UseItem();
+        }
+    }
+
+
     [PunRPC]
     public void ChangeColor(int a)
     {
@@ -58,6 +77,43 @@ public class PlayerController : MonoBehaviour
             case 3:
                 GetComponent<SpriteRenderer>().color = blue;
                 break;
+        }
+        b = a;
+    }
+
+    //[PunRPC]
+    public void ToggleAction()
+    {
+        if (GetComponent<FixedJoint2D>().enabled)
+        {
+            GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().Grabed(this);
+            GetComponent<FixedJoint2D>().connectedBody = null;
+            GetComponent<FixedJoint2D>().enabled = false;
+        }
+        else
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 1.5f, LayerMask.GetMask("Block"));
+            if (hit.collider == null)
+            {
+                hit = Physics2D.Raycast(transform.position, transform.up, 1.5f, LayerMask.GetMask("Tool"));
+            }
+            if (hit.collider == null)
+            {
+                hit = Physics2D.Raycast(transform.position, transform.up, 1.5f, LayerMask.GetMask("BluePrint"));
+            }
+            if (hit.collider == null)
+            {
+                hit = Physics2D.Raycast(transform.position, transform.up, 1.5f, LayerMask.GetMask("Building"));
+            }
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<Block>().isAbleGrabed && hit.collider.GetComponent<Block>().p1 == null)
+                {
+                    GetComponent<FixedJoint2D>().enabled = true;
+                    GetComponent<FixedJoint2D>().connectedBody = hit.collider.GetComponent<Rigidbody2D>();
+                    hit.collider.GetComponent<Block>().Grabed(this);
+                }
+            }
         }
     }
 

@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 14
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.6981132, g: 0.03855285, b: 0, a: 1}
   m_FlipX: 0
@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: -8660688837362993224}
   - component: {fileID: 4940921693948357309}
   - component: {fileID: -2689001862259777048}
+  - component: {fileID: -3593879409321100447}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -116,7 +117,7 @@ Transform:
   m_GameObject: {fileID: 7171638263484347615}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8600952, y: 0.045955963, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -163,7 +164,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 15
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.5660378, g: 0.15783508, b: 0.09344962, a: 1}
   m_FlipX: 0
@@ -212,8 +213,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 1
+  m_SynchronizeRotation: 0
+  m_SynchronizeScale: 0
   m_UseLocal: 1
 --- !u!58 &2499623592074690631
 CircleCollider2D:
@@ -289,11 +290,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64870c74b6d0db6468ae51337654f94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isReady: 0
+  coolTime: 0
+  BlockCode: 0
+  rb: {fileID: 0}
+  strength: 0
+  mass: 0
+  drag: 0
+  angularDrag: 0
+  p1: {fileID: 0}
+  isAbleGrabed: 0
+  PV: {fileID: 520826043651063484}
   red: {r: 0.69803923, g: 0, b: 0.06666667, a: 1}
   yellow: {r: 0.86274517, g: 1, b: 0, a: 1}
   green: {r: 0.15294118, g: 0.9450981, b: 0.054901965, a: 1}
   blue: {r: 0.1764706, g: 0.60784316, b: 0.76470596, a: 1}
-  PV: {fileID: 520826043651063484}
   SR: {fileID: 6815579011079305601}
 --- !u!114 &-2689001862259777048
 MonoBehaviour:
@@ -309,5 +320,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
   m_SynchronizeAngularVelocity: 1
-  m_TeleportEnabled: 0
+  m_TeleportEnabled: 1
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!255 &-3593879409321100447
+FixedJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7171638263484347615}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_DampingRatio: 0
+  m_Frequency: 0
