@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Block : MonoBehaviourPunCallbacks
 {
+
     public bool isReady;
     public float coolTime = 0f;
     public int BlockCode;
@@ -17,7 +18,7 @@ public class Block : MonoBehaviourPunCallbacks
     public PlayerController p1 = null;
     public bool isAbleGrabed;
     public PhotonView PV;
-    void Start()
+    public virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.mass = mass;

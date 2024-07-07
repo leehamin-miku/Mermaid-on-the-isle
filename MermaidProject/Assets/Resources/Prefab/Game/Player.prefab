@@ -270,10 +270,10 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -295,9 +295,9 @@ MonoBehaviour:
   BlockCode: 0
   rb: {fileID: 0}
   strength: 0
-  mass: 0
-  drag: 0
-  angularDrag: 0
+  mass: 1
+  drag: 5
+  angularDrag: 15
   p1: {fileID: 0}
   isAbleGrabed: 0
   PV: {fileID: 520826043651063484}

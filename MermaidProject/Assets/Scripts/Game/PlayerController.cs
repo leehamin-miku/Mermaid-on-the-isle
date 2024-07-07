@@ -13,12 +13,12 @@ public class PlayerController : Block
     [SerializeField] Color yellow;
     [SerializeField] Color green;
     [SerializeField] Color blue;
-
     Block grabBlock;
 
     public SpriteRenderer SR;
-    void Start()
+    public override void Awake()
     {
+        base.Awake();
         ChangeColor(b);
     }
 
@@ -29,8 +29,8 @@ public class PlayerController : Block
         {
             float h1 = Input.GetAxis("Horizontal");
             float h2 = Input.GetAxis("Vertical");
-            GetComponent<Rigidbody2D>().AddTorque(-h1 * Time.deltaTime * 2, ForceMode2D.Impulse);
-            GetComponent<Rigidbody2D>().AddForce(transform.up * h2 * Time.deltaTime * 15, ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().AddTorque(-h1 * Time.deltaTime*2, ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().AddForce(transform.up * h2 * Time.deltaTime*15, ForceMode2D.Impulse);
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 //PV.RPC("ToggleAction", RpcTarget.AllBuffered);
@@ -82,6 +82,8 @@ public class PlayerController : Block
     }
 
     //[PunRPC]
+
+    //±×·¦¾×¼Ç -> fixedjoint --- ±×·¦¾×¼Ç -> fixedjoint off
     public void ToggleAction()
     {
         if (GetComponent<FixedJoint2D>().enabled)
@@ -109,9 +111,9 @@ public class PlayerController : Block
             {
                 if (hit.collider.GetComponent<Block>().isAbleGrabed && hit.collider.GetComponent<Block>().p1 == null)
                 {
+                    hit.collider.GetComponent<Block>().Grabed(this);
                     GetComponent<FixedJoint2D>().enabled = true;
                     GetComponent<FixedJoint2D>().connectedBody = hit.collider.GetComponent<Rigidbody2D>();
-                    hit.collider.GetComponent<Block>().Grabed(this);
                 }
             }
         }

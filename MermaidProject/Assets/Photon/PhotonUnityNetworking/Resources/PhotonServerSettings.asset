@@ -42,6 +42,8 @@ MonoBehaviour:
   - ChangeColor
   - ToggleAction
   - IsMineDelete
+  - LightOn
+  - LightOff
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
