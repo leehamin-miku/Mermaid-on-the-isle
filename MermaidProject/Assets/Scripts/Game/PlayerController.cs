@@ -1,9 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerController : Block
 {
@@ -20,6 +20,8 @@ public class PlayerController : Block
     {
         base.Awake();
         ChangeColor(b);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -29,14 +31,24 @@ public class PlayerController : Block
         {
             float h1 = Input.GetAxis("Horizontal");
             float h2 = Input.GetAxis("Vertical");
-            GetComponent<Rigidbody2D>().AddTorque(-h1 * Time.deltaTime*2, ForceMode2D.Impulse);
-            GetComponent<Rigidbody2D>().AddForce(transform.up * h2 * Time.deltaTime*15, ForceMode2D.Impulse);
-            if (Input.GetKeyDown(KeyCode.Z))
+            float r1 = Input.GetAxis("Mouse X");
+            float r2 = Input.GetAxis("Mouse Y");
+
+
+
+            GetComponent<Rigidbody2D>().AddTorque(-r1 * Time.deltaTime * 4, ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().AddRelativeForce(15 * new Vector2(h1, h2) * Time.deltaTime, ForceMode2D.Impulse);
+
+
+
+            transform.GetChild(1).transform.localPosition = Vector2.Lerp(transform.GetChild(1).transform.localPosition, new Vector2(h1, h2).normalized * 4, Time.deltaTime * 3);
+
+            if (Input.GetMouseButtonDown(0))
             {
                 //PV.RPC("ToggleAction", RpcTarget.AllBuffered);
                 ToggleAction();
             }
-            if (Input.GetKeyDown(KeyCode.X) && GetComponent<FixedJoint2D>().enabled)
+            if (Input.GetMouseButtonDown(1) && GetComponent<FixedJoint2D>().enabled)
             {
                 UseAction();
             }
@@ -44,11 +56,13 @@ public class PlayerController : Block
     }
     private void FixedUpdate()
     {
-        if (PV.IsMine) {
-            Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, transform.position + new Vector3(0, 0, -10), Time.deltaTime * 4);
-            Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, transform.rotation, Time.deltaTime * 2);
+        if (PV.IsMine)
+        {
+            Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, transform.GetChild(1).position + new Vector3(0, 0, -10), Time.deltaTime * 3);
+            //Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, transform.rotation, Time.deltaTime * 2);
+            Camera.main.transform.rotation = transform.rotation;
         }
-        
+
     }
     public void UseAction()
     {
