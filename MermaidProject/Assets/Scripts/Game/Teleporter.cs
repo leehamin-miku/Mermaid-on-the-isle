@@ -17,7 +17,10 @@ public class Teleporter : Block
         if (collision.GetComponent<Block>().BlockCode == 0)
         {
             this.collision = collision;
-            TransitionManager.Instance().onTransitionCutPointReached += TransitionTeleportFuc;
+            if (collision.GetComponent<Block>().PV.IsMine)
+            {
+                TransitionManager.Instance().onTransitionCutPointReached += TransitionTeleportFuc;
+            }
             TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().rectangleGrid, 0f);
         }
     }
