@@ -1,0 +1,14 @@
+﻿Id,Narrator,Narration,Sprite
+0,선생님,나는 선생님이다.,Sensei_Normal
+1,선생님,너는 선생님이다.,Sensei_Normal
+2,Effect_Sensei,NormalMove`1`1`1,
+3,아로나,나는 아로나다.,Arona_Normal
+4,Effect_Arona,Shake`0.5`0.4,
+5,선생님,대사4 - 그렇구나… 꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마,Sensei_Normal
+6,Effect_All,Jump`0.5`0.4,
+7,Effect_All,Jump`0.5`0.4,
+8,아로나,여기서 질문,Arona_Normal
+9,Question,1. 선생님을 믿기,
+10,Question,2. 아로나를 믿기,
+11,QuestionEnd,null,
+12,EndOfFile,null,
