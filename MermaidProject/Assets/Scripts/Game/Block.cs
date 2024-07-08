@@ -99,5 +99,5 @@ public class Block : MonoBehaviourPunCallbacks
         PV.IsMine = false;
     }
 
-    
+
 }
