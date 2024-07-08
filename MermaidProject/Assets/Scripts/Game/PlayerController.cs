@@ -34,7 +34,7 @@ public class PlayerController : Block
             float r1 = Input.GetAxis("Mouse X");
             float r2 = Input.GetAxis("Mouse Y");
 
-
+            if (h2 > 0) h2 = 1.5f;
 
             GetComponent<Rigidbody2D>().AddTorque(-r1 * Time.deltaTime * 4, ForceMode2D.Impulse);
             GetComponent<Rigidbody2D>().AddRelativeForce(15 * new Vector2(h1, h2) * Time.deltaTime, ForceMode2D.Impulse);
@@ -59,6 +59,7 @@ public class PlayerController : Block
         if (PV.IsMine)
         {
             Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, transform.GetChild(1).position + new Vector3(0, 0, -10), Time.deltaTime * 3);
+            //Camera.main.transform.position = transform.GetChild(1).position + new Vector3(0, 0, -10);
             //Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, transform.rotation, Time.deltaTime * 2);
             Camera.main.transform.rotation = transform.rotation;
         }
@@ -95,6 +96,22 @@ public class PlayerController : Block
         b = a;
     }
 
+    [PunRPC]
+    public void Teleport(Vector3 position)
+    {
+        Vector3 pos = Vector3.zero;
+        if (GetComponent<FixedJoint2D>().enabled)
+        {
+            pos = GetComponent<FixedJoint2D>().GetComponent<FixedJoint2D>().connectedBody.transform.position;
+            pos -= transform.position;
+        }
+        transform.position = position;
+        if (GetComponent<FixedJoint2D>().enabled)
+        {
+            GetComponent<FixedJoint2D>().connectedBody.transform.position = position+pos;
+        }
+
+    }
     //[PunRPC]
 
     //±×·¦¾×¼Ç -> fixedjoint --- ±×·¦¾×¼Ç -> fixedjoint off

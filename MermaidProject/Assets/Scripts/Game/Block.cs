@@ -51,7 +51,7 @@ public class Block : MonoBehaviourPunCallbacks
 
         if (this.p1 == null)
         {
-            rb.mass = 0.1f;
+            rb.mass = 0;
             rb.drag = 0;
             rb.angularDrag = 0;
             this.p1 = p1;
@@ -98,4 +98,6 @@ public class Block : MonoBehaviourPunCallbacks
     {
         PV.IsMine = false;
     }
+
+    
 }

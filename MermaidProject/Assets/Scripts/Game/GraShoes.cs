@@ -20,7 +20,6 @@ public class GraShoes : Block
     {
         if (GetComponent<Collider2D>().enabled)
         {
-            PV.RPC("ChangeColor", RpcTarget.All);
             GetComponent<Collider2D>().enabled = false;
 
             p1.GetComponent<FixedJoint2D>().enabled = false;
@@ -42,10 +41,4 @@ public class GraShoes : Block
         }
     }
 
-    [PunRPC]
-    public void ChangeColor()
-    {
-        transform.GetChild(3).GetComponent<TrailRenderer>().material.color = p1.GetComponent<SpriteRenderer>().color;
-        transform.GetChild(4).GetComponent<TrailRenderer>().material.color = p1.GetComponent<SpriteRenderer>().color;
-    }
 }

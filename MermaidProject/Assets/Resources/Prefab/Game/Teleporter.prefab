@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 3117839484728254516}
   - component: {fileID: 1467750215170637730}
   - component: {fileID: -432296699591916525}
-  - component: {fileID: -2037884425488265604}
+  - component: {fileID: 1719609807952403602}
   m_Layer: 6
-  m_Name: Brick
+  m_Name: Teleporter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 19ac734141088704e87aaf2353ce68db, type: 3}
-  m_Color: {r: 0.5943396, g: 0.21586862, b: 0.21586862, a: 1}
+  m_Color: {r: 0.0521983, g: 0.42280835, b: 0.6509434, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -120,7 +120,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -242,7 +242,7 @@ MonoBehaviour:
   p1: {fileID: 0}
   isAbleGrabed: 1
   PV: {fileID: 3411019273798802887}
---- !u!114 &-2037884425488265604
+--- !u!114 &1719609807952403602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,24 +251,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 474602149339255915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Script: {fileID: 11500000, guid: 738730b98306b344786e8ce5b55fed69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_ComponentVersion: 1
-  m_HasRenderer: 0
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  m_ShapePathHash: 0
-  m_Mesh: {fileID: 0}
-  m_InstanceId: -61462
-  m_LocalBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.5, y: 0.5, z: 0}
+  isReady: 0
+  coolTime: 0
+  BlockCode: 0
+  rb: {fileID: 0}
+  strength: 0
+  mass: 0
+  drag: 0
+  angularDrag: 0
+  p1: {fileID: 0}
+  isAbleGrabed: 0
+  PV: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
