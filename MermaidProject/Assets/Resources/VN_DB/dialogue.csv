@@ -10,5 +10,8 @@
 8,아로나,여기서 질문,Arona_Normal
 9,Question,1. 선생님을 믿기,
 10,Question,2. 아로나를 믿기,
-11,QuestionEnd,null,
-12,EndOfFile,null,
+11,Question,3. 프라나를 믿기,
+12,Question,4. 유우카를 믿기,
+13,Question,5. 김용하를 믿기,
+14,QuestionEnd,null,
+15,EndOfFile,null,

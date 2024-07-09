@@ -8,10 +8,10 @@ public class VNManager : MonoBehaviour
 {
     public GameObject Noah;
     public GameObject Morgana;
-    public GameObject Button;
+    public GameObject AnswerGroup;
 
-    private NoahController NoahController;
-    private MorganaController MorganaController;
+    private StandingController NoahController;
+    private StandingController MorganaController;
     private ChoiceManager ChoiceManager;
 
     public TMP_Text ChatText;
@@ -22,10 +22,10 @@ public class VNManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        NoahController = Noah.GetComponent<NoahController>();
-        MorganaController = Morgana.GetComponent<MorganaController>();
+        NoahController = Noah.GetComponent<StandingController>();
+        MorganaController = Morgana.GetComponent<StandingController>();
 
-        ChoiceManager = Button.GetComponent<ChoiceManager>();
+        ChoiceManager = AnswerGroup.GetComponent<ChoiceManager>();
         StartCoroutine(VNScripts());
         
     }
@@ -36,7 +36,7 @@ public class VNManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             print("좌클");
-            //StartCoroutine(ChoiceManager.MakeChoice(4));
+            
 
         }
     }
@@ -109,6 +109,7 @@ public class VNManager : MonoBehaviour
         string Narrator = null;
         string Narration = null;
         string HalfStandingSprite = null;
+        string[] Questions = new string[5];
 
         while (true)
         {
@@ -126,28 +127,35 @@ public class VNManager : MonoBehaviour
                 // ~ Narration 값에 따라 해당 효과 발생시키는 함수 만들기
 
                 print("효과발생! sensei");
-               yield return StartCoroutine(NoahController.NoahEffect(Narration));
+               yield return StartCoroutine(NoahController.Effect(Narration));
             }
             else if(Narrator == "Effect_Arona")
             {
                 print("효과발생! arona");
-                yield return StartCoroutine(MorganaController.MorganaEffect(Narration));
+                yield return StartCoroutine(MorganaController.Effect(Narration));
             }
             else if(Narrator == "Effect_All")
             {
                 print("효과발생! All");
-                StartCoroutine(NoahController.NoahEffect(Narration));
-                yield return StartCoroutine(MorganaController.MorganaEffect(Narration));
+                StartCoroutine(NoahController.Effect(Narration));
+                yield return StartCoroutine(MorganaController.Effect(Narration));
             }
             else if(Narrator == "Question")
             {
-                j = i + 1;
+                j = i;
                 while(Narrator != "QuestionEnd")
                 {
-                    print("b");
-                    Narrator = Dialogue[j++]["Narrator"].ToString();
+                    Questions[j - i] = Narration;
+                    j++;
+                    Narrator = Dialogue[j]["Narrator"].ToString();
+                    Narration = Dialogue[j]["Narration"].ToString();
+                    print(Narrator);
                     yield return null;
                 }
+                StartCoroutine(ChoiceManager.MakeChoice(j-i, Questions));
+                i = j;
+
+                // 여기서 퀘스천 처리?
             }
             else
             {

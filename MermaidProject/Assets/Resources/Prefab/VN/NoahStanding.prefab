@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6065192902951419125}
   - component: {fileID: 764286399708310466}
-  - component: {fileID: 7692208334126152448}
+  - component: {fileID: 7692910959579887570}
   m_Layer: 0
   m_Name: NoahStanding
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7692208334126152448
+--- !u!114 &7692910959579887570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

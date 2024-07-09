@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4999305218176346433}
   - component: {fileID: 3092996913121027654}
-  - component: {fileID: 6094787713732513936}
+  - component: {fileID: 2220321428971613143}
   m_Layer: 0
   m_Name: MorganaStanding
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6094787713732513936
+--- !u!114 &2220321428971613143
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,6 +94,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3438518622105264532}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 303550885005b8042bfeca77c23a475d, type: 3}
+  m_Script: {fileID: 11500000, guid: 78d5fbbfc01ad2a459c7d1393f6da7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
