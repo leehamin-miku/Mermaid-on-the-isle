@@ -7,7 +7,7 @@ using UnityEngine;
 public class Block : MonoBehaviourPunCallbacks
 {
 
-    public bool isReady;
+    public bool isInUse = false;
     public float coolTime = 0f;
     public int BlockCode;
     public Rigidbody2D rb;
@@ -30,42 +30,41 @@ public class Block : MonoBehaviourPunCallbacks
     {
         //경축 아무것도 안함
     }
-    public virtual void UseItem()
+    public virtual void UseDownAction()
     {
+        isInUse = true;
     }
-    public void StartCoolDown()
+    public virtual void UseUpAction()
     {
-        StartCoroutine(CoolDown());
+        isInUse = false;
     }
 
-
-    IEnumerator CoolDown()
-    {
-        isReady = false;
-        yield return new WaitForSeconds(coolTime);
-        isReady = true;
-    }
 
     public void Grabed(PlayerController p1)
     {
 
         if (this.p1 == null)
         {
+            
             rb.mass = 0;
             rb.drag = 0;
             rb.angularDrag = 0;
             this.p1 = p1;
-            PV.RPC("IsMineDelete", RpcTarget.Others);
-            PV.IsMine = true;
             GrabedAction();
+            PV.RequestOwnership();
         }
         else
         {
+            if (isInUse)
+            {
+                UseUpAction();
+            }
             GrabedAction();
             rb.mass = mass;
             rb.drag = drag;
             rb.angularDrag = angularDrag;
             this.p1 = null;
+            PV.RPC("GiveOwner", RpcTarget.MasterClient);
         }
     }
 
@@ -92,12 +91,9 @@ public class Block : MonoBehaviourPunCallbacks
 
     }
 
-
     [PunRPC]
-    public void IsMineDelete()
+    public void GiveOwner()
     {
-        PV.IsMine = false;
+        PV.RequestOwnership();
     }
-
-
 }

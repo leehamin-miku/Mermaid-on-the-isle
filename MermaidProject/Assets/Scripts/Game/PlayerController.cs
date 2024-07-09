@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerController : Block
 {
     int b = 0;
+    public bool isAbleMove = true;
     // Start is called before the first frame update
     [SerializeField] Color red;
     [SerializeField] Color yellow;
@@ -29,29 +30,37 @@ public class PlayerController : Block
     {
         if (PV.IsMine)
         {
-            float h1 = Input.GetAxis("Horizontal");
-            float h2 = Input.GetAxis("Vertical");
-            float r1 = Input.GetAxis("Mouse X");
-            float r2 = Input.GetAxis("Mouse Y");
+            if (isAbleMove)
+            {
+                float h1 = Input.GetAxis("Horizontal");
+                float h2 = Input.GetAxis("Vertical");
+                float r1 = Input.GetAxis("Mouse X");
+                float r2 = Input.GetAxis("Mouse Y");
 
-            if (h2 > 0) h2 = 1.5f;
+                if (h2 > 0) h2 = 1.5f;
 
-            GetComponent<Rigidbody2D>().AddTorque(-r1 * Time.deltaTime * 4, ForceMode2D.Impulse);
-            GetComponent<Rigidbody2D>().AddRelativeForce(15 * new Vector2(h1, h2) * Time.deltaTime, ForceMode2D.Impulse);
+                GetComponent<Rigidbody2D>().AddTorque(-r1 * Time.deltaTime * 4, ForceMode2D.Impulse);
+                GetComponent<Rigidbody2D>().AddRelativeForce(15 * new Vector2(h1, h2) * Time.deltaTime, ForceMode2D.Impulse);
+                transform.GetChild(1).transform.localPosition = Vector2.Lerp(transform.GetChild(1).transform.localPosition, new Vector2(h1, h2).normalized * 4, Time.deltaTime * 3);
+            }
 
-
-
-            transform.GetChild(1).transform.localPosition = Vector2.Lerp(transform.GetChild(1).transform.localPosition, new Vector2(h1, h2).normalized * 4, Time.deltaTime * 3);
+            
 
             if (Input.GetMouseButtonDown(0))
             {
                 //PV.RPC("ToggleAction", RpcTarget.AllBuffered);
                 ToggleAction();
             }
-            if (Input.GetMouseButtonDown(1) && GetComponent<FixedJoint2D>().enabled)
+
+            if (Input.GetMouseButtonUp(1))
             {
-                UseAction();
+                GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().UseUpAction();
             }
+            if (Input.GetMouseButtonDown(1))
+            {
+                GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().UseDownAction();
+            }
+
         }
     }
     private void FixedUpdate()
@@ -65,13 +74,7 @@ public class PlayerController : Block
         }
 
     }
-    public void UseAction()
-    {
-        if (GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().isReady)
-        {
-            GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().UseItem();
-        }
-    }
+
 
 
     [PunRPC]
