@@ -8,6 +8,7 @@ public class Block : MonoBehaviourPunCallbacks
 {
 
     public bool isInUse = false;
+    public bool isGrabed = false;
     public float coolTime = 0f;
     public int BlockCode;
     public Rigidbody2D rb;
@@ -43,15 +44,17 @@ public class Block : MonoBehaviourPunCallbacks
     public void Grabed(PlayerController p1)
     {
 
-        if (this.p1 == null)
+        if (isGrabed)
         {
-            
+            PV.IsMine = true;
+            PV.RPC("IsMineDelete", RpcTarget.Others);
             rb.mass = 0;
             rb.drag = 0;
             rb.angularDrag = 0;
             this.p1 = p1;
+            PV.RPC("PVFucIsGrabed", RpcTarget.All);
             GrabedAction();
-            PV.RequestOwnership();
+            
         }
         else
         {
@@ -64,6 +67,7 @@ public class Block : MonoBehaviourPunCallbacks
             rb.drag = drag;
             rb.angularDrag = angularDrag;
             this.p1 = null;
+            PV.RPC("PVFucIsNotGrabed", RpcTarget.All);
             PV.RPC("GiveOwner", RpcTarget.MasterClient);
         }
     }
@@ -94,6 +98,24 @@ public class Block : MonoBehaviourPunCallbacks
     [PunRPC]
     public void GiveOwner()
     {
+        PV.RequestOwnership();
+    }
+
+    [PunRPC]
+    public void PVFucIsGrabed()
+    {
+        isGrabed = true;
+    }
+
+    [PunRPC]
+    public void PVFucIsNotGrabed()
+    {
+        isGrabed = false;
+    }
+    [PunRPC]
+    public void IsMineDelete()
+    {
+        PV.IsMine = false;
         PV.RequestOwnership();
     }
 }

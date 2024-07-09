@@ -45,6 +45,12 @@ MonoBehaviour:
   - LightOn
   - LightOff
   - Teleport
+  - GiveOwner
+  - isBuildingFuc
+  - PVFucIsBuilding
+  - PVFucIsGrabed
+  - PVFucIsNotBuilding
+  - PVFucIsNotGrabed
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

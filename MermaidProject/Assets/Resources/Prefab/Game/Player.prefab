@@ -324,7 +324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64870c74b6d0db6468ae51337654f94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReady: 0
+  isInUse: 0
+  isGrabed: 0
   coolTime: 0
   BlockCode: 0
   rb: {fileID: 0}
@@ -335,6 +336,7 @@ MonoBehaviour:
   p1: {fileID: 0}
   isAbleGrabed: 0
   PV: {fileID: 520826043651063484}
+  isAbleMove: 1
   red: {r: 0.69803923, g: 0, b: 0.06666667, a: 1}
   yellow: {r: 0.86274517, g: 1, b: 0, a: 1}
   green: {r: 0.15294118, g: 0.9450981, b: 0.054901965, a: 1}
