@@ -2,41 +2,41 @@ using EasyTransition;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class ChoiceManager : MonoBehaviour
 {
 
-    public GameObject OptionButtonGroup;
-    private GameObject[] Button;
+    public GameObject AnswerButtonGroup;
+    private TMP_Text[] Answers;
 
-    public IEnumerator MakeChoice(int n)
+    public IEnumerator MakeChoice(int n, string[] Questions)
     {
-      
-        float SpawnLocate = (n / 2) - 0.5f;
-        Transform parentTransform = OptionButtonGroup.transform;
 
-        Button = new GameObject[n];
+        Transform parentTransform = AnswerButtonGroup.transform;
 
+        Answers = new TMP_Text[n];
+        Answers = parentTransform.GetComponentsInChildren<TMP_Text>();
+
+        // 선지 Fade in
         for (int i = 0; i < n; i++)
         {
-
-            Button[i] = parentTransform.GetChild(i).gameObject;
-            Button[i].SetActive(true);
-
+            Answers[i].text = Questions[i];
+            StartCoroutine(AnswersFadeIn(Answers[i]));
+            Answers[i].GetComponent<BoxCollider2D>().enabled = true; 
         }
 
-        for (int i = 0; i < n; i++)
+
+
+        yield return null;
+    }
+
+    IEnumerator AnswersFadeIn(TMP_Text Answer)
+    {
+        while(Answer.color.a < 1.0f)
         {
-            
-        }
-
-        // 선택
-
-
-        if (Input.GetKeyDown("space"))
-        {
-            yield return null; 
+            Answer.color = new Color(Answer.color.r, Answer.color.g, Answer.color.b, Answer.color.a + (Time.deltaTime / .5f));
+            yield return null;
         }
         yield return null;
     }
