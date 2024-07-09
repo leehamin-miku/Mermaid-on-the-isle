@@ -10,10 +10,18 @@ public class GraShoes : Block
     [SerializeField] float shoesForce;
     [SerializeField] Color color;
     //플레이어의 공기저항과 관련되어 있으니 꼭 확인해야함
-    public override void UseItem()
+    public void Update()
     {
-        p1.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * shoesForce, ForceMode2D.Impulse);
+        if (isInUse&&p1!=null)
+        {
+            p1.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up * shoesForce);
+        }   
+    }
 
+    public override void UseDownAction()
+    {
+        base.UseDownAction();
+        p1.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * shoesForce, ForceMode2D.Impulse);
     }
 
     public override void GrabedAction()
