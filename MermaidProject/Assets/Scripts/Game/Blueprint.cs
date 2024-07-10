@@ -2,8 +2,6 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.ShaderGraph.Internal;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class Blueprint : Block
@@ -13,15 +11,10 @@ public class Blueprint : Block
     public GameObject structure;
     public Hammer hammer;
     public bool isBuilding;
-    public void BuildAction()
-    {
-
-    }
 
 
     public bool CheckIsAbleBuild()
     {
-        bool a = true;
         List<int> list = new List<int>();
         foreach (GameObject go in haveBlock)
         {
@@ -29,8 +22,7 @@ public class Blueprint : Block
         }
 
         list.Sort();
-
-        return list.SequenceEqual(needs) && a && isGrabed==false;
+        return list.SequenceEqual(needs) && isBuilding==false && isGrabed==false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -60,13 +52,13 @@ public class Blueprint : Block
     public void PVFucIsBuilding()
     {
         isBuilding = true;
+        isAbleGrabed = false;
+        
     }
     [PunRPC]
     public void PVFucIsNotBuilding()
     {
         isBuilding = false;
-        rb.mass = mass;
-        rb.drag = drag;
-        rb.angularDrag = angularDrag;
+        isAbleGrabed = true;
     }
 }

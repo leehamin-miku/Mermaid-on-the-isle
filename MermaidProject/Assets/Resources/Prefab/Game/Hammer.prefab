@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInUse: 0
-  isGrabed: 1
+  isGrabed: 0
   coolTime: 0
   BlockCode: 0
   rb: {fileID: 0}
@@ -234,3 +234,4 @@ MonoBehaviour:
   PV: {fileID: 3411019273798802887}
   isBuilding: 0
   blueprint: {fileID: 0}
+  cartoonPrefab: {fileID: 946972903581517468, guid: 11b92fda30ceefb43ad29c80c0cd6d11, type: 3}

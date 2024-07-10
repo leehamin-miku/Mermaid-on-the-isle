@@ -42,25 +42,27 @@ public class PlayerController : Block
                 GetComponent<Rigidbody2D>().AddTorque(-r1 * Time.deltaTime * 4, ForceMode2D.Impulse);
                 GetComponent<Rigidbody2D>().AddRelativeForce(15 * new Vector2(h1, h2) * Time.deltaTime, ForceMode2D.Impulse);
                 transform.GetChild(1).transform.localPosition = Vector2.Lerp(transform.GetChild(1).transform.localPosition, new Vector2(h1, h2).normalized * 4, Time.deltaTime * 3);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    //PV.RPC("ToggleAction", RpcTarget.AllBuffered);
+                    ToggleAction();
+                }
             }
 
             
 
-            if (Input.GetMouseButtonDown(0))
+            
+            if (GetComponent<FixedJoint2D>().enabled)
             {
-                //PV.RPC("ToggleAction", RpcTarget.AllBuffered);
-                ToggleAction();
+                if (Input.GetMouseButtonUp(1) && GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().isInUse)
+                {
+                    GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().UseUpAction();
+                }
+                if (Input.GetMouseButtonDown(1))
+                {
+                    GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().UseDownAction();
+                }
             }
-
-            if (Input.GetMouseButtonUp(1))
-            {
-                GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().UseUpAction();
-            }
-            if (Input.GetMouseButtonDown(1))
-            {
-                GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().UseDownAction();
-            }
-
         }
     }
     private void FixedUpdate()
@@ -143,8 +145,9 @@ public class PlayerController : Block
             }
             if (hit.collider != null)
             {
-                if (hit.collider.GetComponent<Block>().isAbleGrabed && hit.collider.GetComponent<Block>().p1 == null)
+                if (hit.collider.GetComponent<Block>().isAbleGrabed && hit.collider.GetComponent<Block>().isGrabed == false)
                 {
+                    Debug.Log(hit.collider.name);
                     hit.collider.GetComponent<Block>().Grabed(this);
                     GetComponent<FixedJoint2D>().enabled = true;
                     GetComponent<FixedJoint2D>().connectedBody = hit.collider.GetComponent<Rigidbody2D>();

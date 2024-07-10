@@ -51,6 +51,9 @@ MonoBehaviour:
   - PVFucIsGrabed
   - PVFucIsNotBuilding
   - PVFucIsNotGrabed
+  - GiveMineToMaster
+  - StartCartoon
+  - StopCartoon
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
