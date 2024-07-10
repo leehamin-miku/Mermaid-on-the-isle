@@ -1,8 +1,8 @@
 ﻿Id,Narrator,Narration,Sprite
-0,Appear,Noah`5`0.9,
+0,Appear,Noah`5`0.9`0.5,
 1,선생님,나는 선생님이다.,Noah_Normal
 2,선생님,너는 선생님이다.,Noah_Normal
-3,Appear,Morgana`-5`0.9,
+3,Appear,Morgana`-5`0.9`0.5,
 4,Effect_Noah,NormalMove`1`1`1,
 5,아로나,나는 아로나다.,Morgana_Normal
 6,Effect_Morgana,Shake`5`5,

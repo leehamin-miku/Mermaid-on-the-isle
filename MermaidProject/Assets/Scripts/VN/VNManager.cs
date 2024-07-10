@@ -128,12 +128,15 @@ public class VNManager : MonoBehaviour
             }
             else if (Narrator == "Appear")
             {
-                // Appear[0] = ¿Ã∏ß, [1] = x¡¬«•, [2] = y¡¬«•
+                // Appear[0] = ¿Ã∏ß, [1] = x¡¬«•, [2] = y¡¬«•, [3] = Size
                 string[] Appear = Narration.Split('`');
                 if (Appear[0] == "Noah")
                 {
                     Vector3 spawnPosition = new Vector3(float.Parse(Appear[1]), float.Parse(Appear[2]), 0);
+                    Vector3 Scale = new Vector3(float.Parse(Appear[3]), float.Parse(Appear[3]), float.Parse(Appear[3]));
+
                     Noah = Instantiate(NoahPrefab, spawnPosition, Quaternion.identity);
+                    Noah.transform.localScale = Scale;
                     NoahController = Noah.GetComponent<StandingController>();
                     yield return null;
 
@@ -141,7 +144,10 @@ public class VNManager : MonoBehaviour
                 else if (Appear[0] == "Morgana")
                 {
                     Vector3 spawnPosition = new Vector3(float.Parse(Appear[1]), float.Parse(Appear[2]), 0);
+                    Vector3 Scale = new Vector3(float.Parse(Appear[3]), float.Parse(Appear[3]), float.Parse(Appear[3]));
+
                     Morgana = Instantiate(MorganaPrefab, spawnPosition, Quaternion.identity);
+                    Morgana.transform.localScale = Scale;
                     MorganaController = Morgana.GetComponent<StandingController>();
                     yield return null;
                 }
