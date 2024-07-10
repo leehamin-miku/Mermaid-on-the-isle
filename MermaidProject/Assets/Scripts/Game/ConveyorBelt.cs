@@ -9,7 +9,7 @@ public class ConveyorBelt : MonoBehaviour
     // Start is called before the first frame update
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.GetComponent<Block>().p1 == null)
+        if(collision.GetComponent<Block>().isGrabed == false)
         {
             collision.GetComponent<Block>().rb.AddForce(transform.right, ForceMode2D.Impulse);
         }
