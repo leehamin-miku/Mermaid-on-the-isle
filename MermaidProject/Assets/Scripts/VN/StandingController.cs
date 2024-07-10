@@ -21,9 +21,20 @@ public class StandingController : MonoBehaviour
         {
             yield return StartCoroutine(Jump(float.Parse(effect[1]), float.Parse(effect[2])));
         }
+        else if (effect[0]== "Appear")
+        {
+            // 등장
+        }
+        else if(effect[0] == "Exit")
+        {
+            // 퇴장
+        }
     }
 
-
+    public IEnumerator Appear()
+    {
+        yield break;
+    }
     // 좌 우 이동
     public IEnumerator NormalMove(float moveDistance, float moveDuration, float diraction)
     {
@@ -34,30 +45,40 @@ public class StandingController : MonoBehaviour
 
         while (elapsedTime < moveDuration)
         {
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space"))
+            {
+                yield return null;
+                break;
+            }
             transform.position = Vector2.Lerp(startPosition, endPosition, elapsedTime / moveDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = endPosition;
+        transform.position = startPosition;
     }
 
     
     // 한 번 흔들림
     public IEnumerator Shake(float shakeAmount, float shakeDuration)
     {
-        Vector2 originalPosition = transform.position;
+        Vector2 startPosition = transform.position;
         float elapsedTime = 0;
 
         while (elapsedTime < shakeDuration)
         {
-            float x = originalPosition.x + Mathf.Sin(elapsedTime * Mathf.PI * 2 / shakeDuration) * shakeAmount;
-            transform.position = new Vector2(x, originalPosition.y);
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space"))
+            {
+                yield return null;
+                break;
+            }
+            float x = startPosition.x + Mathf.Sin(elapsedTime * Mathf.PI * 2 / shakeDuration) * shakeAmount;
+            transform.position = new Vector2(x, startPosition.y);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = originalPosition;
+        transform.position = startPosition;
     }
 
 
@@ -67,11 +88,20 @@ public class StandingController : MonoBehaviour
     {
         Vector2 startPosition = transform.position;
         Vector2 peakPosition = startPosition + new Vector2(0, jumpHeight);
+        bool isSkip = false;
+
 
         // 점프 상승
         float elapsedTime = 0;
         while (elapsedTime < jumpDuration / 2)
         {
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space"))
+            {
+                isSkip = true;
+                yield return null;
+                break;
+            }
+
             float t = elapsedTime / (jumpDuration / 2);
             transform.position = Vector2.Lerp(startPosition, peakPosition, Mathf.Sin(t * Mathf.PI * 0.5f));
             elapsedTime += Time.deltaTime;
@@ -80,13 +110,22 @@ public class StandingController : MonoBehaviour
 
         // 점프 하강
         elapsedTime = 0;
-        while (elapsedTime < jumpDuration / 2)
+        if (!isSkip)
         {
-            float t = elapsedTime / (jumpDuration / 2);
-            transform.position = Vector2.Lerp(peakPosition, startPosition, Mathf.Sin(t * Mathf.PI * 0.5f));
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            while (elapsedTime < jumpDuration / 2)
+            {
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space"))
+                {
+                    yield return null;
+                    break;
+                }
+                float t = elapsedTime / (jumpDuration / 2);
+                transform.position = Vector2.Lerp(peakPosition, startPosition, Mathf.Sin(t * Mathf.PI * 0.5f));
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
         }
+        
 
         transform.position = startPosition;
     }
