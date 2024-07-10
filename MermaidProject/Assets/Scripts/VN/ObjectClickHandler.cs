@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,9 @@ using UnityEngine;
 public class ObjectClickHandler : MonoBehaviour
 {
     public TMP_Text AnswerText;
+    public string OutputValue;
+
+    public static event Action<string> OnObjectClicked;
 
     private void OnMouseDown()
     {
@@ -14,8 +18,8 @@ public class ObjectClickHandler : MonoBehaviour
 
     private void ExecuteOnClick()
     {
-        Debug.Log("Object clicked!");
-        // 클릭 실행
+        Debug.Log(OutputValue);
+        OnObjectClicked?.Invoke(OutputValue);
     }
 
     private void OnMouseEnter()
@@ -28,4 +32,6 @@ public class ObjectClickHandler : MonoBehaviour
         AnswerText.color = Color.white;
 
     }
+
+    
 }

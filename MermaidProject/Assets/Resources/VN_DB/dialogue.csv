@@ -1,17 +1,22 @@
 ﻿Id,Narrator,Narration,Sprite
-0,선생님,나는 선생님이다.,Sensei_Normal
-1,선생님,너는 선생님이다.,Sensei_Normal
-2,Effect_Sensei,NormalMove`1`1`1,
-3,아로나,나는 아로나다.,Arona_Normal
-4,Effect_Arona,Shake`5`5,
-5,선생님,대사4 - 그렇구나… 꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마,Sensei_Normal
-6,Effect_All,Jump`0.5`0.4,
-7,Effect_All,Jump`0.5`0.4,
-8,아로나,여기서 질문,Arona_Normal
-9,Question,1. 선생님을 믿기,
-10,Question,2. 아로나를 믿기,
-11,Question,3. 프라나를 믿기,
-12,Question,4. 유우카를 믿기,
-13,Question,5. 김용하를 믿기,
-14,QuestionEnd,null,
-15,EndOfFile,null,
+0,Appear,Noah`5`0.9,
+1,선생님,나는 선생님이다.,Noah_Normal
+2,선생님,너는 선생님이다.,Noah_Normal
+3,Appear,Morgana`-5`0.9,
+4,Effect_Noah,NormalMove`1`1`1,
+5,아로나,나는 아로나다.,Morgana_Normal
+6,Effect_Morgana,Shake`5`5,
+7,선생님,대사4 - 그렇구나… 꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마,Noah_Normal
+8,Effect_All,Jump`0.5`0.4,
+9,Effect_All,Jump`0.5`0.4,
+10,선생님,대사 5 - 난 간다,Noah_Normal
+11,Effect_Noah,NormalMove`10`1`1,
+11,Exit,Noah,
+10,아로나,여기서 질문,Morgana_Normal
+11,Question,1. DialogueIncorrect로 갑니다.,
+12,Question,2. DialogueCorrect로 갑니다.,
+13,Question,3. DialogueIncorrect로 갑니다.,
+14,Question,4. DialogueIncorrect로 갑니다.,
+15,Question,5. DialogueIncorrect로 갑니다.,
+16,QuestionEnd,null,
+17,Break,null,

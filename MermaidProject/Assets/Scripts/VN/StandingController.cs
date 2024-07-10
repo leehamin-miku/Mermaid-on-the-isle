@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class StandingController : MonoBehaviour
         }
         else if (effect[0]== "Appear")
         {
-            // µÓ¿Â
+            
         }
         else if(effect[0] == "Exit")
         {
