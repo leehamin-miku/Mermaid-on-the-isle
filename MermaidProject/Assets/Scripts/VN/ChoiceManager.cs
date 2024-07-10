@@ -9,6 +9,7 @@ public class ChoiceManager : MonoBehaviour
 
     public GameObject AnswerButtonGroup;
     private TMP_Text[] Answers;
+
     private void OnEnable()
     {
         ObjectClickHandler.OnObjectClicked += HandleObjectClicked;
@@ -31,16 +32,20 @@ public class ChoiceManager : MonoBehaviour
     }
     public IEnumerator MakeChoice(int n, string[] Questions)
     {
-
         Transform parentTransform = AnswerButtonGroup.transform;
 
         Answers = new TMP_Text[n];
         Answers = parentTransform.GetComponentsInChildren<TMP_Text>();
+        ObjectClickHandler[] objectClickHandler = parentTransform.GetComponentsInChildren<ObjectClickHandler>();
+
 
         // 선지 Fade in
         for (int i = 0; i < n; i++)
-        {
-            Answers[i].text = Questions[i];
+        {  
+            // s[0] = 선지 문장, s[1] = 선지의 OutValue = 답 체크
+            string[] s = Questions[i].Split('`');
+            objectClickHandler[i].OutputValue = s[1];
+            Answers[i].text = s[0];
             StartCoroutine(AnswersFadeIn(Answers[i]));
         }
         yield return new WaitForSeconds(.5f);

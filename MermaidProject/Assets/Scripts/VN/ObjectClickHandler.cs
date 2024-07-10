@@ -11,6 +11,12 @@ public class ObjectClickHandler : MonoBehaviour
 
     public static event Action<string> OnObjectClicked;
 
+
+    public void ChangeOutputValue(string outputvalue)
+    {
+        OutputValue = outputvalue;
+    }
+
     private void OnMouseDown()
     {
         ExecuteOnClick();
