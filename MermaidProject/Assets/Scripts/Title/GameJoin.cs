@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using EasyTransition;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 
 public class GameJoin : MonoBehaviour
 {
-    static bool isFirst = true;
     [SerializeField] GameObject newStartWindow;
     [SerializeField] GameObject joinWindow;
     //TitleScene의 새로시작 버튼의 컴포넌트 스크립트
@@ -21,8 +21,9 @@ public class GameJoin : MonoBehaviour
     }
     private void OnMouseDown()
     {
-
         joinWindow.SetActive(true);
         newStartWindow.SetActive(false);
     }
+
+
 }

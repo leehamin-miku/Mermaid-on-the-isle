@@ -54,6 +54,13 @@ MonoBehaviour:
   - GiveMineToMaster
   - StartCartoon
   - StopCartoon
+  - SkipOff
+  - SkipOn
+  - VNStart
+  - PVStartVN
+  - DownAction
+  - VNEndSub
+  - VNStartSub
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

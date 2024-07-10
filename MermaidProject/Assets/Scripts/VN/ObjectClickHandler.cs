@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ public class ObjectClickHandler : MonoBehaviour
 {
     public TMP_Text AnswerText;
     public string OutputValue;
+    [SerializeField] PhotonView PV;
 
     public static event Action<string> OnObjectClicked;
 
@@ -19,8 +21,13 @@ public class ObjectClickHandler : MonoBehaviour
 
     private void OnMouseDown()
     {
-        ExecuteOnClick();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PV.RPC("DownAction", RpcTarget.All);
+        }
     }
+
+
 
     private void ExecuteOnClick()
     {
@@ -39,5 +46,10 @@ public class ObjectClickHandler : MonoBehaviour
 
     }
 
+    [PunRPC]
+    public void DownAction()
+    {
+        ExecuteOnClick();
+    }
     
 }

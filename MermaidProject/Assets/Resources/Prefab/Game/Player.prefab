@@ -336,6 +336,7 @@ MonoBehaviour:
   p1: {fileID: 0}
   isAbleGrabed: 0
   PV: {fileID: 520826043651063484}
+  colorNumber: 0
   isAbleMove: 1
   red: {r: 0.69803923, g: 0, b: 0.06666667, a: 1}
   yellow: {r: 0.86274517, g: 1, b: 0, a: 1}
@@ -412,7 +413,7 @@ MonoBehaviour:
   - {x: -0.19206458, y: -0.48428023, z: 0}
   m_ShapePathHash: -1369364698
   m_Mesh: {fileID: 0}
-  m_InstanceId: 41878
+  m_InstanceId: 31054
   m_LocalBounds:
     m_Center: {x: 0.00251472, y: -0.010900736, z: 0}
     m_Extent: {x: 0.5314629, y: 0.50822955, z: 0}

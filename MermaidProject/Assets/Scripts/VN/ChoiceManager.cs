@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
 
 public class ChoiceManager : MonoBehaviour
 {
@@ -32,17 +33,15 @@ public class ChoiceManager : MonoBehaviour
     }
     public IEnumerator MakeChoice(int n, string[] Questions)
     {
-        Transform parentTransform = AnswerButtonGroup.transform;
 
-        Answers = new TMP_Text[n];
-        Answers = parentTransform.GetComponentsInChildren<TMP_Text>();
-        ObjectClickHandler[] objectClickHandler = parentTransform.GetComponentsInChildren<ObjectClickHandler>();
-
+        Answers = transform.GetComponentsInChildren<TextMeshPro>();
+        ObjectClickHandler[] objectClickHandler = transform.GetComponentsInChildren<ObjectClickHandler>();
 
         // 선지 Fade in
         for (int i = 0; i < n; i++)
-        {  
+        {
             // s[0] = 선지 문장, s[1] = 선지의 OutValue = 답 체크
+            Debug.Log(i);
             string[] s = Questions[i].Split('`');
             objectClickHandler[i].OutputValue = s[1];
             Answers[i].text = s[0];
@@ -58,7 +57,7 @@ public class ChoiceManager : MonoBehaviour
 
     IEnumerator AnswersFadeIn(TMP_Text Answer)
     {
-        while(Answer.color.a < 1.0f)
+        while (Answer.color.a < 1.0f)
         {
             Answer.color = new Color(Answer.color.r, Answer.color.g, Answer.color.b, Answer.color.a + (Time.deltaTime / .5f));
             yield return null;

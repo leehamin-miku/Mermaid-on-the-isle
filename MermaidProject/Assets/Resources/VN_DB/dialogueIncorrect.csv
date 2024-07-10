@@ -1,4 +1,4 @@
-﻿Id,Narrator,Narration,Sprite
+﻿Id,ActionName,Target,Parameter
 0,Appear,Noah`5`0.9`0.5,
 1,선생님,틀렸습니다~.,Noah_Normal
 2,Effect_Noah,"Jump1,1",

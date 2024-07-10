@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
+using Photon.Pun;
+using EasyTransition;
 
-public class VNManager : MonoBehaviour
+public class VNManager : MonoBehaviourPunCallbacks
 {
-    private GameObject Noah;
-    private GameObject Morgana;
-    public GameObject NoahPrefab;
-    public GameObject MorganaPrefab;
 
+    public GameObject StandingGroup;
     public GameObject AnswerGroup;
 
-    private StandingController NoahController;
-    private StandingController MorganaController;
+    public PlayerController PlayerController;
+    public PhotonView PV;
+
     private ChoiceManager ChoiceManager;
 
     public TMP_Text ChatText;
@@ -22,27 +21,15 @@ public class VNManager : MonoBehaviour
 
     public string writerText = "";
 
+    bool isSkip;
+    public bool VNRunning;
     
     // Start is called before the first frame update
     void Start()
     {
         ChoiceManager = AnswerGroup.GetComponent<ChoiceManager>();
-        print("a");
-        StartVN("dialogue");
-
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            print("좌클");
-            
-
-        }
-    }
 
 
     List<Dictionary<string, object>> Dialogue;
@@ -63,117 +50,98 @@ public class VNManager : MonoBehaviour
         StartVN("dialogue" + OutputValue);
     }
 
-    void StartVN(string DialogueName)
+    
+    public void StartVN(string DialogueName)
     {
+        VNRunning = true;
+        Debug.Log("VN시작");
         Dialogue = CSVReader.Read("VN_DB/" + DialogueName);
         StartCoroutine(VNScripts());
+        if (PhotonNetwork.IsMasterClient)
+        {
+            StartCoroutine(MasterController());
+        }
     }
 
     IEnumerator VNScripts()
     {
+        
         // Resources 폴더 내에 있는 dialogue 파일을 List 형태로 불러옴(CSV Reader 이용)
         int i = 0, j = 0;
-        string Narrator = null;
-        string Narration = null;
-        string HalfStandingSprite = null;
+        string ActionName = null;
+        string Target = null;
+        string Parameter = null;
         string[] Questions = new string[5];
 
         while (true)
         {
-            Narrator = Dialogue[i]["Narrator"].ToString();
-            Narration = Dialogue[i]["Narration"].ToString();
-            HalfStandingSprite = Dialogue[i]["Sprite"].ToString();
+            ActionName = Dialogue[i]["ActionName"].ToString();
+            Target = Dialogue[i]["Target"].ToString();
+            Parameter = Dialogue[i]["Parameter"].ToString();
 
-            
-            if (Narrator == "Break")
+            if (ActionName == "Break")
             {
-                print("Break!!");
+                    print("Break!!");
+                    VNRunning = false;
+                    yield return null;
+                    break;
+            }
+            else if (ActionName == "Effect")
+            {
+                 print("효과발생! standing0");
+                 yield return StartCoroutine(StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<StandingController>().Effect(ActionName));
+                  
+
+            }
+            else if (ActionName == "Question")
+            {
+                    j = i;
+                    while (ActionName != "QuestionEnd")
+                    {
+                        Questions[j - i] = Target;
+                        j++;
+                        ActionName = Dialogue[j]["ActionName"].ToString();
+                        Target = Dialogue[j]["Target"].ToString();
+                        print(ActionName);
+                        yield return null;
+                    }
+                    StartCoroutine(ChoiceManager.MakeChoice(j - i, Questions));
+                    i = j;
+
+                    break;
+            }
+            else if (ActionName == "SpriteChange")
+            {
+                // Appear[0] = 이미지 링크, [1] = x좌표, [2] = y좌표, [3] = Size
+                string[] SpriteChange = Parameter.Split('`');
+
+                Vector3 spawnPosition = new Vector3(float.Parse(SpriteChange[1]), float.Parse(SpriteChange[2]), 0);
+                Vector3 Scale = new Vector3(float.Parse(SpriteChange[3]), float.Parse(SpriteChange[3]), float.Parse(SpriteChange[3]));
+                StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/" + Parameter);
+                StandingGroup.transform.GetChild(int.Parse(Target)).transform.localScale = Scale;
                 yield return null;
-                break;
             }
-            else if (Narrator == "Effect_Noah")
+            else if (ActionName == "Exit")
             {
-                // ~ Narration 값에 따라 해당 효과 발생시키는 함수 만들기
-
-                print("효과발생! Noah");
-                yield return StartCoroutine(NoahController.Effect(Narration));
+                
+                 StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = null;
+                yield return null;
             }
-            else if (Narrator == "Effect_Morgana")
+            else 
             {
-                print("효과발생! Morgana");
-                yield return StartCoroutine(MorganaController.Effect(Narration));
-            }
-            else if (Narrator == "Effect_All")
-            {
-                print("효과발생! All");
-                StartCoroutine(NoahController.Effect(Narration));
-                yield return StartCoroutine(MorganaController.Effect(Narration));
-            }
-            else if (Narrator == "Question")
-            {
-                j = i;
-                while (Narrator != "QuestionEnd")
-                {
-                    Questions[j - i] = Narration;
-                    j++;
-                    Narrator = Dialogue[j]["Narrator"].ToString();
-                    Narration = Dialogue[j]["Narration"].ToString();
-                    print(Narrator);
-                    yield return null;
-                }
-                StartCoroutine(ChoiceManager.MakeChoice(j - i, Questions));
-                i = j;
-
-                break;
-            }
-            else if (Narrator == "Appear")
-            {
-                // Appear[0] = 이름, [1] = x좌표, [2] = y좌표, [3] = Size
-                string[] Appear = Narration.Split('`');
-                if (Appear[0] == "Noah")
-                {
-                    Vector3 spawnPosition = new Vector3(float.Parse(Appear[1]), float.Parse(Appear[2]), 0);
-                    Vector3 Scale = new Vector3(float.Parse(Appear[3]), float.Parse(Appear[3]), float.Parse(Appear[3]));
-
-                    Noah = Instantiate(NoahPrefab, spawnPosition, Quaternion.identity);
-                    Noah.transform.localScale = Scale;
-                    NoahController = Noah.GetComponent<StandingController>();
-                    yield return null;
-
-                }
-                else if (Appear[0] == "Morgana")
-                {
-                    Vector3 spawnPosition = new Vector3(float.Parse(Appear[1]), float.Parse(Appear[2]), 0);
-                    Vector3 Scale = new Vector3(float.Parse(Appear[3]), float.Parse(Appear[3]), float.Parse(Appear[3]));
-
-                    Morgana = Instantiate(MorganaPrefab, spawnPosition, Quaternion.identity);
-                    Morgana.transform.localScale = Scale;
-                    MorganaController = Morgana.GetComponent<StandingController>();
-                    yield return null;
-                }
-            }
-            else if (Narrator == "Exit")
-            {
-                if (Narration == "Noah")
-                {
-                    Destroy(Noah);
-                    yield return null;
-
-                }
-                else if (Narration == "Morgana")
-                {
-                    Destroy(Morgana);
-                    yield return null;
-                }
-            }
-            else
-            {
-                HalfStandingChange(HalfStandingSprite);
-                yield return StartCoroutine(NormalChat(Narrator, Narration));
+                HalfStandingChange(Parameter);
+                yield return StartCoroutine(NormalChat(ActionName, Target));
             }
             i++;
 
         }
+
+        if (VNRunning==false)
+        {
+            PlayerController.PV.RPC("VNEndSub",RpcTarget.All);
+        }
+
+
     }
 
     /// <summary>
@@ -189,7 +157,6 @@ public class VNManager : MonoBehaviour
         writerText = "";
         float timer = 0;
         float delay = 0.05f;
-        bool isSkip = false;
 
         // 타이핑 효과
         for (int i = 0; i < narration.Length; i++)
@@ -201,9 +168,8 @@ public class VNManager : MonoBehaviour
             // 만약 타이핑 속도 변화가 필요하다면, delay를 따로 받아서 쓰면 될 듯
             while (timer < delay)
             {
-                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space"))
+                if (isSkip)
                 {
-                    isSkip = true;
                     yield return null;
                     break;
                 }
@@ -224,16 +190,33 @@ public class VNManager : MonoBehaviour
 
 
 
-        while (true)
+        while (isSkip==false)
         {
-            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space"))
+            yield return null;
+        }
+        isSkip = false;
+        
+    }
+
+    IEnumerator MasterController()
+    {
+        while (VNRunning)
+        {
+            if (PV.IsMine && (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space")))
             {
-                yield return null;
-                break;
+                PV.RPC("SkipOn", RpcTarget.All);
             }
             yield return null;
         }
+        
     }
+
+    [PunRPC]
+    public void SkipOn()
+    {
+        isSkip = true;
+    }
+
 
 
     // 상반신 sprite를 바꾼다.
@@ -241,7 +224,6 @@ public class VNManager : MonoBehaviour
 
     public void HalfStandingChange(string after_img)
     {
-
         Sprite newSprite = Resources.Load<Sprite>("Image/VN/" + after_img);
         HalfStandingSpriteRenderer.sprite = newSprite;
     }

@@ -1,34 +1,39 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
+using EasyTransition;
 using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : Block
 {
-    int b = 0;
+    public int colorNumber = 0;
     public bool isAbleMove = true;
+    bool VNRunning = false;
     // Start is called before the first frame update
     [SerializeField] Color red;
     [SerializeField] Color yellow;
     [SerializeField] Color green;
     [SerializeField] Color blue;
     Block grabBlock;
-
+    
     public SpriteRenderer SR;
     public override void Awake()
     {
         base.Awake();
-        ChangeColor(b);
+        ChangeColor(colorNumber);
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        GameObject.Find("VN").GetComponent<VNManager>().PlayerController = this;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PV.IsMine)
+        if (PV.IsMine&&VNRunning==false)
         {
             if (isAbleMove)
             {
@@ -67,7 +72,7 @@ public class PlayerController : Block
     }
     private void FixedUpdate()
     {
-        if (PV.IsMine)
+        if (PV.IsMine&&VNRunning==false)
         {
             Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, transform.GetChild(1).position + new Vector3(0, 0, -10), Time.deltaTime * 3);
             //Camera.main.transform.position = transform.GetChild(1).position + new Vector3(0, 0, -10);
@@ -98,7 +103,7 @@ public class PlayerController : Block
                 GetComponent<SpriteRenderer>().color = blue;
                 break;
         }
-        b = a;
+        colorNumber = a;
     }
 
     [PunRPC]
@@ -153,6 +158,40 @@ public class PlayerController : Block
                     GetComponent<FixedJoint2D>().connectedBody = hit.collider.GetComponent<Rigidbody2D>();
                 }
             }
+        }
+    }
+
+    [PunRPC]
+    public void VNStart()
+    {
+        if (PV.IsMine)
+        {
+            VNRunning = true;
+            TransitionManager.Instance().onTransitionCutPointReached += VNStartSub;
+            TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().fade, 0f);
+        }
+    }
+
+    [PunRPC]
+    public void VNStartSub()
+    {
+        Camera.main.transform.position = new Vector3(0, 0, -10);
+        Camera.main.transform.rotation = Quaternion.identity;
+        GameObject.Find("VN").GetComponent<VNManager>().StartVN("dialogue");
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        TransitionManager.Instance().onTransitionCutPointReached -= VNStartSub;
+    }
+
+    [PunRPC]
+    public void VNEndSub()
+    {
+        if (PV.IsMine)
+        {
+            Camera.main.transform.position = transform.position;
+            VNRunning = false;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
