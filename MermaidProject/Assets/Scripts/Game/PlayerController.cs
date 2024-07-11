@@ -188,11 +188,18 @@ public class PlayerController : Block
     {
         if (PV.IsMine)
         {
-            Camera.main.transform.position = transform.position;
-            VNRunning = false;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            TransitionManager.Instance().onTransitionCutPointReached += VNEndSubSub;
+            TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().fade, 0f);
         }
+    }
+
+    void VNEndSubSub()
+    {
+        Camera.main.transform.position = transform.position;
+        VNRunning = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        TransitionManager.Instance().onTransitionCutPointReached -= VNEndSubSub;
     }
 
 }
