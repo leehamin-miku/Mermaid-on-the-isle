@@ -1,23 +1,21 @@
 ﻿Id,ActionName,Target,Parameter
-0,SpriteChange,0,Noah`5`0.9`0.4
+0,Appear,Noah`5`0.9,
 1,선생님,나는 선생님이 아니다.,Noah_Normal
 2,선생님,너는 선생님이다.,Noah_Normal
-3,SpriteChange,1,Morgana`-5`0.9`0.4
-4,SmoothSpriteChange,1,Noah
-5,Effect,0,NormalMove`1`1`1
-6,아로나,나는 아로나다.,Morgana_Normal
-7,Effect,1,Shake`5`5
-8,선생님,대사4 - 그렇구나… 꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마,Noah_Normal
-9,Effect,0,Jump`0.5`0.4
-10,Effect,1,Jump`0.5`0.4
-11,선생님,대사 5 - 난 간다,Noah_Normal
-11,Effect,0,NormalMove`10`1`1
-10,Exit,0,
-11,아로나,여기서 질문,Morgana_Normal
-12,Question,1. DialogueIncorrect로 갑니다.`Incorrect,
-13,Question,2. DialogueCorrect로 갑니다.`Correct,
-14,Question,3. DialogueIncorrect로 갑니다.`Incorrect,
-15,Question,4. DialogueIncorrect로 갑니다.`Incorrect,
-16,Question,5. DialogueIncorrect로 갑니다.`Incorrect,
-17,QuestionEnd,null,
-,Break,null,
+3,SpriteChange1,0,Morgana`0`0`0.9
+4,Effect,0,NormalMove`1`1`1
+5,아로나,나는 아로나다.,Morgana_Normal
+6,Effect,0,Shake`5`5,
+7,선생님,대사4 - 그렇구나… 꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마,Noah_Normal
+8,Effect_All,Jump`0.5`0.4,
+9,Effect_All,Jump`0.5`0.4,
+10,선생님,대사 5 - 난 간다,Noah_Normal
+11,Effect_Noah,NormalMove`10`1`1,
+11,Exit,0,
+10,노아,오늘은 무엇을 공부해볼까?,Noah2
+11,Question,1. 건축재료 시멘트 제작법`Incorrect,
+12,Question,2. 공학적 모듈과 효율성`Correct,
+13,Question,3. 해왕류도 이해하는 재료공학론`Incorrect,
+14,Question,4. 대량생산과 컨베이어 벨트.`Incorrect,
+15,QuestionEnd,null,
+16,Break,null,
