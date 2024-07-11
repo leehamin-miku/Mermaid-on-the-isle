@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 using Photon.Pun;
 using EasyTransition;
+using static UnityEngine.GraphicsBuffer;
+using JetBrains.Annotations;
+using System.Runtime.CompilerServices;
 
 public class VNManager : MonoBehaviourPunCallbacks
 {
@@ -89,7 +92,7 @@ public class VNManager : MonoBehaviourPunCallbacks
             else if (ActionName == "Effect")
             {
                  print("È¿°ú¹ß»ý! standing0");
-                 yield return StartCoroutine(StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<StandingController>().Effect(ActionName));
+                 yield return StartCoroutine(StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<StandingController>().Effect(Parameter));
                   
 
             }
@@ -112,19 +115,26 @@ public class VNManager : MonoBehaviourPunCallbacks
             }
             else if (ActionName == "SpriteChange")
             {
-                // Appear[0] = ÀÌ¹ÌÁö ¸µÅ©, [1] = xÁÂÇ¥, [2] = yÁÂÇ¥, [3] = Size
+                // SpriteChange[0] = ÀÌ¹ÌÁö ¸µÅ©, [1] = xÁÂÇ¥, [2] = yÁÂÇ¥, [3] = Size
                 string[] SpriteChange = Parameter.Split('`');
 
                 Vector3 spawnPosition = new Vector3(float.Parse(SpriteChange[1]), float.Parse(SpriteChange[2]), 0);
                 Vector3 Scale = new Vector3(float.Parse(SpriteChange[3]), float.Parse(SpriteChange[3]), float.Parse(SpriteChange[3]));
                 StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/" + SpriteChange[0]);
                 StandingGroup.transform.GetChild(int.Parse(Target)).transform.localScale = Scale;
+                StandingGroup.transform.GetChild(int.Parse(Target)).transform.position = spawnPosition;
+
                 yield return null;
             }
             else if (ActionName == "Exit")
             {
-                
                  StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = null;
+                yield return null;
+            }
+            else if(ActionName == "SmoothSpriteChange")
+            {
+                print("SmooothSpriteChange");
+                StartCoroutine(StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<StandingController>().SmoothSpriteChange(Parameter));
                 yield return null;
             }
             else 
@@ -227,4 +237,6 @@ public class VNManager : MonoBehaviourPunCallbacks
         Sprite newSprite = Resources.Load<Sprite>("Image/VN/" + after_img);
         HalfStandingSpriteRenderer.sprite = newSprite;
     }
+
+    
 }

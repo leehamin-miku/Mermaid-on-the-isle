@@ -1,7 +1,9 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class StandingController : MonoBehaviour
 {
@@ -22,20 +24,12 @@ public class StandingController : MonoBehaviour
         {
             yield return StartCoroutine(Jump(float.Parse(effect[1]), float.Parse(effect[2])));
         }
-        else if (effect[0]== "Appear")
+        else if (effect[0] == "SmoothChange")
         {
-            
-        }
-        else if(effect[0] == "Exit")
-        {
-            // ÅðÀå
+
         }
     }
 
-    public IEnumerator Appear()
-    {
-        yield break;
-    }
     // ÁÂ ¿ì ÀÌµ¿
     public IEnumerator NormalMove(float moveDistance, float moveDuration, float diraction)
     {
@@ -59,7 +53,7 @@ public class StandingController : MonoBehaviour
         transform.position = startPosition;
     }
 
-    
+
     // ÇÑ ¹ø Èçµé¸²
     public IEnumerator Shake(float shakeAmount, float shakeDuration)
     {
@@ -83,7 +77,7 @@ public class StandingController : MonoBehaviour
     }
 
 
-   
+
     // Á¡ÇÁ
     public IEnumerator Jump(float jumpHeight, float jumpDuration)
     {
@@ -126,8 +120,30 @@ public class StandingController : MonoBehaviour
                 yield return null;
             }
         }
-        
+
 
         transform.position = startPosition;
     }
+    public IEnumerator SmoothSpriteChange(string after_img)
+    {
+        Sprite newSprite = Resources.Load<Sprite>("Image/VN/" + after_img);
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = newSprite;
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1,1,1,0);
+        transform.GetChild(0).position = transform.position;
+        transform.GetChild(0).localScale = new Vector3(1, 1, 1);
+
+        while (transform.GetComponent<SpriteRenderer>().color.a > 0)
+        {
+            transform.GetComponent<SpriteRenderer>().color = new Color(1,1,1, transform.GetComponent<SpriteRenderer>().color.a - Time.deltaTime / .5f);
+            transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, transform.GetChild(0).GetComponent<SpriteRenderer>().color.a + Time.deltaTime / .5f);
+            yield return null;
+        }
+        transform.GetComponent<SpriteRenderer>().sprite = newSprite;
+        transform.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+
+        yield return null;
+
+    }
 }
+
