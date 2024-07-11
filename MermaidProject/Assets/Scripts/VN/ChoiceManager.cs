@@ -60,6 +60,7 @@ public class ChoiceManager : MonoBehaviour
         while (Answer.color.a < 1.0f)
         {
             Answer.color = new Color(Answer.color.r, Answer.color.g, Answer.color.b, Answer.color.a + (Time.deltaTime / .5f));
+            Answer.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, Answer.transform.GetChild(0).GetComponent<SpriteRenderer>().color.a + (Time.deltaTime / .5f));
             yield return null;
         }
         yield return null;
@@ -70,6 +71,7 @@ public class ChoiceManager : MonoBehaviour
         while (Answer.color.a > 0)
         {
             Answer.color = new Color(Answer.color.r, Answer.color.g, Answer.color.b, Answer.color.a - (Time.deltaTime / .5f));
+            Answer.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, Answer.transform.GetChild(0).GetComponent<SpriteRenderer>().color.a -  (Time.deltaTime / .5f));
             yield return null;
         }
         yield return null;
