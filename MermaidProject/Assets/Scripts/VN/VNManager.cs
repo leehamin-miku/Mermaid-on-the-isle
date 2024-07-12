@@ -37,12 +37,12 @@ public class VNManager : MonoBehaviourPunCallbacks
 
     List<Dictionary<string, object>> Dialogue;
 
-    private void OnEnable()
+    private new void OnEnable()
     {
         ObjectClickHandler.OnObjectClicked += HandleObjectClicked;
     }
 
-    private void OnDisable()
+    private new void OnDisable()
     {
         ObjectClickHandler.OnObjectClicked -= HandleObjectClicked;
     }
@@ -86,7 +86,7 @@ public class VNManager : MonoBehaviourPunCallbacks
             {
                     print("Break!!");
                     VNRunning = false;
-                    yield return null;
+                    
                     break;
             }
             else if (ActionName == "Effect")
@@ -106,7 +106,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                         ActionName = Dialogue[j]["ActionName"].ToString();
                         Target = Dialogue[j]["Target"].ToString();
                         print(ActionName);
-                        yield return null;
+                        
                     }
                     StartCoroutine(ChoiceManager.MakeChoice(j - i, Questions));
                     i = j;
@@ -124,18 +124,18 @@ public class VNManager : MonoBehaviourPunCallbacks
                 StandingGroup.transform.GetChild(int.Parse(Target)).transform.localScale = Scale;
                 StandingGroup.transform.GetChild(int.Parse(Target)).transform.position = spawnPosition;
 
-                yield return null;
+                
             }
             else if (ActionName == "Exit")
             {
                  StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = null;
-                yield return null;
+                
             }
             else if(ActionName == "SmoothSpriteChange")
             {
                 print("SmooothSpriteChange");
                 StartCoroutine(StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<StandingController>().SmoothSpriteChange(Parameter));
-                yield return null;
+                
             }
             else 
             {

@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class NewStart : MonoBehaviour
 {
-    static bool isFirst = true;
     [SerializeField] GameObject newStartWindow;
     [SerializeField] GameObject joinWindow;
     //TitleScene의 새로시작 버튼의 컴포넌트 스크립트
