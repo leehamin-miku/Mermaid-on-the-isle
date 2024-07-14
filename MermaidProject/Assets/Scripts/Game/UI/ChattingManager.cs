@@ -35,7 +35,7 @@ public class ChattingManager : MonoBehaviour
             {
                 if (!string.IsNullOrEmpty(chatInput.text))
                 {
-                    SendMessage(chatInput.text);
+                    SendMessage(chatInput.text, PlayerController.colorNumber);
                     chatInput.text = ""; // 입력 필드를 비웁니다.
                 }
                 EventSystem.current.SetSelectedGameObject(null);
@@ -65,12 +65,11 @@ public class ChattingManager : MonoBehaviour
     }
 
     [PunRPC]
-    void Chatting(string context)
+    void Chatting(string context, int a)
     {
         string colorCodeStart = null;
         string[] temp = new string[2];
         string playerName = PhotonNetwork.NickName + " : ";
-        int a = PlayerController.colorNumber;
 
         switch (a)
         {
@@ -95,8 +94,8 @@ public class ChattingManager : MonoBehaviour
         chatDisplay.text += colorCodeStart + playerName + context + "</color>" + '\n';
     }
 
-    void SendMessage(string context)
+    void SendMessage(string context, int a)
     {
-        PV.RPC("Chatting", RpcTarget.All, context);
+        PV.RPC("Chatting", RpcTarget.All, context, a);
     }
 }
