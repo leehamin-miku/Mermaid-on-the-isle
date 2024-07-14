@@ -29,7 +29,17 @@ public class PlayerController : Block
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         GameObject.Find("VN").GetComponent<VNManager>().PlayerController = this;
-        if (PV.IsMine) GameObject.Find("GameManager").GetComponent<ChattingManager>().PlayerController = this;
+        if (PV.IsMine) {
+            GameObject.Find("GameManager").GetComponent<ChattingManager>().PlayerController = this;
+            GameObject.Find("GameManager").GetComponent<ChattingManager>().SystemChatting("<color=yellow>"+PhotonNetwork.NickName+"¥‘¿Ã ¿‘¿Â«ﬂΩ¿¥œ¥Ÿ</color>");
+        } 
+    }
+    public void OnDestroy()
+    {
+        if (PV.IsMine)
+        {
+            GameObject.Find("GameManager").GetComponent<ChattingManager>().SystemChatting("<color=yellow>" + PhotonNetwork.NickName + "¥‘¿Ã ∂∞≥µΩ¿¥œ¥Ÿ</color>");
+        }
     }
 
     // Update is called once per frame

@@ -7,58 +7,35 @@ using UnityEngine.Rendering.Universal;
 
 public class BreakwaterMaker : Block
 {
-    [SerializeField] bool isOn;
-    [SerializeField] float power;
-    [SerializeField] GameObject NextBuoy;
-    [SerializeField] Color OnLIGHT;
-    [SerializeField] Color OffLIGHT;
+    public int waitingLen = 0; //마스터만 관리
 
-
-
-    public override void Awake()
-    {
-        base.Awake();
-        if (isOn)
-        {
-            transform.GetChild(1).GetComponent<SpriteRenderer>().color = OnLIGHT;
-            transform.GetChild(2).GetComponent<Light2D>().intensity = 0.5f;
-        }
-        else
-        {
-            transform.GetChild(1).GetComponent<SpriteRenderer>().color = OffLIGHT;
-            transform.GetChild(2).GetComponent<Light2D>().intensity = 0.1f;
-        }
-    }
     public override void CollisionEnterAction(Collision2D collision)
     {
-        base.CollisionEnterAction(collision);
-        if(collision.collider.GetComponent<Block>().BlockCode == 0)
+        if (PhotonNetwork.IsMasterClient&&collision.collider.GetComponent<Block>().BlockCode == 1 && collision.collider.GetComponent<Block>().isGrabed)
         {
-            if (isOn)
+            PhotonNetwork.Destroy(collision.gameObject);
+            waitingLen++;
+            if (waitingLen <= 1)
             {
-                //충돌자에게 점수주기
-                PV.RPC("LightOff", RpcTarget.All);
-                NextBuoy.GetComponent<Buoy>().PV.RPC("LightOn", RpcTarget.All);
+                StartCoroutine(MakeBrick());
             }
         }
-        collision.collider.GetComponent<Rigidbody2D>().AddForce((collision.collider.transform.position - transform.position).normalized * power, ForceMode2D.Impulse);
-
     }
 
-    [PunRPC]
-    public void LightOn()
+    IEnumerator MakeBrick()
     {
-        isOn = true;
-        transform.GetChild(1).GetComponent<SpriteRenderer>().color = OnLIGHT;
-        transform.GetChild(2).GetComponent<Light2D>().intensity = 0.5f;
+        float a = 0;
+        while (a <= 10f&&isRunning)
+        {
+            transform.GetChild(0).Rotate(new Vector3(0, 0, Time.deltaTime*200));
+            a += Time.deltaTime;
+            yield return null;
+        }
+        waitingLen--;
+        PhotonNetwork.Instantiate("Prefab/Game/Brick2", transform.position - transform.up, transform.rotation);
+        if (waitingLen > 0)
+        {
+            StartCoroutine(MakeBrick());
+        }
     }
-    [PunRPC]
-    public void LightOff()
-    {
-        isOn = true;
-        transform.GetChild(1).GetComponent<SpriteRenderer>().color = OffLIGHT;
-        transform.GetChild(2).GetComponent<Light2D>().intensity = 0.1f;
-    }
-
-
 }

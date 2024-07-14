@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Block : MonoBehaviourPunCallbacks
 {
-
+    public bool isRunning = true;
     public bool isInUse = false;
     public bool isGrabed = false;
     public float coolTime = 0f;

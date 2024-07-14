@@ -35,7 +35,7 @@ public class ChattingManager : MonoBehaviour
             {
                 if (!string.IsNullOrEmpty(chatInput.text))
                 {
-                    SendMessage(chatInput.text, PlayerController.colorNumber);
+                    SendChat(chatInput.text, PlayerController.colorNumber);
                     chatInput.text = ""; // 입력 필드를 비웁니다.
                 }
                 EventSystem.current.SetSelectedGameObject(null);
@@ -91,11 +91,21 @@ public class ChattingManager : MonoBehaviour
         {
             chatDisplay.text = chatDisplay.text.Substring(chatDisplay.text.IndexOf('\n') + 1);
         }
-        chatDisplay.text += colorCodeStart + playerName + context + "</color>" + '\n';
+        chatDisplay.text += colorCodeStart + playerName + "</color>" + context + '\n';
     }
 
-    void SendMessage(string context, int a)
+    void SendChat(string context, int a)
     {
         PV.RPC("Chatting", RpcTarget.All, context, a);
+    }
+    public void SystemChatting(string context)
+    {
+
+        print(MaxChatLogLine(chatDisplay.text));
+        if (MaxChatLogLine(chatDisplay.text) >= 7)
+        {
+            chatDisplay.text = chatDisplay.text.Substring(chatDisplay.text.IndexOf('\n') + 1);
+        }
+        chatDisplay.text += context + '\n';
     }
 }
