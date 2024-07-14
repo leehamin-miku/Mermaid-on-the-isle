@@ -52,7 +52,7 @@ public class Block : MonoBehaviourPunCallbacks
             PV.IsMine = true;
             PV.RPC("PVFucIsGrabed", RpcTarget.All);
             this.p1 = p1;
-            rb.mass = 0.3f;
+            rb.mass = 0.1f;
             rb.drag = 0;
             rb.angularDrag = 0;
             GrabedAction();

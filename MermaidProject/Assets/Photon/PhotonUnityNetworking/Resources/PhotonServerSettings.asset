@@ -61,6 +61,8 @@ MonoBehaviour:
   - DownAction
   - VNEndSub
   - VNStartSub
+  - chatting
+  - Chatting
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
