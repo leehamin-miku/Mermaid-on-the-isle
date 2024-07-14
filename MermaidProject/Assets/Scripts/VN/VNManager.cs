@@ -212,7 +212,7 @@ public class VNManager : MonoBehaviourPunCallbacks
     {
         while (VNRunning)
         {
-            if (PV.IsMine && (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space")))
+            if (PV.IsMine && (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space"))&& !GameObject.Find("GameManager").GetComponent<ChattingManager>().isFocused)
             {
                 PV.RPC("SkipOn", RpcTarget.All);
             }

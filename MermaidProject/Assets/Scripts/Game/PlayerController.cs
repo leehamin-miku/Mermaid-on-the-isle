@@ -28,8 +28,9 @@ public class PlayerController : Block
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        GameObject.Find("VN").GetComponent<VNManager>().PlayerController = this;
+        
         if (PV.IsMine) {
+            GameObject.Find("VN").GetComponent<VNManager>().PlayerController = this;
             GameObject.Find("GameManager").GetComponent<ChattingManager>().PlayerController = this;
             GameObject.Find("GameManager").GetComponent<ChattingManager>().SystemChatting("<color=yellow>"+PhotonNetwork.NickName+"님이 입장했습니다</color>");
         } 
