@@ -29,6 +29,7 @@ public class PlayerController : Block
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         GameObject.Find("VN").GetComponent<VNManager>().PlayerController = this;
+        GameObject.Find("GameManager").GetComponent<ChattingManager>().PlayerController = this;
     }
 
     // Update is called once per frame

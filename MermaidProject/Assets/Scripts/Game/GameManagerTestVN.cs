@@ -8,6 +8,7 @@ public class GameManagerTestVN : MonoBehaviourPunCallbacks
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.NickName = "Á¶¼­Çü";
     }
     public override void OnConnectedToMaster()
     {
