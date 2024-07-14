@@ -2,17 +2,55 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ChattingManager : MonoBehaviour
 {
+    [SerializeField] private PhotonView PV;
+    [SerializeField] private TMP_Text chatDisplay;
+    [SerializeField] private TMP_InputField chatInput;
+
+    public bool isFocused = false;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (!isFocused)
+            {
+                EventSystem.current.SetSelectedGameObject(chatInput.gameObject, null);
+                chatInput.OnPointerClick(new PointerEventData(EventSystem.current));
+                isFocused = true;
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(chatInput.text))
+                {
+                    SendMessage(chatInput.text);
+                    chatInput.text = ""; // 입력 필드를 비웁니다.\
+                }
+                EventSystem.current.SetSelectedGameObject(null);
+                isFocused = false;
+            }
+        }
+    }
     // Start is called before the first frame update
-    [SerializeField] PhotonView PV;
+
+    
+    
 
     [PunRPC]
     void Chatting(string context)
     {
-        //이상 구현
+        print("a");
+        chatDisplay.text += context + '\n';
     }
 
-    //엔터를 눌렀을때 다음이 실행됨 -> GameObject.Find("GameManager").GetComponent<ChattingManager>().PV.RPC("Chatting", RPC.RpcTarget.All, context);
+    void SendMessage(string context)
+    {
+        print("a");
+        PV.RPC("Chatting", RpcTarget.All, context);
+    }
 }

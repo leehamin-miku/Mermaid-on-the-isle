@@ -11,6 +11,7 @@ public class PlayerController : Block
 {
     public int colorNumber = 0;
     public bool isAbleMove = true;
+    public bool isFocusOnChattingInputField = false;
     bool VNRunning = false;
     // Start is called before the first frame update
     [SerializeField] Color red;
@@ -33,14 +34,20 @@ public class PlayerController : Block
     // Update is called once per frame
     void Update()
     {
+
         if (PV.IsMine&&VNRunning==false)
         {
             if (isAbleMove)
             {
-                float h1 = Input.GetAxis("Horizontal");
-                float h2 = Input.GetAxis("Vertical");
-                float r1 = Input.GetAxis("Mouse X");
-                float r2 = Input.GetAxis("Mouse Y");
+                float h1 = 0, h2 = 0, r1 = 0, r2 = 0;
+                if (!GameObject.Find("GameManager").GetComponent<ChattingManager>().isFocused)
+                {
+                    h1 = Input.GetAxis("Horizontal");
+                    h2 = Input.GetAxis("Vertical");
+                    r1 = Input.GetAxis("Mouse X");
+                    r2 = Input.GetAxis("Mouse Y");
+                }
+                 
 
                 if (h2 > 0) h2 = 1.5f;
 
@@ -54,7 +61,6 @@ public class PlayerController : Block
                 }
             }
 
-            
 
             
             if (GetComponent<FixedJoint2D>().enabled)

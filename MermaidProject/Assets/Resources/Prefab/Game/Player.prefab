@@ -338,6 +338,7 @@ MonoBehaviour:
   PV: {fileID: 520826043651063484}
   colorNumber: 0
   isAbleMove: 1
+  isFocusOnChattingInputField: 0
   red: {r: 0.69803923, g: 0, b: 0.06666667, a: 1}
   yellow: {r: 0.86274517, g: 1, b: 0, a: 1}
   green: {r: 0.15294118, g: 0.9450981, b: 0.054901965, a: 1}
