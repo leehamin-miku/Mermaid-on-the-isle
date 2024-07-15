@@ -170,7 +170,6 @@ public class PlayerController : Block
             {
                 if (hit.collider.GetComponent<Block>().isAbleGrabed && hit.collider.GetComponent<Block>().isGrabed == false)
                 {
-                    Debug.Log(hit.collider.name);
                     hit.collider.GetComponent<Block>().Grabed(this);
                     GetComponent<FixedJoint2D>().enabled = true;
                     GetComponent<FixedJoint2D>().connectedBody = hit.collider.GetComponent<Rigidbody2D>();
@@ -199,6 +198,7 @@ public class PlayerController : Block
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         TransitionManager.Instance().onTransitionCutPointReached -= VNStartSub;
+        GameObject.Find("Sign").GetComponent<SpriteRenderer>().enabled = false;
     }
 
     [PunRPC]
@@ -218,6 +218,7 @@ public class PlayerController : Block
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         TransitionManager.Instance().onTransitionCutPointReached -= VNEndSubSub;
+        GameObject.Find("Sign").GetComponent<SpriteRenderer>().enabled = true;
     }
 
 }

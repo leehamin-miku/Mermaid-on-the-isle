@@ -128,4 +128,12 @@ public class Block : MonoBehaviourPunCallbacks
     {
         PV.IsMine = true;
     }
+    [PunRPC]
+    public void DestroyFuc()
+    {
+        if (PV.IsMine)
+        {
+            PhotonNetwork.Destroy(this.gameObject);
+        }
+    }
 }

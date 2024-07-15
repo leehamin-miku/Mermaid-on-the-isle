@@ -26,7 +26,7 @@ public class GraShoes : Block
 
     public override void GrabedAction()
     {
-        if (isGrabed)
+        if (GetComponent<Collider2D>().enabled)
         {
             GetComponent<Collider2D>().enabled = false;
 

@@ -13,7 +13,8 @@ public class BreakwaterMaker : Block
     {
         if (PhotonNetwork.IsMasterClient&&collision.collider.GetComponent<Block>().BlockCode == 1 && collision.collider.GetComponent<Block>().isGrabed)
         {
-            PhotonNetwork.Destroy(collision.gameObject);
+
+            collision.gameObject.GetComponent<Block>().PV.RPC("DestroyFuc", RpcTarget.All);
             waitingLen++;
             if (waitingLen <= 1)
             {
