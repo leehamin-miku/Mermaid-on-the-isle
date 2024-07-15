@@ -19,7 +19,7 @@ public class MiningDrill : Block
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log(b);
+            // Debug.Log(b);
             b += Mathf.Abs(a - transform.rotation.eulerAngles.z);
             a = transform.rotation.eulerAngles.z;
             if (b > 360f)

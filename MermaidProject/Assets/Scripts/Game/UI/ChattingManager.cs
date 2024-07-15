@@ -43,7 +43,7 @@ public class ChattingManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || (Input.GetMouseButtonDown(0)) ||(Input.GetMouseButtonDown(1)) || (Input.GetMouseButtonDown(2)))
         {
             EventSystem.current.SetSelectedGameObject(null);
             isFocused = false;

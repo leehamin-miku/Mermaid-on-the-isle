@@ -64,6 +64,7 @@ MonoBehaviour:
   - chatting
   - Chatting
   - isMakingFuc
+  - DestroyFuc
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
