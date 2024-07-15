@@ -8,8 +8,8 @@ public class Sign : MonoBehaviour
     Color color;
     [SerializeField] public Vector3 target;
     [SerializeField] float a = 430;
-    [SerializeField] float width = 385;
-    [SerializeField] float height = 208;
+    [SerializeField] float width = 362;
+    [SerializeField] float height = 195;
     void Update()
     {
         Vector2 vec = Camera.main.transform.InverseTransformPoint(target).normalized*a;
