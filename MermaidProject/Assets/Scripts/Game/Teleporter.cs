@@ -28,5 +28,6 @@ public class Teleporter : Block
     private void TransitionTeleportFuc()
     {
         collision.GetComponent<Block>().PV.RPC("Teleport", RpcTarget.All, targetPosition);
+        TransitionManager.Instance().onTransitionCutPointReached -= TransitionTeleportFuc;
     }
 }
