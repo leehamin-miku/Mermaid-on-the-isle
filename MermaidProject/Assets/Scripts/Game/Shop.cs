@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Shop : MonoBehaviour
@@ -12,24 +13,24 @@ public class Shop : MonoBehaviour
     public GameObject totalMoney;
     public string itemInfo;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("a");
-        StartCoroutine(SummonSaleItems("Brick", new Vector3(85, -142, -1), new Quaternion(0, 0, 0, 0), 5,1f));
-        StartCoroutine(SummonSaleItems("Brick2", new Vector3(90, -142, -1), new Quaternion(0, 0, 0, 0), 5,1.5f));
-        StartCoroutine(SummonSaleItems("Brick2", new Vector3(95, -142, -1), new Quaternion(0, 0, 0, 0), 5,1.5f));
-        StartCoroutine(SummonSaleItems("Brick", new Vector3(100, -142, -1), new Quaternion(0, 0, 0, 0), 5,1f));
-        print("b");
-        
+        print("aaaaa");
+        if(collision.GameObject().tag == "Player")
+        {
+            print("부딫힘");
+            StartCoroutine(SummonSaleItems("Brick", new Vector3(85, -142, -1), new Quaternion(0, 0, 0, 1), 5, 1f));
+            StartCoroutine(SummonSaleItems("Brick2", new Vector3(90, -142, -1), new Quaternion(0, 0, 0, 1), 5, 1.5f));
+            StartCoroutine(SummonSaleItems("Brick2", new Vector3(95, -142, -1), new Quaternion(0, 0, 0, 1), 5, 1.5f));
+            StartCoroutine(SummonSaleItems("Brick", new Vector3(100, -142, -1), new Quaternion(0, 0, 0, 1), 5, 1f));
+        }
     }
 
-
     // prefab의 파일 이름, 소환할 좌표, 방향, 가격
-    IEnumerator SummonSaleItems(string Prefabname, Vector3 position, Quaternion rotation, int price, float radius)
+    public IEnumerator SummonSaleItems(string Prefabname, Vector3 position, Quaternion rotation, int price, float radius)
     {
         // 상점에 물건 채울 타이밍을 못정해서 일단 시작 5초 후 생성
-        yield return new WaitForSeconds(5);
 
         bool isSaled = false;
         GameObject SaleItem = PhotonNetwork.Instantiate("Prefab/Game/" + Prefabname, position, rotation);
@@ -63,6 +64,7 @@ public class Shop : MonoBehaviour
                         {
                             print("구매 완");
                             ItemInfo.transform.GetComponent<TMP_Text>().text = itemName + '\n' + "구매 완료!";
+                            StartCoroutine(DestoryInfo(1f, ItemInfo));
                             totalMoney.GetComponent<MoneyManager>().moneyChange(-price);
                             SaleItem.transform.GetComponent<Block>().isAbleGrabed = true;
                             SaleItem.transform.GetComponent<Rigidbody2D>().isKinematic = false;
@@ -88,4 +90,9 @@ public class Shop : MonoBehaviour
         else return "?????";
     }
 
+    IEnumerator DestoryInfo(float delay, GameObject ItemInfo)
+    {
+        yield return new WaitForSeconds(delay);
+        PhotonNetwork.Destroy(ItemInfo);
+    }
 }
