@@ -57,7 +57,6 @@ public class PlayerController : Block
                     h1 = Input.GetAxis("Horizontal");
                     h2 = Input.GetAxis("Vertical");
                     r1 = Input.GetAxis("Mouse X");
-                    r2 = Input.GetAxis("Mouse Y");
                 }
                  
 
@@ -84,6 +83,16 @@ public class PlayerController : Block
                 if (Input.GetMouseButtonDown(1))
                 {
                     GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().UseDownAction();
+                }
+            } else
+            {
+                if (Input.GetMouseButtonDown(1))
+                {
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 1.5f, LayerMask.GetMask("Block", "Blueprint", "Tool"));
+                    if (hit.collider.GetComponent<Block>().isOnSale)
+                    {
+                        //∆«∏≈¿Â«≥
+                    }
                 }
             }
         }

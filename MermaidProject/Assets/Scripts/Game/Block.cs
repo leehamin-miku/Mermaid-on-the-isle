@@ -19,6 +19,7 @@ public class Block : MonoBehaviourPunCallbacks
     public PlayerController p1 = null;
     public bool isAbleGrabed;
     public PhotonView PV;
+    public bool isOnSale = false;
     public virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -46,8 +47,6 @@ public class Block : MonoBehaviourPunCallbacks
 
         if (isGrabed==false)
         {
-            
-            
             PV.RPC("IsMineDelete", RpcTarget.Others);
             PV.IsMine = true;
             PV.RPC("PVFucIsGrabed", RpcTarget.All);
@@ -56,7 +55,6 @@ public class Block : MonoBehaviourPunCallbacks
             rb.drag = 0;
             rb.angularDrag = 0;
             GrabedAction();
-            
         }
         else
         {
@@ -134,6 +132,21 @@ public class Block : MonoBehaviourPunCallbacks
         if (PV.IsMine)
         {
             PhotonNetwork.Destroy(this.gameObject);
+        }
+    }
+    [PunRPC]
+    public void IsOnSaleFuc(bool a)
+    {
+        if (a)
+        {
+            isOnSale = true;
+            isAbleGrabed = false;
+            rb.isKinematic = true;
+        } else
+        {
+            isOnSale = false;
+            isAbleGrabed = true;
+            rb.isKinematic = false;
         }
     }
 }

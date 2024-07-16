@@ -337,6 +337,7 @@ MonoBehaviour:
   p1: {fileID: 0}
   isAbleGrabed: 0
   PV: {fileID: 520826043651063484}
+  isOnSale: 0
   colorNumber: 0
   isAbleMove: 1
   isFocusOnChattingInputField: 0

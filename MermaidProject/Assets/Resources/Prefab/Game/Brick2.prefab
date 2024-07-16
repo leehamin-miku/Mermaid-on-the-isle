@@ -148,6 +148,7 @@ MonoBehaviour:
   p1: {fileID: 0}
   isAbleGrabed: 1
   PV: {fileID: 3411019273798802887}
+  isOnSale: 0
 --- !u!114 &-2037884425488265604
 MonoBehaviour:
   m_ObjectHideFlags: 0
