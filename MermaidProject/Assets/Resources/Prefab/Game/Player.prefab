@@ -327,7 +327,6 @@ MonoBehaviour:
   isRunning: 1
   isInUse: 0
   isGrabed: 0
-  coolTime: 0
   BlockCode: 0
   rb: {fileID: 0}
   strength: 0
@@ -337,7 +336,6 @@ MonoBehaviour:
   p1: {fileID: 0}
   isAbleGrabed: 0
   PV: {fileID: 520826043651063484}
-  isOnSale: 0
   colorNumber: 0
   isAbleMove: 1
   isFocusOnChattingInputField: 0

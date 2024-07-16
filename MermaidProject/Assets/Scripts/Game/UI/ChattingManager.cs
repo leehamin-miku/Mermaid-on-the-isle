@@ -10,7 +10,7 @@ public class ChattingManager : MonoBehaviour
 {
 
     public PlayerController PlayerController;
-    [SerializeField] private PhotonView PV;
+    [SerializeField] public PhotonView PV;
     [SerializeField] private TMP_Text chatDisplay;
     [SerializeField] private TMP_InputField chatInput;
 
@@ -98,6 +98,7 @@ public class ChattingManager : MonoBehaviour
     {
         PV.RPC("Chatting", RpcTarget.All, context, a);
     }
+    [PunRPC]
     public void SystemChatting(string context)
     {
 

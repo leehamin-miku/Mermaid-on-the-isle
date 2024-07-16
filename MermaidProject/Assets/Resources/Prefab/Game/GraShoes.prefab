@@ -175,7 +175,6 @@ MonoBehaviour:
   isRunning: 1
   isInUse: 0
   isGrabed: 0
-  coolTime: 5
   BlockCode: 2
   rb: {fileID: 0}
   strength: 0

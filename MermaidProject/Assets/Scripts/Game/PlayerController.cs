@@ -25,22 +25,14 @@ public class PlayerController : Block
     {
         base.Awake();
         ChangeColor(colorNumber);
-
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         
         if (PV.IsMine) {
             GameObject.Find("VN").GetComponent<VNManager>().PlayerController = this;
             GameObject.Find("GameManager").GetComponent<ChattingManager>().PlayerController = this;
-            GameObject.Find("GameManager").GetComponent<ChattingManager>().SystemChatting("<color=yellow>"+PhotonNetwork.NickName+"님이 입장했습니다</color>");
+            GameObject.Find("GameManager").GetComponent<ChattingManager>().PV.RPC("SystemChatting", RpcTarget.All,"<color=yellow>"+PhotonNetwork.NickName+"님이 입장했습니다</color>");
         } 
-    }
-    public void OnDestroy()
-    {
-        if (PV.IsMine)
-        {
-            GameObject.Find("GameManager").GetComponent<ChattingManager>().SystemChatting("<color=yellow>" + PhotonNetwork.NickName + "님이 떠났습니다</color>");
-        }
     }
 
     // Update is called once per frame
@@ -83,16 +75,6 @@ public class PlayerController : Block
                 if (Input.GetMouseButtonDown(1))
                 {
                     GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().UseDownAction();
-                }
-            } else
-            {
-                if (Input.GetMouseButtonDown(1))
-                {
-                    RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 1.5f, LayerMask.GetMask("Block", "Blueprint", "Tool"));
-                    if (hit.collider.GetComponent<Block>().isOnSale)
-                    {
-                        //판매장풍
-                    }
                 }
             }
         }
@@ -217,6 +199,10 @@ public class PlayerController : Block
         {
             TransitionManager.Instance().onTransitionCutPointReached += VNEndSubSub;
             TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().fade, 0f);
+        }
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameObject.Find("Shop").GetComponent<Shop>().InitializeShop();
         }
     }
 
