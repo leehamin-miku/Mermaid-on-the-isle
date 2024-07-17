@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty;
 
 public class TideTimer : MonoBehaviour
 {
-    int totalTime;
+    public int totalTime;
     int nowTime;
     [PunRPC]
     public void SetTimeMark(int a)

@@ -211,6 +211,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                     GameObject.Find("TideTimer").GetComponent<TideTimer>().TimeSetAndStart(int.Parse(Target));
                     nextDialogue = Parameter;
                 }
+                GameObject.Find("TideTimer").GetComponent<TideTimer>().totalTime = int.Parse(Target);
                 PlayerController.transform.position += GameObject.Find("IslandSquare").transform.position - GameObject.Find("LobbySquare").transform.position;
                 print("섬 이야기 시작");
                 VNRunning = false;
