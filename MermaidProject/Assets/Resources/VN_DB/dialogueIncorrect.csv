@@ -1,7 +1,8 @@
 ﻿Id,ActionName,Target,Parameter
 0,Appear,Noah`5`0.9`0.5,
-1,선생님,틀렸습니다~.,Noah_Normal
-2,Effect_Noah,"Jump1,1",
+2,노아,다음의 방법으로 로비로 돌아갑니다,Noah2
+2,노아,"Lobby,,(다음 시나리오)",Noah2
+2,Lobby,,dialogueCorrect
 3,문제,시멘트의 재료 중 알맞지 않은것은?,book
 4,Question,1. 물`Incorrect,
 5,Question,2. 자갈`Correct,

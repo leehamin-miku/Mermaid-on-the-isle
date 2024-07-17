@@ -1,13 +1,16 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty;
 
 public class GameStart : MonoBehaviour
 {
     List<PlayerController> list = new List<PlayerController>();
     float a = 0;
     float b = 5f;
+    int defaultTime = 60*3;
     // Start is called before the first frame update
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -17,10 +20,7 @@ public class GameStart : MonoBehaviour
             list.Add(collision.GetComponent<PlayerController>());
             if (PhotonNetwork.CurrentRoom.PlayerCount == list.Count && DuplicationCheck(list) == false)
             {
-                foreach (PlayerController player in list)
-                {
-                    player.PV.RPC("VNStart", RpcTarget.All);
-                }
+                GameObject.Find("VN").GetComponent<VNManager>().PV.RPC("StartNextDialogue", RpcTarget.All);
             }
         }
     }
@@ -47,4 +47,18 @@ public class GameStart : MonoBehaviour
         }
         return false;
     }
+    //public void ExecuteTidalGame()
+    //{
+    //    StartCoroutine(TidalGame());
+    //}
+
+    //IEnumerator TidalGame()
+    //{
+    //    for (int i = 0; i < defaultTime; i++)
+    //    {
+    //        GameObject.Find("Timer").GetComponent<TextMeshProUGUI>().text = "0" + (defaultTime - i) / 60 + ":" + (defaultTime - i) % 60;
+    //        yield return new WaitForSeconds(1f);
+    //    }
+    //    GetComponent<TsunamiController>().StartTsunami();
+    //}
 }

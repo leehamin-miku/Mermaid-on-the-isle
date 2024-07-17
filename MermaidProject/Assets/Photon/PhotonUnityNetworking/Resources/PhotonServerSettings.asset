@@ -72,6 +72,9 @@ MonoBehaviour:
   - BuyThisItem
   - SystemChatting
   - ArrangeSubFuc
+  - AddSign
+  - SetTimeMark
+  - StartNextDialogue
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

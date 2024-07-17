@@ -185,11 +185,9 @@ public class PlayerController : Block
     {
         Camera.main.transform.position = new Vector3(0, 0, -10);
         Camera.main.transform.rotation = Quaternion.identity;
-        GameObject.Find("VN").GetComponent<VNManager>().StartVN("dialogue");
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         TransitionManager.Instance().onTransitionCutPointReached -= VNStartSub;
-        GameObject.Find("Sign").GetComponent<SpriteRenderer>().enabled = false;
     }
 
     [PunRPC]
@@ -200,10 +198,7 @@ public class PlayerController : Block
             TransitionManager.Instance().onTransitionCutPointReached += VNEndSubSub;
             TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().fade, 0f);
         }
-        if (PhotonNetwork.IsMasterClient)
-        {
-            GameObject.Find("Shop").GetComponent<Shop>().InitializeShop();
-        }
+        
     }
 
     void VNEndSubSub()
@@ -213,7 +208,6 @@ public class PlayerController : Block
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         TransitionManager.Instance().onTransitionCutPointReached -= VNEndSubSub;
-        GameObject.Find("Sign").GetComponent<SpriteRenderer>().enabled = true;
     }
 
 }
