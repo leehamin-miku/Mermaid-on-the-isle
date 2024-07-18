@@ -12,6 +12,7 @@ public class Block : MonoBehaviourPunCallbacks
     public int BlockCode;
     public Rigidbody2D rb;
     public float strength;
+    public float maxStrenth;
     public float mass;
     public float drag;
     public float angularDrag;
@@ -130,6 +131,25 @@ public class Block : MonoBehaviourPunCallbacks
         if (PV.IsMine)
         {
             PhotonNetwork.Destroy(this.gameObject);
+        }
+    }
+    [PunRPC]
+    public void ChangeStrength(float a)
+    {
+        
+        strength += a;
+
+        if(strength > maxStrenth)
+        {
+            strength = maxStrenth;
+        }
+        
+        if (PV.IsMine)
+        {
+            if (strength <= 0)
+            {
+                PhotonNetwork.Destroy(this.gameObject);
+            }
         }
     }
 }
