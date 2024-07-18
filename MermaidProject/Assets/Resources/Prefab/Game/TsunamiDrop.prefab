@@ -185,12 +185,14 @@ MonoBehaviour:
   BlockCode: 50
   rb: {fileID: 6612870773202436055}
   strength: 0
+  maxStrenth: 0
   mass: 1
   drag: 0
   angularDrag: 0
   p1: {fileID: 0}
   isAbleGrabed: 0
   PV: {fileID: 6165091020825961315}
+  TsunamiLocateFromFlower: {x: 0, y: 0}
 --- !u!96 &6120730068222146961
 TrailRenderer:
   serializedVersion: 3

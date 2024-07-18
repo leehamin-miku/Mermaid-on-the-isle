@@ -198,11 +198,11 @@ public class PlayerController : Block
             TransitionManager.Instance().onTransitionCutPointReached += VNEndSubSub;
             TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().fade, 0f);
         }
-        
     }
 
     void VNEndSubSub()
     {
+        Debug.Log("VN³¡");
         Camera.main.transform.position = transform.position;
         VNRunning = false;
         Cursor.visible = false;

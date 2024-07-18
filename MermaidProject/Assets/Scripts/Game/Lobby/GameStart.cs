@@ -19,7 +19,7 @@ public class GameStart : MonoBehaviour
             list.Add(collision.GetComponent<PlayerController>());
             if (PhotonNetwork.CurrentRoom.PlayerCount == list.Count && DuplicationCheck(list) == false)
             {
-                GameObject.Find("VN").GetComponent<VNManager>().PV.RPC("StartNextDialogue", RpcTarget.All);
+                GameObject.Find("VN").GetComponent<VNManager>().StartNextDialogue();
             }
         }
     }

@@ -3,21 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Photon.Pun;
-using EasyTransition;
-using static UnityEngine.GraphicsBuffer;
-using JetBrains.Annotations;
-using System.Runtime.CompilerServices;
-using System.Diagnostics;
-using Photon.Realtime;
 
 public class VNManager : MonoBehaviourPunCallbacks
 {
     //마스터가 사용하는 변수
     public string nextDialogue = "dialogue";
+
+    public List<CoroutineAbs> coList = new List<CoroutineAbs>();
     
-    
-    
-    public GameObject StandingGroup;
+    public static GameObject StandingGroup;
     public GameObject AnswerGroup;
 
     public PlayerController PlayerController;
@@ -25,21 +19,28 @@ public class VNManager : MonoBehaviourPunCallbacks
 
     private ChoiceManager ChoiceManager;
 
-    public TMP_Text ChatText;
-    public TMP_Text CharacterName;
+    public static TMP_Text ChatText;
+    public static TMP_Text CharacterName;
 
-    public string writerText = "";
+    public static string writerText = "";
 
     int page = 0;
 
     bool isSkip;
     public bool VNRunning;
+
+    int Skip;
     // Start is called before the first frame update
     void Start()
     {
+        ChatText = GameObject.Find("ChatText").GetComponent<TextMeshPro>();
+        CharacterName = GameObject.Find("CharacterName").GetComponent<TextMeshPro>();
         ChoiceManager = AnswerGroup.GetComponent<ChoiceManager>();
     }
 
+    int i = 0;
+
+    Coroutine masterControlCoroutine;
 
 
     List<Dictionary<string, object>> Dialogue;
@@ -60,42 +61,37 @@ public class VNManager : MonoBehaviourPunCallbacks
         StartVN("dialogue" + OutputValue);
     }
 
-
-    public void StartVN(string DialogueName)
-    {
-        PlayerController.PV.RPC("VNStart", RpcTarget.All);
-        VNRunning = true;
-        Dialogue = CSVReader.Read("VN_DB/" + DialogueName);
-        StartCoroutine(VNScripts());
-        if (PhotonNetwork.IsMasterClient)
-        {
-            StartCoroutine(MasterController());
-        }
-    }
     [PunRPC]
-    public void StartNextDialogue()
+    public void StartVN(string DialogueName)
     {
         VNRunning = true;
         PlayerController.PV.RPC("VNStart", RpcTarget.All);
         Dialogue = CSVReader.Read("VN_DB/" + nextDialogue);
-        StartCoroutine(VNScripts());
+        i = 0;
+        VNNextScript();
         if (PhotonNetwork.IsMasterClient)
         {
-            StartCoroutine(MasterController());
+            masterControlCoroutine = StartCoroutine(MasterController());
         }
     }
 
-    IEnumerator VNScripts()
+    public void StartNextDialogue()
     {
+        PV.RPC("StartVN", RpcTarget.All, nextDialogue);
+    }
 
+    public void VNNextScript()
+    {
+        
         // Resources 폴더 내에 있는 dialogue 파일을 List 형태로 불러옴(CSV Reader 이용)
-        int i = 0, j = 0;
+ 
         string ActionName = null;
         string Target = null;
         string Parameter = null;
         string[] Questions = new string[5];
         while (true)
         {
+            
             ActionName = Dialogue[i]["ActionName"].ToString();
             Target = Dialogue[i]["Target"].ToString();
             Parameter = Dialogue[i]["Parameter"].ToString();
@@ -104,19 +100,11 @@ public class VNManager : MonoBehaviourPunCallbacks
             {
                 print("Break!!");
                 VNRunning = false;
-
-                break;
-            }
-            else if (ActionName == "Effect")
-            {
-                print("효과발생! standing0");
-                yield return StartCoroutine(StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<StandingController>().Effect(Parameter));
-
-
+                i++;
             }
             else if (ActionName == "Question")
             {
-                j = i;
+                int j = i;
                 while (ActionName != "QuestionEnd")
                 {
                     Questions[j - i] = Target;
@@ -128,8 +116,6 @@ public class VNManager : MonoBehaviourPunCallbacks
                 }
                 StartCoroutine(ChoiceManager.MakeChoice(j - i, Questions));
                 i = j;
-
-                break;
             }
             else if (ActionName == "SpriteChange")
             {
@@ -141,8 +127,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                 StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/" + SpriteChange[0]);
                 StandingGroup.transform.GetChild(int.Parse(Target)).transform.localScale = Scale;
                 StandingGroup.transform.GetChild(int.Parse(Target)).transform.position = spawnPosition;
-
-
+                i++;
             }
             else if (ActionName == "Exit")
             {
@@ -151,9 +136,10 @@ public class VNManager : MonoBehaviourPunCallbacks
             }
             else if (ActionName == "SmoothSpriteChange")
             {
-                print("SmooothSpriteChange");
-                StartCoroutine(StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<StandingController>().SmoothSpriteChange(Parameter));
-
+                CoroutineAbs temp = new SmoothSpriteChange(ActionName, Target);
+                temp.co = StartCoroutine(temp.Action());
+                coList.Add(temp);
+                i++;
             }
             else if (ActionName == "Lobby")
             {
@@ -164,9 +150,8 @@ public class VNManager : MonoBehaviourPunCallbacks
                     Destroy(ts.gameObject);
                 }
                 nextDialogue = Parameter;
-                print("로비로");
                 VNRunning = false;
-
+                i++;
                 break;
             }
             else if (ActionName == "TidalAdd")
@@ -197,7 +182,8 @@ public class VNManager : MonoBehaviourPunCallbacks
                             tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(new Vector3(vec.x, vec.y), 10, float.Parse(a[2]));
                         }
                         PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
-                    } else if (int.Parse(a[0]) == 1)
+                    }
+                    else if (int.Parse(a[0]) == 1)
                     {
                         Vector2 vec = Random.insideUnitCircle.normalized * 30;
                         GameObject tsunami = new GameObject();
@@ -214,6 +200,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                         tsunami.GetComponent<TsunamiObject>().SummonCreature(new Vector3(vec.x, vec.y), 5, float.Parse(a[2]));
                     }
                 }
+                i++;
 
 
 
@@ -232,24 +219,30 @@ public class VNManager : MonoBehaviourPunCallbacks
                 }
                 GameObject.Find("TideTimer").GetComponent<TideTimer>().totalTime = int.Parse(Target);
                 PlayerController.transform.position += GameObject.Find("IslandSquare").transform.position - GameObject.Find("LobbySquare").transform.position;
-                print("섬 이야기 시작");
                 VNRunning = false;
+                i++;
                 break;
             }
             else
             {
                 HalfStandingChange(Parameter);
-                yield return StartCoroutine(NormalChat(ActionName, Target));
+                CoroutineAbs temp = new NormalChat(ActionName, Target);
+                temp.co = StartCoroutine(temp.Action());
+                coList.Add(temp);
+                i++;
+                break;
             }
-            i++;
-
+            
         }
 
         if (VNRunning == false)
         {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                StopCoroutine(masterControlCoroutine);
+            }
             PlayerController.PV.RPC("VNEndSub", RpcTarget.All);
         }
-
     }
 
     /// <summary>
@@ -258,72 +251,42 @@ public class VNManager : MonoBehaviourPunCallbacks
     /// <param name="narrator"></param>
     /// <param name="narration"></param>
     /// <returns></returns>
-    IEnumerator NormalChat(string narrator, string narration)
-    {
+    /// 
+    
 
-        CharacterName.text = narrator;
-        writerText = "";
-        float timer = 0;
-        float delay = 0.05f;
-
-        // 타이핑 효과
-        for (int i = 0; i < narration.Length; i++)
-        {
-            writerText += narration[i];
-            ChatText.text = writerText;
-
-            // delay(0.05초)마다 한 글자 출력, 중간에 space or 좌클릭 들어오면 전부 출력
-            // 만약 타이핑 속도 변화가 필요하다면, delay를 따로 받아서 쓰면 될 듯
-            while (timer < delay)
-            {
-                if (isSkip)
-                {
-                    yield return null;
-                    break;
-                }
-                timer += Time.deltaTime;
-                yield return null;
-            }
-
-            timer = 0;
-            if (isSkip)
-            {
-                isSkip = false;
-                ChatText.text = narration;
-                yield return null;
-                break;
-            }
-            yield return null;
-        }
-
-
-
-        while (isSkip == false)
-        {
-            yield return null;
-        }
-        isSkip = false;
-
-    }
-
+    
+    //마스터만 이걸 실행하도록 하세요.
     IEnumerator MasterController()
     {
-        while (VNRunning)
+        while (true)
         {
-            if (PV.IsMine && (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space")) && !GameObject.Find("GameManager").GetComponent<ChattingManager>().isFocused)
+            if (PhotonNetwork.IsMasterClient)
             {
-                PV.RPC("SkipOn", RpcTarget.All);
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+                {
+                    PV.RPC("StopAllCoAndNextScript", RpcTarget.All);
+                }
             }
             yield return null;
         }
-
     }
+
+
 
     [PunRPC]
-    public void SkipOn()
+    void StopAllCoAndNextScript()
     {
-        isSkip = true;
+        
+        foreach (CoroutineAbs co in coList)
+        {
+            StopCoroutine(co.co);
+        }
+        coList.Clear();
+        VNNextScript();
     }
+
+
+
     [PunRPC]
     public void AddSign(Vector2 vec)
     {
@@ -342,6 +305,93 @@ public class VNManager : MonoBehaviourPunCallbacks
     {
         Sprite newSprite = Resources.Load<Sprite>("Image/VN/" + after_img);
         HalfStandingSpriteRenderer.sprite = newSprite;
+    }
+    public abstract class CoroutineAbs
+    {
+        public Coroutine co;
+        public abstract IEnumerator Action();
+        public virtual void EndAction()
+        {
+
+        }
+
+    }
+    public class NormalChat : CoroutineAbs
+    {
+        string narrator;
+        string narration;
+        
+        public NormalChat(string narrator, string narration)
+        {
+            this.narrator = narrator;
+            this.narration = narration;
+        }
+        public override IEnumerator Action()
+        {
+            CharacterName.text = narrator;
+            writerText = "";
+            float timer = 0;
+            float delay = 0.1f;
+
+            // 타이핑 효과
+            for (int i = 0; i < narration.Length; i++)
+            {
+                writerText += narration[i];
+                ChatText.text = writerText;
+
+                // delay(0.1초)마다 한 글자 출력, 중간에 space or 좌클릭 들어오면 전부 출력
+                // 만약 타이핑 속도 변화가 필요하다면, delay를 따로 받아서 쓰면 될 듯
+                while (timer < delay)
+                {
+                    timer += Time.deltaTime;
+                    yield return null;
+                }
+
+            }
+            ChatText.text = narration;
+        }
+        public override void EndAction()
+        {
+            base.EndAction();
+            ChatText.text = narration;
+        }
+    }
+    public class SmoothSpriteChange : CoroutineAbs
+    {
+        string Parameter;
+        string Target;
+        public SmoothSpriteChange(string Target, string Parameter)
+        {
+            this.Target = Target;
+            this.Parameter = Parameter;
+        }
+
+        public override IEnumerator Action()
+        {
+            Sprite newSprite = Resources.Load<Sprite>("Image/VN/" + Parameter);
+            Transform standing = StandingGroup.transform.GetChild(int.Parse(Target));
+            standing.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = newSprite;
+            standing.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+            standing.GetChild(0).position = standing.position;
+            standing.GetChild(0).localScale = new Vector3(1, 1, 1);
+
+            while (standing.GetComponent<SpriteRenderer>().color.a > 0)
+            {
+                standing.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, standing.GetComponent<SpriteRenderer>().color.a - Time.deltaTime / .5f);
+                standing.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, standing.GetChild(0).GetComponent<SpriteRenderer>().color.a + Time.deltaTime / .5f);
+                yield return null;
+            }
+
+            standing.GetComponent<SpriteRenderer>().sprite = newSprite;
+            standing.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            standing.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+        }
+        override public void EndAction()
+        {
+            StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/" + Parameter); ;
+            StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            StandingGroup.transform.GetChild(int.Parse(Target)).GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+        }
     }
 
 

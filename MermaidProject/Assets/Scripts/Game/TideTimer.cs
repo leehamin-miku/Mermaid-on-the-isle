@@ -41,7 +41,7 @@ public class TideTimer : MonoBehaviour
                 tsunami.GetComponent<TsunamiObject>().DestroyTsunami();
             }
             DestroyMap();
-            GameObject.Find("VN").GetComponent<VNManager>().PV.RPC("StartNextDialogue", RpcTarget.All);
+            GameObject.Find("VN").GetComponent<VNManager>().StartNextDialogue();
         }
     }
 

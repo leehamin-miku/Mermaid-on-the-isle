@@ -140,6 +140,7 @@ MonoBehaviour:
   BlockCode: 1
   rb: {fileID: 8424819385504529361}
   strength: 0
+  maxStrenth: 0
   mass: 7
   drag: 10
   angularDrag: 15

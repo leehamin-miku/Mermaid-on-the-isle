@@ -236,6 +236,7 @@ MonoBehaviour:
   BlockCode: 10
   rb: {fileID: 0}
   strength: 0
+  maxStrenth: 0
   mass: 10
   drag: 10
   angularDrag: 10

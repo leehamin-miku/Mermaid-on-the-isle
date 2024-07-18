@@ -7071,6 +7071,14 @@ PrefabInstance:
       propertyPath: m_InstanceId
       value: -1352
       objectReference: {fileID: 0}
+    - target: {fileID: -154096802025730655, guid: 2451b7c925f64ca498db36253b99f5ea, type: 3}
+      propertyPath: strength
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -154096802025730655, guid: 2451b7c925f64ca498db36253b99f5ea, type: 3}
+      propertyPath: maxStrenth
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 474602149339255915, guid: 2451b7c925f64ca498db36253b99f5ea, type: 3}
       propertyPath: m_Name
       value: BreakwaterMaker

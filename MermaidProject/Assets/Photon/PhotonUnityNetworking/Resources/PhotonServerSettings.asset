@@ -76,6 +76,10 @@ MonoBehaviour:
   - SetTimeMark
   - StartNextDialogue
   - ChangeStrength
+  - StopAllCoAndNextScript
+  - VNNextSript
+  - StartVN
+  - VNNextScript
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

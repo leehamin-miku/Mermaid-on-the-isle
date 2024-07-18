@@ -102,7 +102,7 @@ public class ChattingManager : MonoBehaviour
     public void SystemChatting(string context)
     {
 
-        print(MaxChatLogLine(chatDisplay.text));
+        //print(MaxChatLogLine(chatDisplay.text));
         if (MaxChatLogLine(chatDisplay.text) >= 7)
         {
             chatDisplay.text = chatDisplay.text.Substring(chatDisplay.text.IndexOf('\n') + 1);
