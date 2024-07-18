@@ -280,6 +280,7 @@ public class VNManager : MonoBehaviourPunCallbacks
         foreach (CoroutineAbs co in coList)
         {
             StopCoroutine(co.co);
+            co.EndAction();
         }
         coList.Clear();
         VNNextScript();
