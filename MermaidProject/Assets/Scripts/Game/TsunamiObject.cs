@@ -7,7 +7,13 @@ using UnityEngine;
 
 public class TsunamiObject : MonoBehaviour
 {
-    public Vector3 FlowerLocate = new Vector3(8, -134, 0);
+
+
+    public Vector3 FlowerLocate;
+    private void Awake()
+    {
+        FlowerLocate = GameObject.Find("Island").transform.position;
+    }
     Vector3 TsunamiLocateFromFlower;
     List<GameObject> tsunamiList = new List<GameObject>();
     public float interTime = 0f;
@@ -17,15 +23,20 @@ public class TsunamiObject : MonoBehaviour
         this.TsunamiLocateFromFlower = TsunamiLocateFromFlower;
         this.interTime = interTime;
         Vector3 TsunamiPosition = FlowerLocate + TsunamiLocateFromFlower;
-        Vector3 direction = FlowerLocate - TsunamiPosition;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-        Quaternion rotation = Quaternion.Euler(0, 0, angle);
-        tsunamiList.Add(PhotonNetwork.Instantiate("Prefab/Game/TsunamiDrop", TsunamiPosition, rotation));
-
-        for (int i = 1; i < amount; i++)
+        if (amount > 0)
         {
-            SummonNextTsunami(TsunamiPosition, rotation, i, angle);
+            
+            Vector3 direction = FlowerLocate - TsunamiPosition;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+            Quaternion rotation = Quaternion.Euler(0, 0, angle);
+            tsunamiList.Add(PhotonNetwork.Instantiate("Prefab/Game/TsunamiDrop", TsunamiPosition, rotation));
+
+            for (int i = 1; i < amount; i++)
+            {
+                SummonNextTsunami(TsunamiPosition, rotation, i, angle);
+            }
         }
+        
     }
 
     // 쓰나미 나머지 소환
@@ -52,7 +63,7 @@ public class TsunamiObject : MonoBehaviour
     {
         foreach(GameObject go in tsunamiList)
         {
-            go.GetComponent<TsunamiDrop>().rb.AddForce(-TsunamiLocateFromFlower*5, ForceMode2D.Impulse);
+            go.GetComponent<TsunamiDrop>().rb.AddForce(-TsunamiLocateFromFlower, ForceMode2D.Impulse);
         }
     }
     public void DestroyTsunami()

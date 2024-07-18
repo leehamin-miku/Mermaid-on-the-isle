@@ -14,13 +14,17 @@ public class Teleporter : Block
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Block>().BlockCode == 0)
+        if (collision.GetComponent<Block>() != null)
         {
-            this.collision = collision;
-            if (collision.GetComponent<Block>().PV.IsMine)
+            if (collision.GetComponent<Block>().BlockCode == 0)
             {
-                TransitionManager.Instance().onTransitionCutPointReached += TransitionTeleportFuc;
-                TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().rectangleGrid, 0f);
+                
+                if (collision.GetComponent<Block>().PV.IsMine)
+                {
+                    this.collision = collision;
+                    TransitionManager.Instance().onTransitionCutPointReached += TransitionTeleportFuc;
+                    TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().rectangleGrid, 0f);
+                }
             }
         }
     }

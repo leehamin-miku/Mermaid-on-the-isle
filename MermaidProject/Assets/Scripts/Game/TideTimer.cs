@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TideTimer : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class TideTimer : MonoBehaviour
             {
                 tsunami.GetComponent<TsunamiObject>().DestroyTsunami();
             }
+            DestroyMap();
             GameObject.Find("VN").GetComponent<VNManager>().PV.RPC("StartNextDialogue", RpcTarget.All);
         }
     }
@@ -45,7 +47,63 @@ public class TideTimer : MonoBehaviour
     public void TimeSetAndStart(int totalTime)
     {
         nowTime = 0;
+        BuildMap();
         this.totalTime = totalTime;
         StartCoroutine(TimerFuc());
+    }
+
+    //조개 배치하는 함수(마스터만 실행)
+    void BuildMap()
+    {
+        GameObject[] goArr = FindObjectsOfType<GameObject>();
+        foreach (GameObject go in goArr)
+        {
+            if (go.GetComponent<Block>() != null)
+            {
+                go.GetComponent<Block>().isRunning = true;
+
+            }
+        }
+
+
+        int a = 30;
+        while (a > 0)
+        {
+            Vector3 position = Random.insideUnitSphere * 40 + GameObject.Find("Island").transform.position;
+            if (Physics2D.Raycast(new Vector2(position.x, position.y), Vector2.down, 0.01f, LayerMask.GetMask("Sea")) == true && Physics2D.Raycast(new Vector2(position.x, position.y), Vector2.down, 0.01f, LayerMask.GetMask("Island")) == false)
+            {
+                a--;
+                PhotonNetwork.Instantiate("Prefab/Game/Shell", new Vector3(position.x, position.y), Quaternion.identity);
+            }
+
+        }
+        //Debug.Log(LayerMask.GetMask("Block"));
+        //Debug.Log(LayerMask.GetMask("Sea"));
+        //Debug.Log(LayerMask.GetMask("Island"));
+        //Vector3 position = Random.insideUnitSphere * 40 + GameObject.Find("Island").transform.position;
+        //Debug.Log(new Vector2(position.x, position.y));
+        //Debug.Log(Physics2D.Raycast(new Vector2(position.x, position.y), Vector2.down, 0.01f, LayerMask.GetMask("Sea")) == true);
+        //Debug.Log(Physics2D.Raycast(new Vector2(position.x, position.y), Vector2.down, 0.01f, LayerMask.GetMask("Island")) == false);
+
+    }
+
+    void DestroyMap()
+    {
+        GameObject[] goArr = FindObjectsOfType<GameObject>();
+        foreach(GameObject go in goArr)
+        {
+            if (go.GetComponent<Block>() != null)
+            {
+                go.GetComponent<Block>().isRunning = false;
+                {
+
+                }
+                if (Physics2D.Raycast(go.transform.position, Vector3.down, 0.01f, LayerMask.GetMask("Sea")) == true && Physics2D.Raycast(go.transform.position, Vector3.down, 0.01f, LayerMask.GetMask("Island")) == false)
+                {
+                    PhotonNetwork.Destroy(go);
+                }
+                    
+            }
+        }
     }
 }

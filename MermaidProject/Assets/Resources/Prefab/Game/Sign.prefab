@@ -102,6 +102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
-  a: 430
+  a: 450.7
   width: 385
   height: 208

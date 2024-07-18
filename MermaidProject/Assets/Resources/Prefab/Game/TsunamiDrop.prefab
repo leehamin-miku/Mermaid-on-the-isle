@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6120730068222146961}
   - component: {fileID: 6612870773202436055}
   - component: {fileID: 3627691419546257668}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TsunamiDrop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -185,7 +185,7 @@ MonoBehaviour:
   BlockCode: 50
   rb: {fileID: 6612870773202436055}
   strength: 0
-  mass: 5
+  mass: 1
   drag: 0
   angularDrag: 0
   p1: {fileID: 0}
@@ -233,7 +233,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 10
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -256,17 +256,17 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 0.24041754, g: 0.23529409, b: 0.85882354, a: 1}
-      key1: {r: 0.24041754, g: 0.23529409, b: 0.85882354, a: 0.36078432}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
+      key1: {r: 0.14618191, g: 0.39237878, b: 0.4245283, a: 0.36078432}
+      key2: {r: 0.24041754, g: 0.23529409, b: 0.85882354, a: 0}
+      key3: {r: 0.24041754, g: 0.23529409, b: 0.85882354, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
+      ctime0: 3662
+      ctime1: 31418
+      ctime2: 48959
+      ctime3: 65535
       ctime4: 0
       ctime5: 0
       ctime6: 0
@@ -281,7 +281,7 @@ TrailRenderer:
       atime7: 0
       m_Mode: 0
       m_ColorSpace: 0
-      m_NumColorKeys: 2
+      m_NumColorKeys: 4
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
@@ -317,7 +317,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -348,7 +348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 846720118520081813}
   - component: {fileID: 5547839062658168133}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

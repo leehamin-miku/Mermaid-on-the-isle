@@ -191,8 +191,15 @@ public class VNManager : MonoBehaviourPunCallbacks
                             tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
                             tsunami.AddComponent<TsunamiObject>();
                             tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(new Vector3(vec.x, vec.y), 10, float.Parse(a[2]));
-                            PV.RPC("AddSign", RpcTarget.All, vec+ new Vector2(GameObject.Find("IslandSquare").transform.position.x, GameObject.Find("IslandSquare").transform.position.y));
                         }
+                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
+                    } else if (int.Parse(a[0]) == 1)
+                    {
+
+                        GameObject tsunami = new GameObject();
+                        tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
+                        tsunami.AddComponent<TsunamiObject>();
+                        tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(Vector3.zero, 0, float.Parse(a[2]));
                     }
                 }
 
