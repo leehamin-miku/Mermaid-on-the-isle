@@ -1,14 +1,13 @@
-using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TsunamiDrop : TsunamiUnit
+public class Shark : TsunamiUnit
 {
-    public Vector2 TsunamiLocateFromFlower;
     public override void StartTunamiUnit()
     {
         base.StartTunamiUnit();
-        rb.AddForce(-TsunamiLocateFromFlower, ForceMode2D.Impulse);
+        //샤크 코루틴 시작
+        //인공지능 구현해야함
     }
 }

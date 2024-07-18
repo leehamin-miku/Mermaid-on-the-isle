@@ -1,10 +1,9 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-
 public class TsunamiObject : MonoBehaviour
 {
 
@@ -29,7 +28,9 @@ public class TsunamiObject : MonoBehaviour
             Vector3 direction = FlowerLocate - TsunamiPosition;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
-            tsunamiList.Add(PhotonNetwork.Instantiate("Prefab/Game/TsunamiDrop", TsunamiPosition, rotation));
+            GameObject go = PhotonNetwork.Instantiate("Prefab/Game/TsunamiDrop", TsunamiPosition, rotation);
+            go.GetComponent<TsunamiDrop>().TsunamiLocateFromFlower = TsunamiLocateFromFlower;
+            tsunamiList.Add(go);
 
             for (int i = 1; i < amount; i++)
             {
@@ -37,6 +38,23 @@ public class TsunamiObject : MonoBehaviour
             }
         }
         
+    }
+    public void SummonCreature(Vector3 TsunamiLocateFromFlower, int amount, float interTime)
+    {
+        this.TsunamiLocateFromFlower = TsunamiLocateFromFlower;
+        this.interTime = interTime;
+        Vector3 TsunamiPosition = FlowerLocate + TsunamiLocateFromFlower;
+        Vector3 direction = FlowerLocate - TsunamiPosition;
+        
+        for (int i=0; i<amount; i++)
+        {
+            Vector3 a = UnityEngine.Random.insideUnitCircle;
+            GameObject go = PhotonNetwork.Instantiate("Prefab/Game/Creature/Shark", TsunamiPosition + a, Quaternion.identity);
+            go.transform.parent = GameObject.Find("CreatureGroup").transform;
+            tsunamiList.Add(go);
+        }
+
+
     }
 
     // 쓰나미 나머지 소환
@@ -47,13 +65,17 @@ public class TsunamiObject : MonoBehaviour
         {
             TsunamiPosition.y += (a / 2) * Mathf.Sin(angle * Mathf.Deg2Rad);
             TsunamiPosition.x += (a / 2) * Mathf.Cos(angle * Mathf.Deg2Rad);
-            tsunamiList.Add(PhotonNetwork.Instantiate("Prefab/Game/TsunamiDrop", TsunamiPosition, rotation));
+            GameObject go = PhotonNetwork.Instantiate("Prefab/Game/TsunamiDrop", TsunamiPosition, rotation);
+            go.GetComponent<TsunamiDrop>().TsunamiLocateFromFlower = TsunamiLocateFromFlower;
+            tsunamiList.Add(go);
         }
         else
         {
             TsunamiPosition.y -= (a / 2) * Mathf.Sin(angle * Mathf.Deg2Rad);
             TsunamiPosition.x -= (a / 2) * Mathf.Cos(angle * Mathf.Deg2Rad);
-            tsunamiList.Add(PhotonNetwork.Instantiate("Prefab/Game/TsunamiDrop", TsunamiPosition, rotation));
+            GameObject go = PhotonNetwork.Instantiate("Prefab/Game/TsunamiDrop", TsunamiPosition, rotation);
+            go.GetComponent<TsunamiDrop>().TsunamiLocateFromFlower = TsunamiLocateFromFlower;
+            tsunamiList.Add(go);
         }
     }
 
@@ -63,7 +85,7 @@ public class TsunamiObject : MonoBehaviour
     {
         foreach(GameObject go in tsunamiList)
         {
-            go.GetComponent<TsunamiDrop>().rb.AddForce(-TsunamiLocateFromFlower, ForceMode2D.Impulse);
+            go.GetComponent<TsunamiUnit>().StartTunamiUnit();
         }
     }
     public void DestroyTsunami()

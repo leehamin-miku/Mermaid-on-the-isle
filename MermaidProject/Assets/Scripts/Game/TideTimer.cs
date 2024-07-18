@@ -34,12 +34,26 @@ public class TideTimer : MonoBehaviour
                 yield return new WaitForSeconds(tsunami.GetComponent<TsunamiObject>().interTime);
             }
 
+            yield return MonCheckCoroutine();
+
             foreach (Transform tsunami in ts)
             {
                 tsunami.GetComponent<TsunamiObject>().DestroyTsunami();
             }
             DestroyMap();
             GameObject.Find("VN").GetComponent<VNManager>().PV.RPC("StartNextDialogue", RpcTarget.All);
+        }
+    }
+
+    IEnumerator MonCheckCoroutine()
+    {
+        while (true)
+        {
+            if(GameObject.Find("CreatureGroup").transform.childCount == 0)
+            {
+                break;
+            }
+            yield return new WaitForSeconds(1f);
         }
     }
 
