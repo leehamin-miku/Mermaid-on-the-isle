@@ -1,5 +1,6 @@
 ﻿Id,ActionName,Target,Parameter
-0,Appear,Noah`5`0.9,
+1,노아,반가워요 플레이어,Noah2
+1,SmoothSpriteChange,0,Noah2
 1,노아,다음의 방법으로 본 게임의 해일이 추가됩니다,Noah2
 2,노아,"TidalAdd,,(구분)`(갯수)`(다음tidal까지의시간)",Noah2
 2,TidalAdd,,0`5`1

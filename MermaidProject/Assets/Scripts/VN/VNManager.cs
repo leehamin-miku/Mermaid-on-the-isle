@@ -36,6 +36,7 @@ public class VNManager : MonoBehaviourPunCallbacks
         ChatText = GameObject.Find("ChatText").GetComponent<TextMeshPro>();
         CharacterName = GameObject.Find("CharacterName").GetComponent<TextMeshPro>();
         ChoiceManager = AnswerGroup.GetComponent<ChoiceManager>();
+        StandingGroup = GameObject.Find("StandingGroup");
     }
 
     int i = 0;
@@ -136,7 +137,7 @@ public class VNManager : MonoBehaviourPunCallbacks
             }
             else if (ActionName == "SmoothSpriteChange")
             {
-                CoroutineAbs temp = new SmoothSpriteChange(ActionName, Target);
+                CoroutineAbs temp = new SmoothSpriteChange(Target, Parameter);
                 temp.co = StartCoroutine(temp.Action());
                 coList.Add(temp);
                 i++;
