@@ -142,8 +142,6 @@ public class StandingController : MonoBehaviour
         transform.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
         transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
 
-        yield return null;
-
     }
 }
 

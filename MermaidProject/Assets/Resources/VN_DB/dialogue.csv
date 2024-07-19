@@ -4,7 +4,7 @@
 1,노아,다음의 방법으로 본 게임의 해일이 추가됩니다,Noah2
 2,노아,"TidalAdd,,(구분)`(갯수)`(다음tidal까지의시간)",Noah2
 2,TidalAdd,,0`5`1
-2,TidalAdd,,1``10
+2,TidalAdd,,2`4`1
 2,노아,다음의 방법으로 섬으로의 이동이 성사됩니다,Noah2
 2,노아,"Island,(예상시간),(다음다이로그 이름)",Noah2
 1,Island,20,dialogueIncorrect
