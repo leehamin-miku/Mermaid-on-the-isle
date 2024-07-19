@@ -121,6 +121,7 @@ public class VNManager : MonoBehaviourPunCallbacks
             }
             else if (ActionName == "SpriteChange")
             {
+                // Target = 바뀔 오브젝트
                 // SpriteChange[0] = 이미지 링크, [1] = x좌표, [2] = y좌표, [3] = Size
                 string[] SpriteChange = Parameter.Split('`');
 
@@ -134,7 +135,8 @@ public class VNManager : MonoBehaviourPunCallbacks
             
             else if (ActionName == "Move")
             {
-                // move[0] = 1회당 이동거리, move[1] = 횟수, move[2] = 방향
+                // Target = 이동할 오브젝트
+                // Parameter[0] = 1회당 이동거리, Parameter[1] = 횟수, Parameter[2] = 방향
                 CoroutineAbs temp = new Move(Target, Parameter);
                 temp.co = StartCoroutine(temp.Action());
                 coList.Add(temp);
@@ -142,6 +144,8 @@ public class VNManager : MonoBehaviourPunCallbacks
             }
             else if (ActionName == "Jump")
             {
+                // Target = 점프할 오브젝트
+                // Parameter = 점프 힘
                 CoroutineAbs temp = new Jump(Target, Parameter);
                 temp.co = StartCoroutine(temp.Action());
                 coList.Add(temp);
@@ -149,6 +153,8 @@ public class VNManager : MonoBehaviourPunCallbacks
             }
             else if (ActionName == "Emotion")
             {
+                // Target = 이모션 버블 오브젝트
+                // Parameter[0] = 이모션 할 오브젝트, Parameter[1] = 사용할 스프라이트
                 CoroutineAbs temp = new Emotion(Target, Parameter);
                 temp.co = StartCoroutine(temp.Action());
                 coList.Add(temp );
@@ -161,6 +167,8 @@ public class VNManager : MonoBehaviourPunCallbacks
             }
             else if (ActionName == "SmoothSpriteChange")
             {
+                // Target = 바뀌는 오브젝트
+                // Parameter = 바뀔 이미지의 이름
                 CoroutineAbs temp = new SmoothSpriteChange(Target, Parameter);
                 temp.co = StartCoroutine(temp.Action());
                 coList.Add(temp);
