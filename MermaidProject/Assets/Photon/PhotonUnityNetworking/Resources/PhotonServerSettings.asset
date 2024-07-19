@@ -45,6 +45,44 @@ MonoBehaviour:
   - LightOn
   - LightOff
   - Teleport
+  - GiveOwner
+  - isBuildingFuc
+  - PVFucIsBuilding
+  - PVFucIsGrabed
+  - PVFucIsNotBuilding
+  - PVFucIsNotGrabed
+  - GiveMineToMaster
+  - StartCartoon
+  - StopCartoon
+  - SkipOff
+  - SkipOn
+  - VNStart
+  - PVStartVN
+  - DownAction
+  - VNEndSub
+  - VNStartSub
+  - chatting
+  - Chatting
+  - isMakingFuc
+  - DestroyFuc
+  - IsOnSaleFuc
+  - MoneyChange
+  - MoneyMark
+  - MoneyMarkRequest
+  - BuyThisItem
+  - SystemChatting
+  - ArrangeSubFuc
+  - AddSign
+  - SetTimeMark
+  - StartNextDialogue
+  - ChangeStrength
+  - StopAllCoAndNextScript
+  - VNNextSript
+  - StartVN
+  - VNNextScript
+  - DurabilityChange
+  - ChangeHp
+  - AddRB
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

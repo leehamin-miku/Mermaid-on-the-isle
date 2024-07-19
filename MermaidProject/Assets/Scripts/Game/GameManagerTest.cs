@@ -8,6 +8,7 @@ public class GameManagerTest : MonoBehaviourPunCallbacks
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+        
     }
     public override void OnConnectedToMaster()
     {
@@ -27,7 +28,7 @@ public class GameManagerTest : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        GameObject Pl = PhotonNetwork.Instantiate("Prefab/Game/Player", Vector3.zero, Quaternion.identity);
+        GameObject Pl = PhotonNetwork.Instantiate("Prefab/Game/Player", new Vector3(0, -103, 0), Quaternion.identity);
         Pl.GetComponent<Rigidbody2D>().AddForce(Random.insideUnitCircle * 30, ForceMode2D.Impulse);
     }
     }

@@ -9,6 +9,9 @@ public class palette : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.GetComponent<PlayerController>().PV.RPC("ChangeColor", RpcTarget.AllBuffered, a);
+        if (collision.GetComponent<PlayerController>() != null)
+        {
+            collision.GetComponent<PlayerController>().PV.RPC("ChangeColor", RpcTarget.AllBuffered, a);
+        }
     }
 }

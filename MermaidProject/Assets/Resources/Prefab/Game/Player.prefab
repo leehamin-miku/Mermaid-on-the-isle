@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 4407559262850227530}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
-  m_SynchronizeRotation: 0
+  m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
 --- !u!58 &2499623592074690631
@@ -299,7 +299,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 5
-  m_AngularDrag: 15
+  m_AngularDrag: 30
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -324,17 +324,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64870c74b6d0db6468ae51337654f94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReady: 0
-  coolTime: 0
+  isRunning: 1
+  isInUse: 0
+  isGrabed: 0
   BlockCode: 0
   rb: {fileID: 0}
   strength: 0
+  maxStrenth: 0
   mass: 1
   drag: 5
   angularDrag: 15
   p1: {fileID: 0}
   isAbleGrabed: 0
   PV: {fileID: 520826043651063484}
+  colorNumber: 0
+  isAbleMove: 1
+  isFocusOnChattingInputField: 0
   red: {r: 0.69803923, g: 0, b: 0.06666667, a: 1}
   yellow: {r: 0.86274517, g: 1, b: 0, a: 1}
   green: {r: 0.15294118, g: 0.9450981, b: 0.054901965, a: 1}
@@ -353,7 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 1
+  m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 1
   m_TeleportIfDistanceGreaterThan: 3
 --- !u!255 &-3593879409321100447
@@ -410,7 +415,7 @@ MonoBehaviour:
   - {x: -0.19206458, y: -0.48428023, z: 0}
   m_ShapePathHash: -1369364698
   m_Mesh: {fileID: 0}
-  m_InstanceId: 50298
+  m_InstanceId: 41670
   m_LocalBounds:
     m_Center: {x: 0.00251472, y: -0.010900736, z: 0}
     m_Extent: {x: 0.5314629, y: 0.50822955, z: 0}
