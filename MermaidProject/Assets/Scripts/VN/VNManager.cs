@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Photon.Pun;
+using Unity.VisualScripting;
 
 public class VNManager : MonoBehaviourPunCallbacks
 {
@@ -10,7 +11,7 @@ public class VNManager : MonoBehaviourPunCallbacks
     public string nextDialogue = "dialogue";
 
     public List<CoroutineAbs> coList = new List<CoroutineAbs>();
-    
+
     public static GameObject StandingGroup;
     public GameObject AnswerGroup;
 
@@ -26,7 +27,7 @@ public class VNManager : MonoBehaviourPunCallbacks
 
     int page = 0;
 
-    bool isSkip;
+    public bool isEnd = false;
     public bool VNRunning;
 
     int Skip;
@@ -83,16 +84,16 @@ public class VNManager : MonoBehaviourPunCallbacks
 
     public void VNNextScript()
     {
-        
+
         // Resources 폴더 내에 있는 dialogue 파일을 List 형태로 불러옴(CSV Reader 이용)
- 
+
         string ActionName = null;
         string Target = null;
         string Parameter = null;
         string[] Questions = new string[5];
         while (true)
         {
-            
+
             ActionName = Dialogue[i]["ActionName"].ToString();
             Target = Dialogue[i]["Target"].ToString();
             Parameter = Dialogue[i]["Parameter"].ToString();
@@ -128,6 +129,29 @@ public class VNManager : MonoBehaviourPunCallbacks
                 StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/" + SpriteChange[0]);
                 StandingGroup.transform.GetChild(int.Parse(Target)).transform.localScale = Scale;
                 StandingGroup.transform.GetChild(int.Parse(Target)).transform.position = spawnPosition;
+                i++;
+            }
+            
+            else if (ActionName == "Move")
+            {
+                // move[0] = 1회당 이동거리, move[1] = 횟수, move[2] = 방향
+                CoroutineAbs temp = new Move(Target, Parameter);
+                temp.co = StartCoroutine(temp.Action());
+                coList.Add(temp);
+                i++;
+            }
+            else if (ActionName == "Jump")
+            {
+                CoroutineAbs temp = new Jump(Target, Parameter);
+                temp.co = StartCoroutine(temp.Action());
+                coList.Add(temp);
+                i++;
+            }
+            else if (ActionName == "Emotion")
+            {
+                CoroutineAbs temp = new Emotion(Target, Parameter);
+                temp.co = StartCoroutine(temp.Action());
+                coList.Add(temp );
                 i++;
             }
             else if (ActionName == "Exit")
@@ -233,7 +257,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                 i++;
                 break;
             }
-            
+
         }
 
         if (VNRunning == false)
@@ -253,9 +277,9 @@ public class VNManager : MonoBehaviourPunCallbacks
     /// <param name="narration"></param>
     /// <returns></returns>
     /// 
-    
 
-    
+
+
     //마스터만 이걸 실행하도록 하세요.
     IEnumerator MasterController()
     {
@@ -277,7 +301,7 @@ public class VNManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void StopAllCoAndNextScript()
     {
-        
+
         foreach (CoroutineAbs co in coList)
         {
             StopCoroutine(co.co);
@@ -322,7 +346,7 @@ public class VNManager : MonoBehaviourPunCallbacks
     {
         string narrator;
         string narration;
-        
+
         public NormalChat(string narrator, string narration)
         {
             this.narrator = narrator;
@@ -390,11 +414,144 @@ public class VNManager : MonoBehaviourPunCallbacks
         }
         override public void EndAction()
         {
-            StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/" + Parameter); ;
+            StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/" + Parameter);
             StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
             StandingGroup.transform.GetChild(int.Parse(Target)).GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
         }
     }
 
+    public class Move : CoroutineAbs
+    {
+        public bool isEnd = false;
+        string Parameter;
+        string Target;
+        string[] move;
+        Vector3 startPosition;
+        Vector3 EndPosition;
 
+        public Move(string Target, string Parameter)
+        {
+            // move[0] = 1회당 이동거리, move[1] = 횟수, move[2] = 방향
+            this.Target = Target;
+            this.Parameter = Parameter;
+            move = Parameter.Split('`');
+            startPosition = StandingGroup.transform.GetChild(int.Parse(Target)).transform.position;
+            EndPosition = startPosition + new Vector3(int.Parse(move[0]) * int.Parse(move[1]) * int.Parse(move[2]), 0, 0);
+        }
+
+        public override IEnumerator Action()
+        {
+            float acceleration = 0.05f, velocity = 0;
+            for (int i = 1; i <= int.Parse(move[1]); i++)
+            {
+                while (true)
+                {
+                    // 양의 방향으로 가면서 StartPosition + 1회 이동거리보다 커질 때 or 음의 방향으로 가면서 StartPosition - 1회 이동거리보다 작아질 때 break
+                    if ((StandingGroup.transform.GetChild(int.Parse(Target)).transform.position.x >= startPosition.x + float.Parse(move[0]) * float.Parse(move[2]) / 2) && move[2] == "1") break;
+                    else if ((StandingGroup.transform.GetChild(int.Parse(Target)).transform.position.x <= startPosition.x + float.Parse(move[0]) * float.Parse(move[2]) / 2) && move[2] == "-1") break;
+                    else velocity += Time.deltaTime * acceleration;
+                    StandingGroup.transform.GetChild(int.Parse(Target)).transform.position += velocity * new Vector3(int.Parse(move[2]), 0, 0);
+                    yield return null;
+                }
+                while (true)
+                {
+                    if (StandingGroup.transform.GetChild(int.Parse(Target)).transform.position.x >= startPosition.x + float.Parse(move[0]) * float.Parse(move[2]) && move[2] == "1") break;
+                    else if (StandingGroup.transform.GetChild(int.Parse(Target)).transform.position.x <= startPosition.x + float.Parse(move[0]) * float.Parse(move[2]) && move[2] == "-1") break;
+                    else if (velocity <= 0) break;
+                    else velocity -= Time.deltaTime * acceleration;
+                    StandingGroup.transform.GetChild(int.Parse(Target)).transform.position += velocity * new Vector3(int.Parse(move[2]), 0, 0);
+                    yield return null;
+                }
+                StandingGroup.transform.GetChild(int.Parse(Target)).transform.position = startPosition + new Vector3(int.Parse(move[0]) * int.Parse(move[2]), 0, 0);
+                startPosition = StandingGroup.transform.GetChild(int.Parse(Target)).transform.position;
+                velocity = 0;
+                yield return new WaitForSeconds(0.3f);
+            }
+        }
+
+        override public void EndAction()
+        {
+            StandingGroup.transform.GetChild(int.Parse(Target)).transform.position = EndPosition;
+        }
+    }
+
+    public class Jump : CoroutineAbs
+    {
+        // parameter = 점프시 가속도 = 높이를 조절함
+        string Parameter;
+        string Target;
+        Vector3 startPosition;
+
+        public Jump(string Target, string Parameter)
+        {
+            this.Target = Target;
+            this.Parameter = Parameter;
+            startPosition = StandingGroup.transform.GetChild(int.Parse(Target)).transform.position;
+        }
+
+        public override IEnumerator Action()
+        {
+            float acceleration = float.Parse(Parameter);
+            float gravityAcceleration = 9.8f;
+            while (acceleration > 0)
+            {
+                StandingGroup.transform.GetChild(int.Parse(Target)).transform.position += new Vector3(0, acceleration * Time.deltaTime, 0);
+                acceleration -= gravityAcceleration * Time.deltaTime;
+                yield return null;
+            }
+            while (StandingGroup.transform.GetChild(int.Parse(Target)).transform.position.y >= startPosition.y)
+            {
+                StandingGroup.transform.GetChild(int.Parse(Target)).transform.position -= new Vector3(0, acceleration * Time.deltaTime, 0);
+                acceleration += gravityAcceleration * Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        override public void EndAction()
+        {
+            StandingGroup.transform.GetChild(int.Parse(Target)).transform.position = startPosition;
+        }
+
+    }
+
+    public class Emotion : CoroutineAbs
+    {
+        string Parameter;
+        string Target;
+        string[] Bubble;
+        public Emotion(string Target, string Parameter)
+        {
+            this.Target = Target;
+            this.Parameter = Parameter;
+            // Bubble[0] = 표현하는 스탠딩 번호, Bubble[1] = 사용할 스프라이트
+            Bubble = Parameter.Split(',');
+        }
+
+        public override IEnumerator Action()
+        {
+            StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/" + Bubble[1]);
+            StandingGroup.transform.GetChild(int.Parse(Target)).position = StandingGroup.transform.GetChild(int.Parse(Bubble[0])).position + new Vector3(-1, 1, 0);
+            StandingGroup.transform.GetChild(int.Parse(Target)).rotation = Quaternion.Euler(new Vector3(0, 0, 25));
+            StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+            while (StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color.a <=1)
+            {
+                StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color =
+                    new Color(1, 1, 1, StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color.a + Time.deltaTime / .1f);
+                yield return null;
+            }
+            yield return new WaitForSeconds(2f);
+            while (StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color.a > 0)
+            {
+                StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color =
+                    new Color(1, 1, 1, StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color.a - Time.deltaTime / .3f);
+                yield return null;
+            }
+            StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = null;
+        }
+
+        override public void EndAction()
+        {
+            StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = null;
+        }
+    }
 }
