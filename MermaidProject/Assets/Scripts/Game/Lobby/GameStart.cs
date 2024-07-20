@@ -19,7 +19,9 @@ public class GameStart : MonoBehaviour
             list.Add(collision.GetComponent<PlayerController>());
             if (PhotonNetwork.CurrentRoom.PlayerCount == list.Count && DuplicationCheck(list) == false)
             {
+                PhotonNetwork.CurrentRoom.IsOpen = false;
                 GameObject.Find("VN").GetComponent<VNManager>().StartNextDialogue();
+                GameObject.Find("TotalMoney").GetPhotonView().RPC("MoneyChange", RpcTarget.MasterClient, 0);
             }
         }
     }

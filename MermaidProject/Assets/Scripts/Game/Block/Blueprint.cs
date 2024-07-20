@@ -8,57 +8,52 @@ public class Blueprint : Block
 {
     public List<int> needs;
     public List<GameObject> haveBlock = new List<GameObject>();
-    public GameObject structure;
-    public Hammer hammer;
-    public bool isBuilding;
+    public string structure;
 
-
-    public bool CheckIsAbleBuild()
+    public override IEnumerator RunningCoroutine()
     {
+        while(true){
+            if (CheckIsAbleBuild())
+            {
+                int a = haveBlock.Count;
+                for (int i = 0; i < a; i++)
+                {
+                    PhotonNetwork.Destroy(haveBlock[0]);
+                }
+                PhotonNetwork.Instantiate("Prefab/Game/" + structure, transform.position, transform.rotation).GetComponent<Block>().StartObject();
+                PhotonNetwork.Destroy(this.gameObject);
+            }
+            yield return null;
+        }
+    }
+    bool CheckIsAbleBuild()
+    {
+        
+        if(isAbleGrabed == false)
+        {
+            return false;
+        }
+
         List<int> list = new List<int>();
         foreach (GameObject go in haveBlock)
         {
+            if (go.GetComponent<Block>().isGrabed)
+            {
+                return false;
+            }
             list.Add(go.GetComponent<Block>().BlockCode);
         }
 
         list.Sort();
-        return list.SequenceEqual(needs) && isBuilding==false && isGrabed==false;
+        return list.SequenceEqual(needs) && isGrabed==false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         haveBlock.Add(collision.gameObject);
-        if(hammer != null)
-        {
-            hammer.StopBuilding();
-            PV.RPC("PVFucIsNotBuilding", RpcTarget.All);
-            hammer = null;
-        }
     }
     void OnTriggerExit2D(Collider2D collision)
     {
         haveBlock.Remove(collision.gameObject);
-        if (hammer != null)
-        {
-            hammer.StopBuilding();
-            PV.RPC("PVFucIsNotBuilding", RpcTarget.All);
-            hammer = null;
-        }
-    }
-
-
-    //이것이 제작중이라고 모든플레이어에게 선언하는 함수
-    [PunRPC]
-    public void PVFucIsBuilding()
-    {
-        isBuilding = true;
-        isAbleGrabed = false;
-        
-    }
-    [PunRPC]
-    public void PVFucIsNotBuilding()
-    {
-        isBuilding = false;
-        isAbleGrabed = true;
     }
 }

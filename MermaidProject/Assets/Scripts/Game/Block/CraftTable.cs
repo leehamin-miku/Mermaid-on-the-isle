@@ -18,7 +18,6 @@ public class CraftTable : Block
 
 
     [SerializeField] List<int> inputList = new List<int>();
-    bool isMaking = false;
     float a = 0;
     [SerializeField] List<int> SwordRecipe = new List<int>() {1, 2, 2};
     public override void CollisionEnterAction(Collision2D collision)
@@ -30,37 +29,43 @@ public class CraftTable : Block
                 collision.collider.GetComponent<Block>().BlockCode == 3)
             {
                 inputList.Add(collision.collider.GetComponent<Block>().BlockCode);
+                inputList.Sort();
                 PV.RPC("IngredientMarkChange", RpcTarget.All, inputList.Count - 1, collision.collider.GetComponent<Block>().BlockCode);
                 collision.gameObject.GetComponent<Block>().PV.RPC("DestroyFuc", RpcTarget.All);
-                if (inputList.Count == 3)
-                {
-                    StartCoroutine(MakeItem());
-                }
             }
         }
     }
 
-    IEnumerator MakeItem()
+    public override IEnumerator RunningCoroutine()
     {
-        inputList.Sort();
-        while (a < 10f&&isRunning){
-            transform.GetChild(5).Rotate(new Vector3(0, 0, Time.deltaTime * 200));
-            a += Time.deltaTime;
+        while (true)
+        {
+            
+            if (inputList.Count >= 3)
+            {
+                a += Time.deltaTime;
+                
+                transform.GetChild(5).Rotate(new Vector3(0, 0, Time.deltaTime * 200));
+                if (a >= 20f)
+                {
+                    a = 0;
+                    if (inputList.SequenceEqual(SwordRecipe))
+                    {
+                        Debug.Log("칼 제작 완료");
+                        PhotonNetwork.Instantiate("Prefab/Game/Sword", transform.position - transform.up, transform.rotation);
+                    }
+                    else
+                    {
+                        Debug.Log("레시피에 없는 제작법");
+                    }
+                    a = 0;
+                    PV.RPC("InitIngredientMark", RpcTarget.All);
+                    inputList.Clear();
+                }
+            }
             yield return null;
         }
-
-        if (inputList.SequenceEqual(SwordRecipe))
-        {
-            Debug.Log("칼 제작 완료");
-            PhotonNetwork.Instantiate("Prefab/Game/Sword", transform.position - transform.up, transform.rotation);
-        }
-        else
-        {
-            Debug.Log("레시피에 없는 제작법");
-        }
-        a = 0;
-        PV.RPC("InitIngredientMark", RpcTarget.All);
-        inputList.Clear();
+        
     }
 
     //전체실행

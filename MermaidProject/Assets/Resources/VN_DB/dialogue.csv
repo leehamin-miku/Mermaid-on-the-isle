@@ -2,12 +2,17 @@
 1,노아,반가워요 플레이어,Noah2
 1,SmoothSpriteChange,0,Noah2
 1,노아,다음의 방법으로 본 게임의 해일이 추가됩니다,Noah2
-2,노아,"TidalAdd,,(구분)`(갯수)`(다음tidal까지의시간)",Noah2
-2,TidalAdd,,0`5`1
-2,TidalAdd,,1`0`10
+2,노아,"AddTide,,(구분)`(갯수)`(다음tidal까지의시간)",Noah2
+2,AddTide,,0`5`1
+2,AddTide,,1`0`10
+2,노아,다음의 방법으로 상점에 아이템이 추가됩니다,Noah2
+2,노아,"AddShopItem,,(프리팹이름)",Noah2
+2,AddShopItem,,Brick2
+2,AddShopItem,,Brick1
+2,AddShopItem,,BM2Blueprint
 2,노아,다음의 방법으로 섬으로의 이동이 성사됩니다,Noah2
 2,노아,"Island,(예상시간),(다음다이로그 이름)",Noah2
-1,Island,180,dialogueIncorrect
+1,Island,10,dialogueIncorrect
 
 3,SpriteChange1,0,Morgana`0`0`0.9
 4,Effect,0,NormalMove`1`1`1

@@ -151,7 +151,7 @@ public class PlayerController : Block
             }
             if (hit.collider == null)
             {
-                hit = Physics2D.Raycast(transform.position, transform.up, 1.5f, LayerMask.GetMask("BluePrint"));
+                hit = Physics2D.Raycast(transform.position, transform.up, 1.5f, LayerMask.GetMask("Blueprint"));
             }
             if (hit.collider == null)
             {

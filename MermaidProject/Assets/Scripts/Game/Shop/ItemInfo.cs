@@ -24,6 +24,7 @@ public class ItemInfo : MonoBehaviour
                 {
                     GameObject.Find("TotalMoney").GetComponent<MoneyManager>().PV.RPC("MoneyChange", RpcTarget.MasterClient, -price);
                     PV.RPC("BuyThisItem", RpcTarget.All);
+                    item.GetComponent<Block>().PV.RPC("StartObject", RpcTarget.MasterClient);
                 }
             }
         }
@@ -53,10 +54,6 @@ public class ItemInfo : MonoBehaviour
         transform.GetChild(0).GetComponent<TextMeshPro>().text = "sold out";
         item.GetComponent<Block>().rb.isKinematic = false;
         item.GetComponent<Block>().isAbleGrabed = true;
-        if(item.GetComponent<Blueprint>() != null)
-        {
-            item.GetComponent<Blueprint>().isBuilding = false;
-        }
         item = null;
         subBool = false;
     }

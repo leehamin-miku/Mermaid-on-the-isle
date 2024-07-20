@@ -19,6 +19,8 @@ public class Block : MonoBehaviourPunCallbacks
     public PlayerController p1 = null;
     public bool isAbleGrabed;
     public PhotonView PV;
+
+    Coroutine runningCoroutine;
     public virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,7 +41,23 @@ public class Block : MonoBehaviourPunCallbacks
     {
         isInUse = false;
     }
+    //master에서 실행하는 코루틴!! 모든 함수가 시작 할때 다음 코루틴을 실행함
+    public virtual IEnumerator RunningCoroutine()
+    {
+        yield return null;
+    }
 
+    //마스터에서 실행됨
+    //러닝/비러닝 구분이 필요없는 아이템은 그냥 update를 사용할것
+    [PunRPC]
+    public void StartObject()
+    {
+        runningCoroutine = StartCoroutine(RunningCoroutine());
+    }
+    public void StopObject()
+    {
+        StopCoroutine(runningCoroutine);
+    }
 
     public void Grabed(PlayerController p1)
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Photon.Pun;
 using Unity.VisualScripting;
+using Photon.Pun.Demo.Procedural;
 
 public class VNManager : MonoBehaviourPunCallbacks
 {
@@ -132,7 +133,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                 StandingGroup.transform.GetChild(int.Parse(Target)).transform.position = spawnPosition;
                 i++;
             }
-            
+
             else if (ActionName == "Move")
             {
                 // Target = 이동할 오브젝트
@@ -157,7 +158,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                 // Parameter[0] = 이모션 할 오브젝트, Parameter[1] = 사용할 스프라이트
                 CoroutineAbs temp = new Emotion(Target, Parameter);
                 temp.co = StartCoroutine(temp.Action());
-                coList.Add(temp );
+                coList.Add(temp);
                 i++;
             }
             else if (ActionName == "Exit")
@@ -185,9 +186,13 @@ public class VNManager : MonoBehaviourPunCallbacks
                 nextDialogue = Parameter;
                 VNRunning = false;
                 i++;
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    PhotonNetwork.CurrentRoom.IsOpen = true;
+                }
                 break;
             }
-            else if (ActionName == "TidalAdd")
+            else if (ActionName == "AddTide")
             {
                 if (PhotonNetwork.IsMasterClient)
                 {
@@ -249,12 +254,27 @@ public class VNManager : MonoBehaviourPunCallbacks
                     GameObject.Find("Shop").GetComponent<Shop>().InitializeShop();
                     GameObject.Find("TideTimer").GetComponent<TideTimer>().TimeSetAndStart(int.Parse(Target));
                     nextDialogue = Parameter;
+
+                    GameObject[] temp = FindObjectsOfType<GameObject>();
+                    foreach (GameObject go in temp)
+                    {
+                        if (go.GetComponent<Block>() != null)
+                        {
+                            go.GetComponent<Block>().StartObject();
+                        }
+                    }
                 }
                 GameObject.Find("TideTimer").GetComponent<TideTimer>().totalTime = int.Parse(Target);
                 PlayerController.transform.position += GameObject.Find("IslandSquare").transform.position - GameObject.Find("LobbySquare").transform.position;
                 VNRunning = false;
                 i++;
                 break;
+            }
+            else if (ActionName == "AddShopItem")
+            {
+                GameObject.Find("Shop").GetComponent<Shop>().shopItemList.Add(Parameter);
+
+                i++;
             }
             else
             {
@@ -541,7 +561,7 @@ public class VNManager : MonoBehaviourPunCallbacks
             StandingGroup.transform.GetChild(int.Parse(Target)).position = StandingGroup.transform.GetChild(int.Parse(Bubble[0])).position + new Vector3(-1, 1, 0);
             StandingGroup.transform.GetChild(int.Parse(Target)).rotation = Quaternion.Euler(new Vector3(0, 0, 25));
             StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
-            while (StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color.a <=1)
+            while (StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color.a <= 1)
             {
                 StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color =
                     new Color(1, 1, 1, StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().color.a + Time.deltaTime / .1f);
