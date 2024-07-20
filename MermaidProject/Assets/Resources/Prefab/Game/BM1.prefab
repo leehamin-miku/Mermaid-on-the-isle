@@ -187,10 +187,10 @@ MonoBehaviour:
   isRunning: 1
   isInUse: 0
   isGrabed: 0
-  BlockCode: 30
+  BlockCode: 15
   rb: {fileID: 0}
-  strength: 0
-  maxStrenth: 0
+  strength: 15
+  maxStrenth: 30
   mass: 3
   drag: 3
   angularDrag: 3

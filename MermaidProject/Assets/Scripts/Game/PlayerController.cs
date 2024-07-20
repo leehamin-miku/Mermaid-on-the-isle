@@ -28,7 +28,9 @@ public class PlayerController : Block
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         
+
         if (PV.IsMine) {
+            GameObject.Find("TotalMoney").GetComponent<MoneyManager>().PV.RPC("MoneyMarkRequest", RpcTarget.MasterClient);
             GameObject.Find("VN").GetComponent<VNManager>().PlayerController = this;
             GameObject.Find("GameManager").GetComponent<ChattingManager>().PlayerController = this;
             GameObject.Find("GameManager").GetComponent<ChattingManager>().PV.RPC("SystemChatting", RpcTarget.All,"<color=yellow>"+PhotonNetwork.NickName+"님이 입장했습니다</color>");

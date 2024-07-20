@@ -11,8 +11,8 @@ public class Block : MonoBehaviourPunCallbacks
     public bool isGrabed = false;
     public int BlockCode;
     public Rigidbody2D rb;
-    public float strength;
-    public float maxStrenth;
+    public int strength;
+    public int maxStrenth;
     public float mass;
     public float drag;
     public float angularDrag;
@@ -93,10 +93,15 @@ public class Block : MonoBehaviourPunCallbacks
 
     private void OnDestroy()
     {
-        DestroyAction();
-        if (p1 != null)
+        if (PV.IsMine)
         {
-            p1.ToggleAction();
+            Debug.Log(gameObject.name);
+            DestroyAction();
+            if (p1 != null)
+            {
+                p1.GetComponent<FixedJoint2D>().connectedBody = null;
+                p1.GetComponent<FixedJoint2D>().enabled = false;
+            }
         }
     }
 
@@ -152,7 +157,7 @@ public class Block : MonoBehaviourPunCallbacks
         }
     }
     [PunRPC]
-    public void ChangeStrength(float a)
+    public void ChangeStrength(int a)
     {
         
         strength += a;

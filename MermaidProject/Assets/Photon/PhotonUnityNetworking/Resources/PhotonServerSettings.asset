@@ -89,6 +89,7 @@ MonoBehaviour:
   - StartSwing
   - RerollShop
   - StartObject
+  - UseCountChange
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

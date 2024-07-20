@@ -21,7 +21,7 @@ public class Shark : TsunamiUnit
     {
         if (collision.collider.GetComponent<Block>() != null&& collision.collider.GetComponent<Block>().BlockCode!=0&& collision.collider.GetComponent<TsunamiUnit>() == null)
         {
-            collision.collider.GetComponent<Block>().PV.RPC("ChangeStrength", Photon.Pun.RpcTarget.All, -2f);
+            collision.collider.GetComponent<Block>().PV.RPC("ChangeStrength", Photon.Pun.RpcTarget.All, -2);
         }
     }
 

@@ -6,12 +6,18 @@ using UnityEngine;
 public class TsunamiDrop : TsunamiUnit
 {
     public Vector2 TsunamiLocateFromFlower;
+    bool isAbleAttack = true;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.GetComponent<Block>() != null && collision.collider.GetComponent<Block>().BlockCode != 0 && collision.collider.GetComponent<TsunamiUnit>() == null)
+        if (PV.IsMine)
         {
-            collision.collider.GetComponent<Block>().PV.RPC("ChangeStrength", Photon.Pun.RpcTarget.All, -2f);
+            if (collision.collider.GetComponent<Block>() != null && collision.collider.GetComponent<Block>().BlockCode != 0 && collision.collider.GetComponent<TsunamiUnit>() == null && isAbleAttack)
+            {
+                isAbleAttack = false;
+                collision.collider.GetComponent<Block>().PV.RPC("ChangeStrength", Photon.Pun.RpcTarget.All, -2);
+            }
         }
+        
     }
     public override void StartTunamiUnit()
     {

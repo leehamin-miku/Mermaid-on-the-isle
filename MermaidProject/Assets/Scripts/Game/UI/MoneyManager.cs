@@ -10,11 +10,6 @@ public class MoneyManager : MonoBehaviour
     public PhotonView PV;
     //저장대상
     public int money = 0; //모든 플레이어가 같은 money를 가지고 마스터를 기준으로 갱신
-    
-    public void Start()
-    {
-        PV.RPC("MoneyMarkRequest", RpcTarget.MasterClient);
-    }
 
     [PunRPC]
     public void MoneyChange(int a)

@@ -329,8 +329,8 @@ MonoBehaviour:
   isGrabed: 0
   BlockCode: 0
   rb: {fileID: 0}
-  strength: 0
-  maxStrenth: 0
+  strength: 100
+  maxStrenth: 100
   mass: 1
   drag: 5
   angularDrag: 15
