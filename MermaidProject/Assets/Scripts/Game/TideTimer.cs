@@ -41,6 +41,10 @@ public class TideTimer : MonoBehaviour
                 tsunami.GetComponent<TsunamiObject>().DestroyTsunami();
             }
             DestroyMap();
+            for(int i=0; i<4; i++)
+            {
+                PhotonNetwork.Destroy(GameObject.Find("Shop").transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().item);
+            }
             GameObject.Find("VN").GetComponent<VNManager>().StartNextDialogue();
         }
     }
