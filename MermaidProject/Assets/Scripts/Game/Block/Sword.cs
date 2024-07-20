@@ -16,7 +16,7 @@ public class Sword : Block
         if (isReady)
         {
             isReady = false;
-            StartCoroutine(Swing());
+            PV.RPC("StartSwing", RpcTarget.All);
             StartCoroutine(CoolTime(0.5f));
             RaycastHit2D hit = Physics2D.CircleCast(transform.position + p1.transform.up, 1.5f, p1.transform.up, 0.1f, LayerMask.GetMask("Block"));
             if (hit.collider != null)
@@ -64,6 +64,11 @@ public class Sword : Block
     //임시 코루틴
     //이거 멀티 불가능함
     //아닌가 되나
+    [PunRPC]
+    void StartSwing()
+    {
+        StartCoroutine(Swing());
+    }
     IEnumerator Swing()
     {
         float a = 0;
@@ -71,10 +76,10 @@ public class Sword : Block
         while (a < b)
         {
             a += Time.deltaTime;
-            rb.rotation = p1.rb.rotation+a;
+            transform.GetChild(0).transform.localRotation = new Quaternion(0, 0, a, 0);
             yield return null;
         }
-        rb.rotation = p1.rb.rotation;
+        transform.GetChild(0).transform.localRotation = new Quaternion(0, 0, 0, 0);
     }
     IEnumerator CoolTime(float a)
     {

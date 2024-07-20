@@ -83,6 +83,10 @@ MonoBehaviour:
   - DurabilityChange
   - ChangeHp
   - AddRB
+  - RotateGear
+  - InitIngredientMark
+  - IngredientMarkChange
+  - StartSwing
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 3117839484728254516}
   - component: {fileID: 1467750215170637730}
   - component: {fileID: 6968663579550041634}
-  - component: {fileID: 4088277787085137952}
   - component: {fileID: -5546884316113102939}
   m_Layer: 7
   m_Name: Sword
@@ -35,7 +34,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.311, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6225786448411222233}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8424819385504529361
@@ -156,13 +156,70 @@ CircleCollider2D:
   m_Offset: {x: -0.58873403, y: 1.2045604}
   serializedVersion: 2
   m_Radius: 1.5732557
---- !u!212 &4088277787085137952
-SpriteRenderer:
+--- !u!114 &-5546884316113102939
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474602149339255915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e42f379922f825147b28a82821e85ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRunning: 1
+  isInUse: 0
+  isGrabed: 0
+  BlockCode: 30
+  rb: {fileID: 0}
+  strength: 5
+  maxStrenth: 5
+  mass: 5
+  drag: 5
+  angularDrag: 0
+  p1: {fileID: 0}
+  isAbleGrabed: 1
+  PV: {fileID: 3411019273798802887}
+--- !u!1 &727165913397760316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6225786448411222233}
+  - component: {fileID: 7734139529501146041}
+  m_Layer: 7
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6225786448411222233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727165913397760316}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4922494605398922924}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &7734139529501146041
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727165913397760316}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -198,7 +255,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 23ddef3c08b28eb4b80d37807b9d6e4a, type: 3}
-  m_Color: {r: 0.03003788, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.01234436, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -208,28 +265,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-5546884316113102939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474602149339255915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e42f379922f825147b28a82821e85ad1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isRunning: 1
-  isInUse: 0
-  isGrabed: 0
-  BlockCode: 30
-  rb: {fileID: 0}
-  strength: 5
-  maxStrenth: 5
-  mass: 5
-  drag: 5
-  angularDrag: 0
-  p1: {fileID: 0}
-  isAbleGrabed: 1
-  PV: {fileID: 3411019273798802887}
