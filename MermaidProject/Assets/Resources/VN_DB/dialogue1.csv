@@ -1,0 +1,4 @@
+﻿Id,ActionName,Target,Parameter
+1,노아,디아로그1,Noah2
+2,AddTide,,0`3`1
+1,Lobby,,dialogue2

@@ -31,7 +31,6 @@ public class ObjectClickHandler : MonoBehaviour
 
     private void ExecuteOnClick()
     {
-        Debug.Log(OutputValue);
         OnObjectClicked?.Invoke(OutputValue);
     }
 

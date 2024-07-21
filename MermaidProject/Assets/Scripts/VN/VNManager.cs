@@ -9,8 +9,9 @@ using Photon.Pun.Demo.Procedural;
 public class VNManager : MonoBehaviourPunCallbacks
 {
     //마스터가 사용하는 변수
-    public string nextDialogue = "dialogue";
-
+    //세이브 대상
+    public string nextDialogue = "dialogue0";
+    public string nextSubDialogue = "";
     public List<CoroutineAbs> coList = new List<CoroutineAbs>();
 
     public static GameObject StandingGroup;
@@ -43,7 +44,7 @@ public class VNManager : MonoBehaviourPunCallbacks
 
     int i = 0;
 
-    Coroutine masterControlCoroutine;
+    public Coroutine masterControlCoroutine;
 
 
     List<Dictionary<string, object>> Dialogue;
@@ -61,26 +62,41 @@ public class VNManager : MonoBehaviourPunCallbacks
     // 선택지에 따라 해당하는 새로운 디아로그 시작 / OutputValue는 선택지마다 다름 (현재는 2번 Correct, 1,3~5번 Incorrect
     private void HandleObjectClicked(string OutputValue)
     {
-        StartVN("dialogue" + OutputValue);
+        Debug.Log(OutputValue);
+        nextSubDialogue = OutputValue;
+        VNNextScript();
+        SetController();
     }
 
     [PunRPC]
     public void StartVN(string DialogueName)
     {
+        if (PlayerController.GetComponent<FixedJoint2D>().enabled)
+        {
+            PlayerController.ToggleAction();
+        }
         VNRunning = true;
         PlayerController.PV.RPC("VNStart", RpcTarget.All);
-        Dialogue = CSVReader.Read("VN_DB/" + nextDialogue);
+        Dialogue = CSVReader.Read("VN_DB/" + DialogueName);
         i = 0;
         VNNextScript();
+    }
+
+    public void SetController()
+    {
         if (PhotonNetwork.IsMasterClient)
         {
             masterControlCoroutine = StartCoroutine(MasterController());
         }
     }
 
+
+
     public void StartNextDialogue()
     {
+        
         PV.RPC("StartVN", RpcTarget.All, nextDialogue);
+        masterControlCoroutine = StartCoroutine(MasterController());
     }
 
     public void VNNextScript()
@@ -94,7 +110,7 @@ public class VNManager : MonoBehaviourPunCallbacks
         string[] Questions = new string[5];
         while (true)
         {
-
+            Debug.Log(i);
             ActionName = Dialogue[i]["ActionName"].ToString();
             Target = Dialogue[i]["Target"].ToString();
             Parameter = Dialogue[i]["Parameter"].ToString();
@@ -108,6 +124,12 @@ public class VNManager : MonoBehaviourPunCallbacks
             else if (ActionName == "Question")
             {
                 int j = i;
+
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    StopCoroutine(masterControlCoroutine);
+                }
+                
                 while (ActionName != "QuestionEnd")
                 {
                     Questions[j - i] = Target;
@@ -119,6 +141,9 @@ public class VNManager : MonoBehaviourPunCallbacks
                 }
                 StartCoroutine(ChoiceManager.MakeChoice(j - i, Questions));
                 i = j;
+                i++;
+                Debug.Log(i);
+                break;
             }
             else if (ActionName == "SpriteChange")
             {
@@ -240,8 +265,6 @@ public class VNManager : MonoBehaviourPunCallbacks
                 }
                 i++;
 
-
-
             }
             else if (ActionName == "Island")
             {
@@ -272,8 +295,22 @@ public class VNManager : MonoBehaviourPunCallbacks
             }
             else if (ActionName == "AddShopItem")
             {
+                //AddShopItem,,(프리팹 이름)
                 GameObject.Find("Shop").GetComponent<Shop>().shopItemList.Add(Parameter);
-
+                i++;
+            } else if(ActionName == "ConnectDialogue")
+            {
+                Dialogue = CSVReader.Read("VN_DB/" + Parameter);
+                i = 0;
+            }
+            else if (ActionName == "ConnectSubDialogue")
+            {
+                Dialogue = CSVReader.Read("VN_DB/dialogue" + nextSubDialogue);
+                i = 0;
+            }
+            else if (ActionName == "SetSubDialogue")
+            {
+                nextSubDialogue = Parameter;
                 i++;
             }
             else
@@ -311,6 +348,7 @@ public class VNManager : MonoBehaviourPunCallbacks
     //마스터만 이걸 실행하도록 하세요.
     IEnumerator MasterController()
     {
+        yield return new WaitForSeconds(0.5f);
         while (true)
         {
             if (PhotonNetwork.IsMasterClient)
@@ -318,6 +356,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
                     PV.RPC("StopAllCoAndNextScript", RpcTarget.All);
+                    yield return new WaitForSeconds(0.5f);
                 }
             }
             yield return null;
@@ -345,7 +384,7 @@ public class VNManager : MonoBehaviourPunCallbacks
     public void AddSign(Vector2 vec)
     {
         GameObject go = Instantiate(Resources.Load("Prefab/Game/Sign") as GameObject);
-        go.transform.parent = GameObject.Find("SignGroup").transform;
+        go.transform.SetParent(GameObject.Find("SignGroup").transform);
         go.GetComponent<Sign>().target = vec;
         go.transform.localScale = new Vector3(20, 20, 1);
     }

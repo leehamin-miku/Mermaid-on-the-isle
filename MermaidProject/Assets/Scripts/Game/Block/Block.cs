@@ -93,9 +93,8 @@ public class Block : MonoBehaviourPunCallbacks
 
     private void OnDestroy()
     {
-        if (PV.IsMine)
+        if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log(gameObject.name);
             DestroyAction();
             if (p1 != null)
             {
@@ -175,4 +174,7 @@ public class Block : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    [PunRPC]
+    public void 
 }

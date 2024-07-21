@@ -14,7 +14,7 @@ public class TsunamiObject : MonoBehaviour
         FlowerLocate = GameObject.Find("Island").transform.position;
     }
     Vector3 TsunamiLocateFromFlower;
-    List<GameObject> tsunamiList = new List<GameObject>();
+    public List<GameObject> tsunamiList = new List<GameObject>();
     public float interTime = 0f;
 
     public void SummonFirstTsunami(Vector3 TsunamiLocateFromFlower, int amount, float interTime)
@@ -94,6 +94,7 @@ public class TsunamiObject : MonoBehaviour
         {
             PhotonNetwork.Destroy(go);
         }
+        Destroy(this.gameObject);
     }
 
 }

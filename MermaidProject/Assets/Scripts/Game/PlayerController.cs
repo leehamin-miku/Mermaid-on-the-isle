@@ -197,9 +197,18 @@ public class PlayerController : Block
     {
         if (PV.IsMine)
         {
-            TransitionManager.Instance().onTransitionCutPointReached += VNEndSubSub;
-            TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().fade, 0f);
+            Debug.Log("VN³¡");
+            Camera.main.transform.position = transform.position;
+            VNRunning = false;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            TransitionManager.Instance().onTransitionCutPointReached -= VNEndSubSub;
         }
+        //if (PV.IsMine)
+        //{
+        //    TransitionManager.Instance().onTransitionCutPointReached += VNEndSubSub;
+        //    TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().fade, 0.2f);
+        //}
     }
 
     void VNEndSubSub()

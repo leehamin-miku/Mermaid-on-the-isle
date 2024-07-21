@@ -14,7 +14,7 @@ public class TsunamiDrop : TsunamiUnit
             if (collision.collider.GetComponent<Block>() != null && collision.collider.GetComponent<Block>().BlockCode != 0 && collision.collider.GetComponent<TsunamiUnit>() == null && isAbleAttack)
             {
                 isAbleAttack = false;
-                collision.collider.GetComponent<Block>().PV.RPC("ChangeStrength", Photon.Pun.RpcTarget.All, -2);
+                collision.collider.GetComponent<Block>().PV.RPC("ChangeStrength", RpcTarget.All, -2);
             }
         }
         

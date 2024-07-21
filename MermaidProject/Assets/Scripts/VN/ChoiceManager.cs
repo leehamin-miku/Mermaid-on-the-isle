@@ -24,7 +24,6 @@ public class ChoiceManager : MonoBehaviour
     // 선지 고른거 받아서 넘어갈 때 사용
     private void HandleObjectClicked(string OutputValue)
     {
-
         for (int i = 0; i < Answers.Length; i++)
         {
             StartCoroutine(AnswersFadeOut(Answers[i]));
