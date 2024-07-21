@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+
 
 [Serializable] // 직렬화
 
@@ -7,11 +9,15 @@ public class Data
 {
     public struct SaveStruct
     {
-        public Sprite img;
-        public string text;
-        public DateTime date;
-        public int num;//진행상황을 int로 조절 img = null이면 noData
+        public int money;
+        public string nextDialogue;
+        public List<string> shopItemList;
+
+        //saveObject에 있는 모든 오브젝트를 저장 << 가능?
+        //타입, 
+        public List<Block> saveBlockList;
+        
     }
 
-    public SaveStruct[] saveArr = new SaveStruct[60];
+    public SaveStruct[] saveFile;
 }

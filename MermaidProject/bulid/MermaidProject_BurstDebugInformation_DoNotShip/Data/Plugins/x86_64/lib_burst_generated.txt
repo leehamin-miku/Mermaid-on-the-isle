@@ -42,6 +42,7 @@ Library: Z:\git\Mermaid-on-the-isle\MermaidProject\Temp\BurstOutput\Data\Plugins
 --assembly-defines=Unity.VisualScripting.Antlr3.Runtime;
 --assembly-defines=Photon3Unity3D;
 --assembly-defines=Unity.Burst.Unsafe;
+--assembly-defines=Newtonsoft.Json;
 --assembly-defines=System.Runtime;
 --assembly-defines=netstandard;
 --assembly-defines=Mono.Security;
@@ -151,6 +152,7 @@ Library: Z:\git\Mermaid-on-the-isle\MermaidProject\Temp\BurstOutput\Data\Plugins
 --assembly-defines=Unity.VisualScripting.Antlr3.Runtime;
 --assembly-defines=Photon3Unity3D;
 --assembly-defines=Unity.Burst.Unsafe;
+--assembly-defines=Newtonsoft.Json;
 --assembly-defines=System.Runtime;
 --assembly-defines=netstandard;
 --assembly-defines=Mono.Security;
@@ -262,6 +264,7 @@ Library: Z:\git\Mermaid-on-the-isle\MermaidProject\Temp\BurstOutput\Data\Plugins
 --assembly-defines=Unity.VisualScripting.Antlr3.Runtime;
 --assembly-defines=Photon3Unity3D;
 --assembly-defines=Unity.Burst.Unsafe;
+--assembly-defines=Newtonsoft.Json;
 --assembly-defines=System.Runtime;
 --assembly-defines=netstandard;
 --assembly-defines=Mono.Security;
@@ -339,6 +342,7 @@ Library: Z:\git\Mermaid-on-the-isle\MermaidProject\Temp\BurstOutput\Data\Plugins
 --assembly-defines=Unity.VisualScripting.Antlr3.Runtime;
 --assembly-defines=Photon3Unity3D;
 --assembly-defines=Unity.Burst.Unsafe;
+--assembly-defines=Newtonsoft.Json;
 --assembly-defines=System.Runtime;
 --assembly-defines=netstandard;
 --assembly-defines=Mono.Security;

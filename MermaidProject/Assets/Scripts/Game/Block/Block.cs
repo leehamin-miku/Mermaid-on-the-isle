@@ -6,12 +6,15 @@ using UnityEngine;
 
 public class Block : MonoBehaviourPunCallbacks
 {
-    public bool isRunning = true;
     public bool isInUse = false;
     public bool isGrabed = false;
     public int BlockCode;
     public Rigidbody2D rb;
+
+
+    //저장 대상
     public int strength;
+
     public int maxStrenth;
     public float mass;
     public float drag;
@@ -175,6 +178,4 @@ public class Block : MonoBehaviourPunCallbacks
         }
     }
 
-    [PunRPC]
-    public void 
 }

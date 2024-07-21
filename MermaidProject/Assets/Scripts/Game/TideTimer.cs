@@ -145,7 +145,6 @@ public class TideTimer : MonoBehaviour
         {
             if (go.GetComponent<Block>() != null)
             {
-                go.GetComponent<Block>().isRunning = false;
                 {
 
                 }

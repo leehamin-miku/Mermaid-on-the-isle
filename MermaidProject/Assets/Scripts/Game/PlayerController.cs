@@ -13,6 +13,7 @@ public class PlayerController : Block
     public bool isAbleMove = true;
     public bool isFocusOnChattingInputField = false;
     bool VNRunning = false;
+    bool isMatser;
     // Start is called before the first frame update
     [SerializeField] Color red;
     [SerializeField] Color yellow;
@@ -27,7 +28,6 @@ public class PlayerController : Block
         ChangeColor(colorNumber);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        
 
         if (PV.IsMine) {
             GameObject.Find("TotalMoney").GetComponent<MoneyManager>().PV.RPC("MoneyMarkRequest", RpcTarget.MasterClient);

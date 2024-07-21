@@ -56,9 +56,5 @@ public class DataManager : MonoBehaviour
 
         //// 올바르게 저장됐는지 확인 (자유롭게 변형)
         print("저장 완료");
-        //for (int i = 0; i < data.isUnlock.Length; i++)
-        //{
-        //    print($"{i}번 챕터 잠금 해제 여부 : " + data.isUnlock[i]);
-        //}
     }
 }

@@ -7,8 +7,10 @@ using UnityEngine.Rendering.Universal;
 
 public class MiningDrill : Block
 {
-    public int waitingLen = 0; //마스터만 관리
+
     float a; // 이전 프레임의 각도
+
+    //저장 대상
     float b = 0;
     public override void Awake()
     {

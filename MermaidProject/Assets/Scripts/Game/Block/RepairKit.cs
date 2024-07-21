@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class RepairKit: Block
 {
+    //저장 대상
     int a = 5;
     public void Update()
     {

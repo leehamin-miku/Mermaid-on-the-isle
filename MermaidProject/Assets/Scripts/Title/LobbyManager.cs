@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] GameObject newStartWindow;
     [SerializeField] GameObject joinWindow;
+    [SerializeField] GameObject noticeWindow;
 
     [SerializeField] InputField newStartRoomName;
     [SerializeField] InputField newStartNickName;
@@ -30,8 +32,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //PhotonNetwork.AutomaticallySyncScene = true;
         //이새끼 대체 뭐임?
         PhotonNetwork.ConnectUsingSettings();
+        if (GameObject.Find("RoomExplode") != null)
+        {
+            Destroy(GameObject.Find("RoomExplode"));
+            noticeWindow.SetActive(true);
+            noticeWindow.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "호스트 노아와의 연결이 끊어졌습니다\nㅠㅠ";
+        }
 
-        
     }
     //방 목록의 변화가 있을 때 호출되는 함수
 
@@ -75,7 +82,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         ////방 생성
         ////PhotonNetwork.CreateRoom(newStartRoomName.text, options);
-        PhotonNetwork.CreateRoom(newStartRoomName.text, new RoomOptions { IsOpen = true, MaxPlayers = 4 }, null);
+        PhotonNetwork.CreateRoom(newStartRoomName.text, new RoomOptions { CleanupCacheOnLeave = true, IsOpen = true, MaxPlayers = 4 }, null);
 
     }
 
@@ -86,7 +93,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         base.OnCreateRoomFailed(returnCode, message);
-        Debug.Log("방 생성 실패, 이미 존재하는 방일 수 있습니다" + message); //이미 존재하는 방입니다
+        OnClickClose();
+        noticeWindow.SetActive(true);
+        noticeWindow.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "방 만들기 실패!\n이미 존재하는 방 이름일 수 있어용";
     }
 
     public override void OnCreatedRoom()
@@ -104,14 +113,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        PhotonNetwork.LoadLevel("LobbyScene");
+        PhotonNetwork.LoadLevel("GameScene");
         Debug.Log("방 입장 성공");
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         base.OnJoinRoomFailed(returnCode, message);
-        Debug.Log("방 입장 실패" + message);
+        OnClickClose();
+        noticeWindow.SetActive(true);
+        noticeWindow.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "방 입장 실패!\n노아가 이 방에 들어가기에 적절치 못한 상황인가봐요...";
     }
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
@@ -123,5 +134,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         joinWindow.SetActive(false);
         newStartWindow.SetActive(false);
+        noticeWindow.SetActive(false);
     }
 }
