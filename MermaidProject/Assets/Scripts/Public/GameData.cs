@@ -18,6 +18,5 @@ public class Data
         public List<Block> saveBlockList;
         
     }
-
     public SaveStruct[] saveFile;
 }

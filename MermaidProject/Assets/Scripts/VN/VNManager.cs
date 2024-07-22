@@ -5,14 +5,18 @@ using TMPro;
 using Photon.Pun;
 using Unity.VisualScripting;
 using Photon.Pun.Demo.Procedural;
+using EasyTransition;
 
 public class VNManager : MonoBehaviourPunCallbacks
 {
     //마스터가 사용하는 변수
     //세이브 대상
-    public string nextDialogue = "dialogue0";
+    public string nextDialogue = "1-1";
     public string nextSubDialogue = "";
     public List<CoroutineAbs> coList = new List<CoroutineAbs>();
+
+    //세이브 대상
+    public List<string> textbookList = new List<string>(); //길이가 5보다 커질 수 없다
 
     public static GameObject StandingGroup;
     public GameObject AnswerGroup;
@@ -107,7 +111,7 @@ public class VNManager : MonoBehaviourPunCallbacks
         string ActionName = null;
         string Target = null;
         string Parameter = null;
-        string[] Questions = new string[5];
+        string[] Questions = {"", "", "", "", ""};
         while (true)
         {
             Debug.Log(i);
@@ -117,11 +121,9 @@ public class VNManager : MonoBehaviourPunCallbacks
 
             if (ActionName == "Break")
             {
-                StartCoroutine(VNSoundManager.instance.StopSound());				
-				print("Break!!");
-                VNRunning = false;
                 i++;
-            }
+                break;
+            }//필요한가 싶지만 일단 있는 한번 텀을 주는 액션
             else if (ActionName == "Question")
             {
                 int j = i;
@@ -130,7 +132,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                 {
                     StopCoroutine(masterControlCoroutine);
                 }
-                
+
                 while (ActionName != "QuestionEnd")
                 {
                     Questions[j - i] = Target;
@@ -144,8 +146,43 @@ public class VNManager : MonoBehaviourPunCallbacks
                 i = j;
                 i++;
                 Debug.Log(i);
-				break;
-            }
+                break;
+            }//선택지 액션-questionEnd액션또한 필요
+            else if (ActionName == "AddTextbook")
+            {
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    textbookList.Add(Target);
+                }
+
+                i++;
+            }//교과서 추가하는 액션
+            else if (ActionName == "RemoveTextbook")
+            {
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    textbookList.Remove(Target);
+                }
+
+                i++;
+            }//교과서 삭제하는 엑션
+            else if (ActionName == "ReadTextbook")
+            {
+
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    StopCoroutine(masterControlCoroutine);
+                }
+
+                for (int j = 0; j < textbookList.Count; j++)
+                {
+                    Questions[j] = (j + 1) + ". " + textbookList[j];
+                    Debug.Log(Questions[j]);
+                }
+                PV.RPC("StartQuestionCoroutine", RpcTarget.All, (string[])Questions);
+                i++;
+                break;
+            }//현재 교과서 리스트에서 선택지 가져오는 엑션
             else if (ActionName == "SpriteChange")
             {
                 // Target = 바뀔 오브젝트
@@ -201,10 +238,10 @@ public class VNManager : MonoBehaviourPunCallbacks
                 coList.Add(temp);
                 i++;
             }
-            else if(ActionName == "Sound") {
-				// Target = 파일 이름
-				// Parameter == 0 -> BGM 재생, == 1 -> SE 재생, == 그 외 -> 모든 Sound 정지
-				VNSoundManager.instance.PlaySound(Target, int.Parse(Parameter));
+            else if (ActionName == "Sound") {
+                // Target = 파일 이름
+                // Parameter == 0 -> BGM 재생, == 1 -> SE 재생, == 그 외 -> 모든 Sound 정지
+                VNSoundManager.instance.PlaySound(Target, int.Parse(Parameter));
                 i++;
             }
             else if (ActionName == "Lobby")
@@ -222,8 +259,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                 {
                     PhotonNetwork.CurrentRoom.IsOpen = true;
                 }
-				StartCoroutine(VNSoundManager.instance.StopSound());
-				break;
+                break;
             }
             else if (ActionName == "AddTide")
             {
@@ -284,7 +320,11 @@ public class VNManager : MonoBehaviourPunCallbacks
                 {
                     GameObject.Find("Shop").GetComponent<Shop>().InitializeShop();
                     GameObject.Find("TideTimer").GetComponent<TideTimer>().TimeSetAndStart(int.Parse(Target));
-                    nextDialogue = Parameter;
+                    if (Parameter != "")
+                    {
+                        nextDialogue = Parameter;
+                    }
+                    
 
                     GameObject[] temp = FindObjectsOfType<GameObject>();
                     foreach (GameObject go in temp)
@@ -299,22 +339,27 @@ public class VNManager : MonoBehaviourPunCallbacks
                 PlayerController.transform.position += GameObject.Find("IslandSquare").transform.position - GameObject.Find("LobbySquare").transform.position;
                 VNRunning = false;
                 i++;
-				StartCoroutine(VNSoundManager.instance.StopSound());
-				break;
-            }
+                break;
+            }//파라미터가 없다면 그냥 그대로 가져갑니다
             else if (ActionName == "AddShopItem")
             {
                 //AddShopItem,,(프리팹 이름)
                 GameObject.Find("Shop").GetComponent<Shop>().shopItemList.Add(Parameter);
                 i++;
-            } else if(ActionName == "ConnectDialogue")
+            }
+            else if (ActionName == "ConnectDialogue")
             {
                 Dialogue = CSVReader.Read("VN_DB/" + Parameter);
                 i = 0;
             }
             else if (ActionName == "ConnectSubDialogue")
             {
-                Dialogue = CSVReader.Read("VN_DB/dialogue" + nextSubDialogue);
+                Dialogue = CSVReader.Read("VN_DB/" + nextSubDialogue);
+                i = 0;
+            }//서브 디아로그는 저장 안됩니다... 저장할필요도 없게 만들어야하구요
+            else if (ActionName == "ConnectNextDialogue")
+            {
+                Dialogue = CSVReader.Read("VN_DB/" + nextDialogue);
                 i = 0;
             }
             else if (ActionName == "SetSubDialogue")
@@ -322,6 +367,46 @@ public class VNManager : MonoBehaviourPunCallbacks
                 nextSubDialogue = Parameter;
                 i++;
             }
+            else if (ActionName == "SetNextDialogue")
+            {
+                nextDialogue = Parameter;
+                i++;
+            }
+            else if (ActionName == "Transition")
+            {
+                void TransitionSub()
+                {
+                    VNNextScript();
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        masterControlCoroutine = StartCoroutine(MasterController());
+                    }
+                    TransitionManager.Instance().onTransitionCutPointReached -= TransitionSub;
+                }
+
+                TransitionManager.Instance().onTransitionCutPointReached += TransitionSub;
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    StopCoroutine(masterControlCoroutine);
+                }
+                if (Parameter == "fade")
+                {
+                    TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().fade, 0f);
+                } else if(Parameter == "rectangle")
+                {
+                    TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().rectangleGrid, 0f);
+                }
+                else if (Parameter == "circle")
+                {
+                    TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().circleWipe, 0f);
+                } else
+                {
+                    TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().fade, 0f);
+                }
+
+                i++;
+                break;
+            }//fade, rectangle, circle
             else
             {
                 HalfStandingChange(Parameter);
@@ -341,6 +426,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                 StopCoroutine(masterControlCoroutine);
             }
             PlayerController.PV.RPC("VNEndSub", RpcTarget.All);
+            StartCoroutine(VNSoundManager.instance.StopSound());
         }
     }
 
@@ -351,8 +437,24 @@ public class VNManager : MonoBehaviourPunCallbacks
     /// <param name="narration"></param>
     /// <returns></returns>
     /// 
-
-
+    //선택지 같이 보기
+    [PunRPC]
+    void StartQuestionCoroutine(string[] Questions)
+    {
+        int a = 0;
+        for(int i=0; i<5; i++)
+        {
+            if (Questions[i] != "")
+            {
+                a++;
+            } else
+            {
+                break;
+            }
+        }
+        Debug.Log(a);
+        StartCoroutine(ChoiceManager.MakeChoice(a, Questions));
+    }
 
     //마스터만 이걸 실행하도록 하세요.
     IEnumerator MasterController()
@@ -432,8 +534,6 @@ public class VNManager : MonoBehaviourPunCallbacks
         {
             CharacterName.text = narrator;
             writerText = "";
-            float timer = 0;
-            float delay = 0.1f;
 
             // 타이핑 효과
             for (int i = 0; i < narration.Length; i++)
@@ -441,14 +541,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                 writerText += narration[i];
                 ChatText.text = writerText;
 
-                // delay(0.1초)마다 한 글자 출력, 중간에 space or 좌클릭 들어오면 전부 출력
-                // 만약 타이핑 속도 변화가 필요하다면, delay를 따로 받아서 쓰면 될 듯
-                while (timer < delay)
-                {
-                    timer += Time.deltaTime;
-                    yield return null;
-                }
-
+                yield return new WaitForSecondsRealtime(0.03f);
             }
             ChatText.text = narration;
         }

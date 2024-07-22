@@ -1,0 +1,5 @@
+﻿Id,ActionName,Target,Parameter
+1,노아,디아로그2입니다,Noah2
+1,SmoothSpriteChange,0,Noah2
+1,노아,디아로그여기까지 넘어오셔야해요,Noah2
+1,Island,20,dialogue3

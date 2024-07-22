@@ -1,0 +1,10 @@
+﻿Id,ActionName,Target,Parameter
+1,노아,디아로그0,Noah2
+1,SmoothSpriteChange,0,Noah2
+2,SetNextDialogue,,dialogue4
+10,노아,오늘은 무엇을 공부해볼까?,Noah2
+11,AddTextbook,건축재료 시멘트 제작법`시멘트1,
+11,ReadTextbook,,
+11,노아,그래 오늘은 이걸 공부해보는거야,Noah2
+15,SetNextDialogue,,1-1-1
+16,ConnectSubDialogue,,

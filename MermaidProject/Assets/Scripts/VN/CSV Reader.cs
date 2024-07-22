@@ -30,7 +30,7 @@ public class CSVReader
             for (var j = 0; j < header.Length && j < values.Length; j++)
             {
                 string value = values[j];
-                value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS).Replace("\\", "");
+                value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS).Replace("\\n", "\n");
                 object finalvalue = value;
                 int n;
                 float f;

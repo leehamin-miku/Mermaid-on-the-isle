@@ -1,0 +1,5 @@
+﻿Id,ActionName,Target,Parameter
+1,문제,정답입니다,
+2,노아,"""정답이다. 공구리 술사!""",Noah2
+2,노아,"""스폰지를 혼화재로 쓰는 콘크리트는 들어본적도 없으니깐 말야!""",Noah2
+5,ConnectNextDialogue,,

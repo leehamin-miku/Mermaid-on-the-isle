@@ -1,33 +1,11 @@
 ﻿Id,ActionName,Target,Parameter
-1,노아,디아로그4,Noah2
-1,SmoothSpriteChange,0,Noah2
-1,노아,다음의 방법으로 본 게임의 해일이 추가됩니다,Noah2
-2,노아,"AddTide,,(구분)`(갯수)`(다음tidal까지의시간)",Noah2
-2,AddTide,,0`5`1
-2,AddTide,,1`0`10
-2,노아,다음의 방법으로 상점에 아이템이 추가됩니다,Noah2
-2,노아,"AddShopItem,,(프리팹이름)",Noah2
-2,AddShopItem,,Brick2
-2,AddShopItem,,Brick1
-2,AddShopItem,,BM2Blueprint
-2,노아,다음의 방법으로 섬으로의 이동이 성사됩니다,Noah2
-2,노아,"Island,(예상시간),(다음다이로그 이름)",Noah2
-1,Island,10,dialogueIncorrect
-
-3,SpriteChange1,0,Morgana`0`0`0.9
-4,Effect,0,NormalMove`1`1`1
-5,아로나,나는 아로나다.,Morgana_Normal
-6,Effect,0,Shake`5`5,
-7,선생님,대사4 - 그렇구나… 꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마꼬꼬마 꼬꼬마,Noah_Normal
-8,Effect_All,Jump`0.5`0.4,
-9,Effect_All,Jump`0.5`0.4,
-10,선생님,대사 5 - 난 간다,Noah_Normal
-11,Effect_Noah,NormalMove`10`1`1,
-11,Exit,0,
-10,노아,오늘은 무엇을 공부해볼까?,Noah2
-11,Question,1. 건축재료 시멘트 제작법`Incorrect,
-12,Question,2. 공학적 모듈과 효율성`Correct,
-13,Question,3. 해왕류도 이해하는 재료공학론`Incorrect,
-14,Question,4. 대량생산과 컨베이어 벨트.`Incorrect,
-15,QuestionEnd,null,
-16,Break,null,
+1,노아,dialogue4,Noah2
+2,,그 도서관이 바로 이곳이다. 심해의 지식을 포함해서 여러 책들을 위한 공간.,
+3,,그녀가 가지고 온 지식들은 심해 전체의 유산인 듯했지만\n저자란에는 그 편찬자로서 귀여운 심해 해파리 아가씨의 이름이 적혀 있었다.,
+4,,그 이름을 다시 한번 쓰다듬어 보는데\n양장 제본된 책의 표지가 부드러워서,
+5,,나도 내 친구도\n그때의 두근거림도 거기 다 있었다.,
+6,,하지만...,
+7,노아,"""하지만, 우리 서로 얼굴 본 지 조금 오래되었지.\n저번일, 아직 미안하다는 말은 못했었는데...""",Noah2
+8,노아,"""저기, 당연히 우리 아직 친구인거지?""",Noah2
+9,,그렇게 물어봤지만 두근거림도 친구도 이미 그곳엔 없어서\n아무도 이런 질문에는 답할 수 없었다.,
+10,Lobby,,dialogue5

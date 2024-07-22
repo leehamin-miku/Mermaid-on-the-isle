@@ -59,7 +59,10 @@ public class Block : MonoBehaviourPunCallbacks
     }
     public void StopObject()
     {
-        StopCoroutine(runningCoroutine);
+        if(runningCoroutine != null)
+        {
+            StopCoroutine(runningCoroutine);
+        }
     }
 
     public void Grabed(PlayerController p1)

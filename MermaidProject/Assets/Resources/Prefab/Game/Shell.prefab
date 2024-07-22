@@ -133,7 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdbbc854c5851a4b89b1f8ce84f7eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRunning: 1
   isInUse: 0
   isGrabed: 0
   BlockCode: 1
