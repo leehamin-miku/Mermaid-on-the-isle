@@ -117,7 +117,8 @@ public class VNManager : MonoBehaviourPunCallbacks
 
             if (ActionName == "Break")
             {
-                print("Break!!");
+                StartCoroutine(VNSoundManager.instance.StopSound());				
+				print("Break!!");
                 VNRunning = false;
                 i++;
             }
@@ -143,7 +144,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                 i = j;
                 i++;
                 Debug.Log(i);
-                break;
+				break;
             }
             else if (ActionName == "SpriteChange")
             {
@@ -200,6 +201,12 @@ public class VNManager : MonoBehaviourPunCallbacks
                 coList.Add(temp);
                 i++;
             }
+            else if(ActionName == "Sound") {
+				// Target = 파일 이름
+				// Parameter == 0 -> BGM 재생, == 1 -> SE 재생, == 그 외 -> 모든 Sound 정지
+				VNSoundManager.instance.PlaySound(Target, int.Parse(Parameter));
+                i++;
+            }
             else if (ActionName == "Lobby")
             {
                 //Island,,다음다이올로그 이름
@@ -215,7 +222,8 @@ public class VNManager : MonoBehaviourPunCallbacks
                 {
                     PhotonNetwork.CurrentRoom.IsOpen = true;
                 }
-                break;
+				StartCoroutine(VNSoundManager.instance.StopSound());
+				break;
             }
             else if (ActionName == "AddTide")
             {
@@ -291,7 +299,8 @@ public class VNManager : MonoBehaviourPunCallbacks
                 PlayerController.transform.position += GameObject.Find("IslandSquare").transform.position - GameObject.Find("LobbySquare").transform.position;
                 VNRunning = false;
                 i++;
-                break;
+				StartCoroutine(VNSoundManager.instance.StopSound());
+				break;
             }
             else if (ActionName == "AddShopItem")
             {
@@ -320,7 +329,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                 temp.co = StartCoroutine(temp.Action());
                 coList.Add(temp);
                 i++;
-                break;
+				break;
             }
 
         }
