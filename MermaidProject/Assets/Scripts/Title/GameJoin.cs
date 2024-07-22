@@ -10,6 +10,7 @@ public class GameJoin : MonoBehaviour
     [SerializeField] GameObject newStartWindow;
     [SerializeField] GameObject joinWindow;
     [SerializeField] GameObject noticeWindow;
+    [SerializeField] GameObject loadWindow;
     //TitleScene의 새로시작 버튼의 컴포넌트 스크립트
 
     private void OnMouseEnter()
@@ -25,6 +26,7 @@ public class GameJoin : MonoBehaviour
         joinWindow.SetActive(true);
         newStartWindow.SetActive(false);
         noticeWindow.SetActive(false);
+        loadWindow.SetActive(false);
     }
 
 

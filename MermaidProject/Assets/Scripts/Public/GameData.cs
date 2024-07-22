@@ -12,12 +12,21 @@ public class Data
         public int money;
         public string nextDialogue;
         public List<string> shopItemList;
-
-        //saveObject에 있는 모든 오브젝트를 저장 << 가능?
-        //타입, 
-        public List<Block> saveBlockList;
-        
+        public List<SaveBlockStruct> saveBlockList;
+        public string roomName;
+        public int progressStatus;
     }
 
-    public SaveStruct[] saveFile;
+    public struct SaveBlockStruct
+    {
+        public SaveBlockStruct(int blockCode, Block block)
+        {
+            this.blockCode = blockCode;
+            this.block = block;
+        }
+        public int blockCode;
+        public Block block;
+    }
+
+    public SaveStruct[] saveFile = new SaveStruct[3]; //세브데이터 아마 3개 들어갈듯?
 }

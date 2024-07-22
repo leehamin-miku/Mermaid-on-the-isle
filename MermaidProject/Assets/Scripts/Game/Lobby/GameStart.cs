@@ -7,9 +7,8 @@ using UnityEngine;
 public class GameStart : MonoBehaviour
 {
     List<PlayerController> list = new List<PlayerController>();
-    float a = 0;
-    float b = 5f;
-    int defaultTime = 60*3;
+
+    public int progressStatus = 1;
     // Start is called before the first frame update
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -20,6 +19,7 @@ public class GameStart : MonoBehaviour
             if (PhotonNetwork.CurrentRoom.PlayerCount == list.Count && DuplicationCheck(list) == false)
             {
                 PhotonNetwork.CurrentRoom.IsOpen = false;
+                progressStatus++;
                 GameObject.Find("VN").GetComponent<VNManager>().StartNextDialogue();
                 GameObject.Find("TotalMoney").GetPhotonView().RPC("MoneyChange", RpcTarget.MasterClient, 0);
             }
