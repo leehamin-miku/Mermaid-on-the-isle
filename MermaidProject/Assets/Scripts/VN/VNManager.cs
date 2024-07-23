@@ -224,6 +224,14 @@ public class VNManager : MonoBehaviourPunCallbacks
                 coList.Add(temp);
                 i++;
             }
+            else if (ActionName == "LetterBox") {
+				// Target[0] = À§ LetterBox, Target[1] = ¾Æ·¡ LetterBox
+				// Parameter == On -> LetterBox On, == Off -> LetterBox Off
+				CoroutineAbs temp = new LetterBox(Target, Parameter);
+				temp.co = StartCoroutine(temp.Action());
+				coList.Add(temp);
+				i++;
+			}
             else if (ActionName == "Exit")
             {
                 StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = null;
@@ -723,4 +731,67 @@ public class VNManager : MonoBehaviourPunCallbacks
             StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = null;
         }
     }
+
+    public class LetterBox : CoroutineAbs {
+
+        string Target;
+        string Parameter;
+        string[] temp;
+        int TopLetterBox, BottomLetterBox;
+        public LetterBox(string Target, string Parameter) {
+            this.Target = Target;
+            this.Parameter = Parameter;
+			temp = Target.Split('`');
+            TopLetterBox = int.Parse(temp[0]);
+            BottomLetterBox = int.Parse(temp[1]);
+        }
+
+		public override IEnumerator Action() {
+            float timer = 0;
+            if(Parameter == "On") {
+				StandingGroup.transform.GetChild(TopLetterBox).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/LetterBox");
+				StandingGroup.transform.GetChild(BottomLetterBox).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/LetterBox");
+				StandingGroup.transform.GetChild(TopLetterBox).transform.position = new Vector3(0f, 6.5f, 0f);
+				StandingGroup.transform.GetChild(BottomLetterBox).transform.position = new Vector3(0f, -6.5f, 0f);
+				StandingGroup.transform.GetChild(TopLetterBox).transform.localScale = new Vector3(1, 1, 1);
+				StandingGroup.transform.GetChild(BottomLetterBox).transform.localScale = new Vector3(1, 1, 1);
+
+                timer = 0;
+                while (timer <= 1) {
+                    timer += Time.deltaTime;
+					StandingGroup.transform.GetChild(TopLetterBox).transform.position = new Vector3(0f, Mathf.Lerp(6.5f,4.81f,timer), 0f);
+					StandingGroup.transform.GetChild(BottomLetterBox).transform.position = new Vector3(0f, Mathf.Lerp(-6.5f, -4.81f, timer), 0f);
+					yield return null;
+                }
+			}
+            else if(Parameter == "Off") {
+                timer = 1;
+                while (timer >= 0) {
+                    timer -= Time.deltaTime;
+                    StandingGroup.transform.GetChild(TopLetterBox).transform.position = new Vector3(0f, Mathf.Lerp(6.5f, 4.81f, timer), 0f);
+                    StandingGroup.transform.GetChild(BottomLetterBox).transform.position = new Vector3(0f, Mathf.Lerp(-6.5f, -4.81f, timer), 0f);
+                    yield return null;
+                }
+
+				StandingGroup.transform.GetChild(TopLetterBox).GetComponent<SpriteRenderer>().sprite = null;
+                StandingGroup.transform.GetChild(BottomLetterBox).GetComponent<SpriteRenderer>().sprite = null;
+			}
+			yield return null;
+		}
+
+		override public void EndAction() {
+			if (Parameter == "On") {
+				StandingGroup.transform.GetChild(TopLetterBox).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/LetterBox");
+				StandingGroup.transform.GetChild(BottomLetterBox).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/LetterBox");
+				StandingGroup.transform.GetChild(TopLetterBox).transform.position = new Vector3(0f, 4.81f, 0f);
+				StandingGroup.transform.GetChild(BottomLetterBox).transform.position = new Vector3(0f, -4.81f, 0f);
+				StandingGroup.transform.GetChild(TopLetterBox).transform.localScale = new Vector3(1, 1, 1);
+				StandingGroup.transform.GetChild(BottomLetterBox).transform.localScale = new Vector3(1, 1, 1);
+			}
+			else if (Parameter == "Off") {
+				StandingGroup.transform.GetChild(TopLetterBox).GetComponent<SpriteRenderer>().sprite = null;
+				StandingGroup.transform.GetChild(BottomLetterBox).GetComponent<SpriteRenderer>().sprite = null;
+			}
+		}
+	}
 }

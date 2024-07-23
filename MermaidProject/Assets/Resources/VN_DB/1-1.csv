@@ -3,8 +3,10 @@
 1,SmoothSpriteChange,0,Noah2
 2,SetNextDialogue,,dialogue4
 10,노아,오늘은 무엇을 공부해볼까?,Noah2
+10,LetterBox,1`2,On
 11,AddTextbook,건축재료 시멘트 제작법`시멘트1,
 11,ReadTextbook,,
 11,노아,그래 오늘은 이걸 공부해보는거야,Noah2
-15,SetNextDialogue,,1-1-1
+11,LetterBox,1`2,Off
+15,SetNextDialogue,,2001-01-01
 16,ConnectSubDialogue,,
