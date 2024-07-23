@@ -1,9 +1,9 @@
-﻿Id,ActionName,Target,Parameter
-1,SpriteChange,0,심해`0`0`1
-2,Sound,BGM_Golden Hours,0
-3,,본 디아로그는 VN실험을 위한 디아로그입니다,
-4,,갓곡 골든 아워즈를 듣고 가세요,
-5,Transition,,rectangle
-6,Sound,,2
-7,SetNextDialogue,,1n1n2
-7,ConnectSubDialogue,,
+﻿ActionName,Target,Parameter
+SpriteChange,0,심해`0`0`1
+Sound,BGM_Golden Hours,0
+ ,본 디아로그는 VN실험을 위한 디아로그입니다,
+ ,갓곡 골든 아워즈를 듣고 가세요,
+Transition,,rectangle
+Sound,,2
+SetNextDialogue,,1n1n2
+ConnectSubDialogue,,

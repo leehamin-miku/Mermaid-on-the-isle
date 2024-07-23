@@ -546,6 +546,13 @@ public class VNManager : MonoBehaviourPunCallbacks
             // 타이핑 효과
             for (int i = 0; i < narration.Length; i++)
             {
+                if (narration[i] == '<') {
+                    while (narration[i] != '>') {
+						writerText += narration[i];
+                        i++;
+					}
+                    ChatText.text = writerText;
+                }
                 writerText += narration[i];
                 ChatText.text = writerText;
 
