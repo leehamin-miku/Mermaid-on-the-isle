@@ -175,31 +175,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
     }
-    void CopyComponentValues(Block source, Block destination)
-    {
-        if (source == null || destination == null)
-        {
-            Debug.LogError("Source or destination is null");
-            return;
-        }
-
-        // Reflection을 사용하여 모든 필드를 복사
-        FieldInfo[] fields = typeof(Block).GetFields(BindingFlags.Public | BindingFlags.Instance);
-        foreach (FieldInfo field in fields)
-        {
-            field.SetValue(destination, field.GetValue(source));
-        }
-
-        // 필요시, 모든 프로퍼티를 복사
-        PropertyInfo[] properties = typeof(Block).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-        foreach (PropertyInfo property in properties)
-        {
-            if (property.CanRead && property.CanWrite)
-            {
-                property.SetValue(destination, property.GetValue(source, null), null);
-            }
-        }
-    }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {

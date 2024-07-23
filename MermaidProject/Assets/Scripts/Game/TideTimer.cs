@@ -145,12 +145,12 @@ public class TideTimer : MonoBehaviour
         {
             if (go.GetComponent<Block>() != null)
             {
+                if (go.GetComponent<Block>().BlockCode != 0)//삭제하고 싶지 않은거 있으면 여따 하는것도 방법
                 {
-
-                }
-                if (Physics2D.Raycast(go.transform.position, Vector3.down, 0.01f, LayerMask.GetMask("Sea")) == true && Physics2D.Raycast(go.transform.position, Vector3.down, 0.01f, LayerMask.GetMask("Island")) == false)
-                {
-                    PhotonNetwork.Destroy(go);
+                    if (Physics2D.Raycast(go.transform.position, Vector3.down, 0.01f, LayerMask.GetMask("Sea")) == true && Physics2D.Raycast(go.transform.position, Vector3.down, 0.01f, LayerMask.GetMask("Island")) == false)
+                    {
+                        PhotonNetwork.Destroy(go);
+                    }
                 }
                     
             }
