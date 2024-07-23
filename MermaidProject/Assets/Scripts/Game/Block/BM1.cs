@@ -10,7 +10,7 @@ public class BM1 : Block
     //저장 대상
     public int waitingLen = 0; //마스터만 관리
     //저장 대상
-    float a = 0;
+    public float a = 0;
 
     public override void CollisionEnterAction(Collision2D collision)
     {

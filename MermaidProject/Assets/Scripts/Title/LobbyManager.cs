@@ -12,6 +12,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject newStartWindow;
     [SerializeField] GameObject joinWindow;
     [SerializeField] GameObject noticeWindow;
+    [SerializeField] GameObject loadWindow;
 
     [SerializeField] InputField newStartRoomName;
     [SerializeField] InputField newStartNickName;
@@ -21,6 +22,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] InputField joinRoomName;
     [SerializeField] Button joinButton;
 
+    public int a = -1;
+    [SerializeField] InputField loadRoomName;
+    [SerializeField] InputField loadNickName;
+    [SerializeField] GameObject loadObject0;
+    [SerializeField] GameObject loadObject1;
+    [SerializeField] GameObject loadObject2;
+    [SerializeField] Button loadButton;
 
     // 방 목록을 가지고 있는 Dictionaly 변수
     Dictionary<string, RoomInfo> dicRoomInfo = new Dictionary<string, RoomInfo>();
@@ -32,12 +40,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //PhotonNetwork.AutomaticallySyncScene = true;
         //이새끼 대체 뭐임?
         PhotonNetwork.ConnectUsingSettings();
+
         if (GameObject.Find("RoomExplode") != null)
         {
             Destroy(GameObject.Find("RoomExplode"));
             noticeWindow.SetActive(true);
             noticeWindow.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "호스트 노아와의 연결이 끊어졌습니다\nㅠㅠ";
         }
+
+        loadWindow.SetActive(true);
+        loadObject0.GetComponent<LoadObject>().DataMark();
+        loadObject1.GetComponent<LoadObject>().DataMark();
+        loadObject2.GetComponent<LoadObject>().DataMark();
+        loadWindow.SetActive(false);
+
 
     }
     //방 목록의 변화가 있을 때 호출되는 함수
@@ -54,6 +70,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         joinButton.interactable = (joinRoomName.text.Length > 0) && (joinNickName.text.Length > 0);
         if ((joinRoomName.text == "") || (joinNickName.text == ""))
             joinButton.interactable = false;
+    }
+    public void OnLoadValueChanged()
+    {
+        loadButton.interactable = (loadRoomName.text.Length > 0) && (loadNickName.text.Length > 0)&&a!=-1;
+        if ((loadRoomName.text == "") || (loadNickName.text == ""))
+            loadButton.interactable = false;
     }
 
     public override void OnConnectedToMaster()
@@ -85,6 +107,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(newStartRoomName.text, new RoomOptions { CleanupCacheOnLeave = true, IsOpen = true, MaxPlayers = 4 }, null);
 
     }
+    public void OnClickLoadRoom()
+    {
+        PhotonNetwork.NickName = loadNickName.text;
+
+        ////방 생성
+        ////PhotonNetwork.CreateRoom(newStartRoomName.text, options);
+        PhotonNetwork.CreateRoom(loadRoomName.text, new RoomOptions { CleanupCacheOnLeave = true, IsOpen = true, MaxPlayers = 4 }, null);
+        GameObject go = new GameObject();
+        go.name = "LoadData" + a;
+        DontDestroyOnLoad(go);
+    }
 
 
 
@@ -102,7 +135,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnCreatedRoom();
         Debug.Log("방 생성 성공");
-
     }
     public void OnClickJoinRoom()
     {
@@ -135,5 +167,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         joinWindow.SetActive(false);
         newStartWindow.SetActive(false);
         noticeWindow.SetActive(false);
+        loadWindow.SetActive(false);
     }
 }
