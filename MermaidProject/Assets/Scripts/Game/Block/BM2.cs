@@ -36,7 +36,7 @@ public class BM2 : Block
             {
                 a -= 10f;
                 waitingLen--;
-                PhotonNetwork.Instantiate("Prefab/Game/Brick2", transform.position - transform.up, transform.rotation);
+                PhotonNetwork.Instantiate("Prefab/Game/Brick2", transform.position - transform.up, transform.rotation).transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
             }
             yield return null;
         }

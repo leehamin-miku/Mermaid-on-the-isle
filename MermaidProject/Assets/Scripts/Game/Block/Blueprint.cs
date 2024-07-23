@@ -20,7 +20,9 @@ public class Blueprint : Block
                 {
                     PhotonNetwork.Destroy(haveBlock[0]);
                 }
-                PhotonNetwork.Instantiate("Prefab/Game/" + structure, transform.position, transform.rotation).GetComponent<Block>().StartObject();
+                GameObject go = PhotonNetwork.Instantiate("Prefab/Game/" + structure, transform.position, transform.rotation);
+                go.GetComponent<Block>().StartObject();
+                go.transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
                 PhotonNetwork.Destroy(this.gameObject);
             }
             yield return null;

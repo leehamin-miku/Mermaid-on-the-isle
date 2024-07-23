@@ -5,5 +5,5 @@
 4,,갓곡 골든 아워즈를 듣고 가세요,
 5,Transition,,rectangle
 6,Sound,,2
-7,SetNextDialogue,,1-1-2
+7,SetNextDialogue,,1n1n2
 7,ConnectSubDialogue,,
