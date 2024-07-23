@@ -17,8 +17,8 @@ public class CraftTable : Block
     [SerializeField] Color colorBlock5;
 
 
-    [SerializeField] List<int> inputList = new List<int>();
-    float a = 0;
+    public List<int> inputList = new List<int>();
+    public float a = 0;
     [SerializeField] List<int> SwordRecipe = new List<int>() {1, 2, 2};
     public override void CollisionEnterAction(Collision2D collision)
     {
@@ -95,6 +95,14 @@ public class CraftTable : Block
             case 4:
                 transform.GetChild(a).GetComponent<SpriteRenderer>().color = colorBlock4;
                 break;
+        }
+    }
+
+    public void LoadFuc()
+    {
+        for(int i=0; i<inputList.Count; i++)
+        {
+            PV.RPC("IngredientMarkChange", RpcTarget.All, i, inputList[i]);
         }
     }
 }

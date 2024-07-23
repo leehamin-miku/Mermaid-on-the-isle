@@ -12,6 +12,7 @@ public class Data
         public int money;
         public string nextDialogue;
         public List<string> shopItemList;
+        public List<string> textbookList;
         public List<SaveBlockStruct> saveBlockList;
         public string roomName;
         public int progressStatus;
