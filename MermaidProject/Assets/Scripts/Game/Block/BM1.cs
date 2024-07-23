@@ -41,5 +41,11 @@ public class BM1 : Block
             yield return null;
         }
     }
+    public override Block DeepCopySub(Block block)
+    {
+        (block as BM1).a = a;
+        (block as BM1).waitingLen = waitingLen;
+        return block;
+    }
 
 }

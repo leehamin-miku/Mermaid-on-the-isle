@@ -105,4 +105,10 @@ public class CraftTable : Block
             PV.RPC("IngredientMarkChange", RpcTarget.All, i, inputList[i]);
         }
     }
+
+    public override Block DeepCopySub(Block block)
+    {
+        (block as CraftTable).inputList = inputList.ToList();
+        return block;
+    }
 }

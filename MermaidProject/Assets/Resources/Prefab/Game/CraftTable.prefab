@@ -268,11 +268,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a13a95caed2968488b543b00c92ca10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRunning: 1
   isInUse: 0
   isGrabed: 0
-  BlockCode: 8
+  BlockCode: 14
   rb: {fileID: 8424819385504529361}
+  savePosition: {x: 0, y: 0, z: 0}
+  saveRotation: {x: 0, y: 0, z: 0, w: 0}
   strength: 20
   maxStrenth: 20
   mass: 10
@@ -287,6 +288,7 @@ MonoBehaviour:
   colorBlock4: {r: 0, g: 0, b: 0, a: 1}
   colorBlock5: {r: 0, g: 0, b: 0, a: 1}
   inputList: 
+  a: 0
   SwordRecipe: 010000000200000002000000
 --- !u!1 &2742615420322203889
 GameObject:

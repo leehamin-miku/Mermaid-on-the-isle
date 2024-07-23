@@ -180,20 +180,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdbbc854c5851a4b89b1f8ce84f7eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRunning: 1
   isInUse: 0
   isGrabed: 0
-  coolTime: 0
-  BlockCode: 1
+  BlockCode: 7
   rb: {fileID: 8424819385504529361}
+  savePosition: {x: 0, y: 0, z: 0}
+  saveRotation: {x: 0, y: 0, z: 0, w: 0}
   strength: 0
+  maxStrenth: 0
   mass: 3
   drag: 5
   angularDrag: 15
   p1: {fileID: 0}
   isAbleGrabed: 1
   PV: {fileID: 3411019273798802887}
-  isOnSale: 0
 --- !u!114 &-2037884425488265604
 MonoBehaviour:
   m_ObjectHideFlags: 0

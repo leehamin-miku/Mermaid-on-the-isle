@@ -230,11 +230,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6977fc55e09809c4b99f50ddafca98f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRunning: 1
   isInUse: 0
   isGrabed: 0
-  BlockCode: 10
+  BlockCode: 15
   rb: {fileID: 0}
+  savePosition: {x: 0, y: 0, z: 0}
+  saveRotation: {x: 0, y: 0, z: 0, w: 0}
   strength: 0
   maxStrenth: 0
   mass: 10

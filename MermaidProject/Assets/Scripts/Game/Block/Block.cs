@@ -2,6 +2,7 @@ using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Block : MonoBehaviourPunCallbacks
@@ -10,7 +11,8 @@ public class Block : MonoBehaviourPunCallbacks
     public bool isGrabed = false;
     public int BlockCode;
     public Rigidbody2D rb;
-
+    public Vector3 savePosition;
+    public Quaternion saveRotation;
 
     //저장 대상
     public int strength;
@@ -179,6 +181,19 @@ public class Block : MonoBehaviourPunCallbacks
                 PhotonNetwork.Destroy(this.gameObject);
             }
         }
+    }
+
+    public Block DeepCopy()
+    {
+        Block block = new Block();
+        block.strength = strength;
+        block.savePosition = transform.position;
+        block.saveRotation = transform.rotation;
+        return DeepCopySub(block);
+    }
+    public virtual Block DeepCopySub(Block block)
+    {
+        return block;
     }
 
 }

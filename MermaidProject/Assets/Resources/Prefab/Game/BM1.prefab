@@ -184,11 +184,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e89c3f7c4537e4ea5402fc3646baf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRunning: 1
   isInUse: 0
   isGrabed: 0
-  BlockCode: 15
+  BlockCode: 8
   rb: {fileID: 0}
+  savePosition: {x: 0, y: 0, z: 0}
+  saveRotation: {x: 0, y: 0, z: 0, w: 0}
   strength: 15
   maxStrenth: 30
   mass: 3
@@ -198,6 +199,7 @@ MonoBehaviour:
   isAbleGrabed: 0
   PV: {fileID: 3411019273798802887}
   waitingLen: 0
+  a: 0
 --- !u!1 &2742615420322203889
 GameObject:
   m_ObjectHideFlags: 0

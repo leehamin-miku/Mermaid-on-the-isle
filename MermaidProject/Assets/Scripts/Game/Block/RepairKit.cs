@@ -78,5 +78,10 @@ public class RepairKit: Block
             PhotonNetwork.Destroy(this.gameObject);
         }
     }
+    public override Block DeepCopySub(Block block)
+    {
+        (block as RepairKit).a = a;
+        return block;
+    }
 
 }

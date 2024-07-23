@@ -16,7 +16,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         Pl.GetComponent<Rigidbody2D>().AddForce(UnityEngine.Random.insideUnitCircle*2,ForceMode2D.Impulse);
         if (GameObject.Find("LoadData0"))
         {
+            Destroy(GameObject.Find("LoadData0"));
             LoadObjects(0);
+        } else if (GameObject.Find("LoadData1"))
+        {
+            Destroy(GameObject.Find("LoadData1"));
+            LoadObjects(1);
+        } else if (GameObject.Find("LoadData2"))
+        {
+            Destroy(GameObject.Find("LoadData2"));
+            LoadObjects(2);
         }
     }
 
@@ -37,7 +46,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameObject.Find("VN").GetComponent<VNManager>().nextDialogue = ss.nextDialogue;
         GameObject.Find("Shop").GetComponent<Shop>().shopItemList = ss.shopItemList.ToList();
         GameObject.Find("LobbySquare").GetComponent<GameStart>().progressStatus = ss.progressStatus;
-        GameObject.Find("VN").GetComponent<VNManager>().;
+        GameObject.Find("VN").GetComponent<VNManager>().textbookList = ss.textbookList.ToList();
 
 
 
@@ -55,72 +64,98 @@ public class GameManager : MonoBehaviourPunCallbacks
                     break;
                 case 1:
                     blockName = "Brick1";
-                    PhotonNetwork.Instantiate("Prefab/Game/"+blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<Block>().strength = block.block.strength;
+                    Block brick1 = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    brick1.strength = block.block.strength;
+                    brick1.transform.SetParent(sog.transform);
                     break;
                 case 2:
                     blockName = "Brick2";
-                    PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<Block>().strength = block.block.strength;
+                    Block brick2 = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    brick2.strength = block.block.strength;
+                    brick2.transform.SetParent(sog.transform);
                     break;
                 case 3:
                     blockName = "Shell";
-                    PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<Block>().strength = block.block.strength;
+                    Block shell = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    shell.strength = block.block.strength;
+                    shell.transform.SetParent(sog.transform);
                     break;
                 case 4:
                     blockName = "ShellBronze";
-                    PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<Block>().strength = block.block.strength;
+                    Block shellBronze = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    shellBronze.strength = block.block.strength;
+                    shellBronze.transform.SetParent(sog.transform);
                     break;
                 case 5:
                     blockName = "ShellGold";
-                    PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<Block>().strength = block.block.strength;
+                    Block shellGold = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    shellGold.strength = block.block.strength;
+                    shellGold.transform.SetParent(sog.transform);
                     break;
                 case 6:
                     blockName = "ShellRuby";
-                    PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<Block>().strength = block.block.strength;
+                    Block shellRuby = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    shellRuby.strength = block.block.strength;
+                    shellRuby.transform.SetParent(sog.transform);
                     break;
                 case 7:
                     blockName = "Rock";
-                    PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<Block>().strength = block.block.strength;
+                    Block rock = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    rock.strength = block.block.strength;
+                    rock.transform.SetParent(sog.transform);
                     break;
                 case 8:
                     blockName = "BM1";
-                    BM1 bm1 = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<BM1>();
+                    BM1 bm1 = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<BM1>();
                     bm1.strength = block.block.strength;
                     bm1.a = (block.block as BM1).a;
                     bm1.waitingLen = (block.block as BM1).waitingLen;
+                    bm1.transform.SetParent(sog.transform);
                     break;
                 case 9:
                     blockName = "BM1Blueprint";
-                    PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<Block>().strength = block.block.strength;
+                    Block BM1Blueprint = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    BM1Blueprint.strength = block.block.strength;
+                    BM1Blueprint.transform.SetParent(sog.transform);
                     break;
                 case 10:
                     blockName = "BM2";
-                    BM2 bm2 = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<BM2>();
+                    BM2 bm2 = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<BM2>();
                     bm2.strength = block.block.strength;
                     bm2.a = (block.block as BM2).a;
                     bm2.waitingLen = (block.block as BM2).waitingLen;
+                    bm2.transform.SetParent(sog.transform);
                     break;
                 case 11:
                     blockName = "BM2Blueprint";
-                    PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<Block>().strength = block.block.strength;
+                    Block BM2Blueprint = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    BM2Blueprint.strength = block.block.strength;
+                    BM2Blueprint.transform.SetParent(sog.transform);
                     break;
                 case 12:
                     blockName = "PiggyBank";
-                    PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<Block>().strength = block.block.strength;
+                    Block piggyBank = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    piggyBank.strength = block.block.strength;
+                    piggyBank.transform.SetParent(sog.transform);
                     break;
                 case 13:
                     blockName = "PiggyBankBlueprint";
-                    PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<Block>().strength = block.block.strength;
+                    Block piggyBankBlueprint = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    piggyBankBlueprint.strength = block.block.strength;
+                    piggyBankBlueprint.transform.SetParent(sog.transform);
                     break;
                 case 14:
                     blockName = "CraftTable";
-                    CraftTable craftTable = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<CraftTable>();
+                    CraftTable craftTable = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<CraftTable>();
                     craftTable.strength = block.block.strength;
                     craftTable.inputList = (block.block as CraftTable).inputList.ToList();
                     craftTable.LoadFuc();
                     break;
                 case 15:
                     blockName = "CraftTableBlueprint";
-                    PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<Block>().strength = block.block.strength;
+                    Block craftTableBlueprint = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    craftTableBlueprint.strength = block.block.strength;
+                    craftTableBlueprint.transform.SetParent(sog.transform);
                     break;
                 case 16:
                     blockName = "Hammer";
@@ -130,8 +165,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                     break;
                 case 18:
                     blockName = "RepairKit";
-                    RepairKit repairKit = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.transform.position, block.block.transform.rotation).GetComponent<RepairKit>();
+                    RepairKit repairKit = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<RepairKit>();
                     repairKit.a = (block.block as RepairKit).a;
+                    repairKit.transform.SetParent(sog.transform);
                     break;
                 default:
                     blockName = null;

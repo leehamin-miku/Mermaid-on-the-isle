@@ -47,97 +47,13 @@ public class Save : MonoBehaviour
         ss.shopItemList = GameObject.Find("Shop").GetComponent<Shop>().shopItemList.ToList();
         ss.roomName = PhotonNetwork.CurrentRoom.Name;
         ss.progressStatus = GameObject.Find("LobbySquare").GetComponent<GameStart>().progressStatus;
-        
+        ss.textbookList = GameObject.Find("VN").GetComponent<VNManager>().textbookList.ToList();
         List<Data.SaveBlockStruct> saveBlockList = new List<Data.SaveBlockStruct>();
         Transform saveGroup = GameObject.Find("SaveObjectGroup").transform;
         foreach (Transform child in saveGroup)
         {
-            saveBlockList.Add(new Data.SaveBlockStruct(child.GetComponent<Block>().BlockCode, child.GetComponent<Block>()));
-        //    int a = block.BlockCode;
-        //    string blockName;
-        //    //            0 player
-        //    //1 brick1
-        //    //2 brick2
-        //    //3 Shell
-        //    //4 ShellBronze
-        //    //5ShellGold
-        //    //6 ShellRuby
-        //    //7 Rock
-        //    //8 BM1
-        //    //9 BM1Blueprint
-        //    //10 BM2
-        //    //11 BM2Blueprint
-        //    //12 PiggyBank
-        //    //13 PiggyBankBlueprint
-        //    //14 CraftTable
-        //    //15 CraftTableBlueprint
-        //    //16 Hammer
-        //    //17 Sword
-        //    //18 RepairKit
-        //    switch (a)
-        //    {
 
-        //        case 0:
-        //            //플레이어인데 이게 왜 저장되는거야
-        //            break;
-        //        case 1:
-        //            blockName = "Brick1";
-        //            break;
-        //        case 2:
-        //            blockName = "Brick2";
-        //            break;
-        //        case 3:
-        //            blockName = "Shell";
-        //            break;
-        //        case 4:
-        //            blockName = "ShellBronze";
-        //            break;
-        //        case 5:
-        //            blockName = "ShellGold";
-        //            break;
-        //        case 6:
-        //            blockName = "ShellRuby";
-        //            break;
-        //        case 7:
-        //            blockName = "Rock";
-        //            break;
-        //        case 8:
-        //            blockName = "BM1";
-        //            break;
-        //        case 9:
-        //            blockName = "BM1Blueprint";
-        //            break;
-        //        case 10:
-        //            blockName = "BM2";
-        //            break;
-        //        case 11:
-        //            blockName = "BM2Blueprint";
-        //            break;
-        //        case 12:
-        //            blockName = "PiggyBank";
-        //            break;
-        //        case 13:
-        //            blockName = "PiggyBankBlueprint";
-        //            break;
-        //        case 14:
-        //            blockName = "CraftTable";
-        //            break;
-        //        case 15:
-        //            blockName = "CraftTableBlueprint";
-        //            break;
-        //        case 16:
-        //            blockName = "Hammer";
-        //            break;
-        //        case 17:
-        //            blockName = "Sword";
-        //            break;
-        //        case 18:
-        //            blockName = "RepairKit";
-        //            break;
-        //        default:
-        //            blockName = null;
-        //            break;
-        //    }
+            saveBlockList.Add(new Data.SaveBlockStruct(child.GetComponent<Block>().BlockCode, child.GetComponent<Block>().DeepCopy()));
 
         }
         ss.saveBlockList = saveBlockList.ToList();

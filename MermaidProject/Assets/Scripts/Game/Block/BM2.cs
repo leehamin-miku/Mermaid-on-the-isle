@@ -42,4 +42,11 @@ public class BM2 : Block
         }
     }
 
+    public override Block DeepCopySub(Block block)
+    {
+        (block as BM2).a = a;
+        (block as BM2).waitingLen = waitingLen;
+        return block;
+    }
+
 }

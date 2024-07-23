@@ -91,14 +91,14 @@ public class TideTimer : MonoBehaviour
         int d = Random.Range(2, 4); // 루비조개
 
         int a = Random.Range(10, 15); //일반 조개
-
+        Transform save = GameObject.Find("SaveObjectGroup").transform;
         while (a > 0)
         {
             Vector3 position = Random.insideUnitSphere * 40 + GameObject.Find("Island").transform.position;
             if (Physics2D.Raycast(new Vector2(position.x, position.y), Vector2.down, 0.01f, LayerMask.GetMask("Sea")) == true && Physics2D.Raycast(new Vector2(position.x, position.y), Vector2.down, 0.01f, LayerMask.GetMask("Island")) == false)
             {
                 a--;
-                PhotonNetwork.Instantiate("Prefab/Game/Shell", new Vector3(position.x, position.y), Quaternion.identity);
+                PhotonNetwork.Instantiate("Prefab/Game/Shell", new Vector3(position.x, position.y), Quaternion.identity).transform.SetParent(save);
             }
         }
         while (b > 0)
@@ -107,7 +107,7 @@ public class TideTimer : MonoBehaviour
             if (Physics2D.Raycast(new Vector2(position.x, position.y), Vector2.down, 0.01f, LayerMask.GetMask("Sea")) == true && Physics2D.Raycast(new Vector2(position.x, position.y), Vector2.down, 0.01f, LayerMask.GetMask("Island")) == false)
             {
                 b--;
-                PhotonNetwork.Instantiate("Prefab/Game/ShellBronze", new Vector3(position.x, position.y), Quaternion.identity);
+                PhotonNetwork.Instantiate("Prefab/Game/ShellBronze", new Vector3(position.x, position.y), Quaternion.identity).transform.SetParent(save);
             }
         }
         while (c > 0)
@@ -116,7 +116,7 @@ public class TideTimer : MonoBehaviour
             if (Physics2D.Raycast(new Vector2(position.x, position.y), Vector2.down, 0.01f, LayerMask.GetMask("Sea")) == true && Physics2D.Raycast(new Vector2(position.x, position.y), Vector2.down, 0.01f, LayerMask.GetMask("Island")) == false)
             {
                 c--;
-                PhotonNetwork.Instantiate("Prefab/Game/ShellGold", new Vector3(position.x, position.y), Quaternion.identity);
+                PhotonNetwork.Instantiate("Prefab/Game/ShellGold", new Vector3(position.x, position.y), Quaternion.identity).transform.SetParent(save);
             }
         }
         while (d > 0)
@@ -125,7 +125,7 @@ public class TideTimer : MonoBehaviour
             if (Physics2D.Raycast(new Vector2(position.x, position.y), Vector2.down, 0.01f, LayerMask.GetMask("Sea")) == true && Physics2D.Raycast(new Vector2(position.x, position.y), Vector2.down, 0.01f, LayerMask.GetMask("Island")) == false)
             {
                 d--;
-                PhotonNetwork.Instantiate("Prefab/Game/ShellRuby", new Vector3(position.x, position.y), Quaternion.identity);
+                PhotonNetwork.Instantiate("Prefab/Game/ShellRuby", new Vector3(position.x, position.y), Quaternion.identity).transform.SetParent(save);
             }
         }
         //Debug.Log(LayerMask.GetMask("Block"));

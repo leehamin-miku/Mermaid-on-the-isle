@@ -328,6 +328,8 @@ MonoBehaviour:
   isGrabed: 0
   BlockCode: 0
   rb: {fileID: 0}
+  savePosition: {x: 0, y: 0, z: 0}
+  saveRotation: {x: 0, y: 0, z: 0, w: 0}
   strength: 100
   maxStrenth: 100
   mass: 1

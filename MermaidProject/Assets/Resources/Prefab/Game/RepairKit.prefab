@@ -186,11 +186,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682d76d1ccdc8634a80da53306ecd085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRunning: 0
   isInUse: 0
   isGrabed: 0
   BlockCode: 16
   rb: {fileID: 8424819385504529361}
+  savePosition: {x: 0, y: 0, z: 0}
+  saveRotation: {x: 0, y: 0, z: 0, w: 0}
   strength: 20
   maxStrenth: 20
   mass: 5
@@ -199,6 +200,7 @@ MonoBehaviour:
   p1: {fileID: 0}
   isAbleGrabed: 1
   PV: {fileID: 3411019273798802887}
+  a: 5
 --- !u!61 &8760692348381140518
 BoxCollider2D:
   m_ObjectHideFlags: 0
