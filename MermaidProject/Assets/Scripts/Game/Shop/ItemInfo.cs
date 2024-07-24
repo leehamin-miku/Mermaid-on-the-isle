@@ -24,7 +24,6 @@ public class ItemInfo : MonoBehaviour
                 {
                     GameObject.Find("TotalMoney").GetComponent<MoneyManager>().PV.RPC("MoneyChange", RpcTarget.MasterClient, -price);
                     PV.RPC("BuyThisItem", RpcTarget.All);
-                    item.GetComponent<Block>().PV.RPC("StartObject", RpcTarget.MasterClient);
                 }
             }
         }
@@ -51,6 +50,10 @@ public class ItemInfo : MonoBehaviour
     public void BuyThisItem()
     {
         //구매가 확정되었을때, 모두에게서 호출되는 함수
+        if (PhotonNetwork.IsMasterClient)
+        {
+            item.GetComponent<Block>().StartObject();
+        }
         transform.GetChild(0).GetComponent<TextMeshPro>().text = "sold out";
         item.GetComponent<Block>().rb.isKinematic = false;
         item.GetComponent<Block>().isAbleGrabed = true;

@@ -39,11 +39,14 @@ public class Blueprint : Block
         List<int> list = new List<int>();
         foreach (GameObject go in haveBlock)
         {
-            if (go.GetComponent<Block>().isGrabed)
+            if (go.GetComponent<Block>() != null)
             {
-                return false;
+                if (go.GetComponent<Block>().isGrabed)
+                {
+                    return false;
+                }
+                list.Add(go.GetComponent<Block>().BlockCode);
             }
-            list.Add(go.GetComponent<Block>().BlockCode);
         }
 
         list.Sort();

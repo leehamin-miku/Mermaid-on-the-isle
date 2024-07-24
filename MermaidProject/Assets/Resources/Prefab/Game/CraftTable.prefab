@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 3117839484728254516}
   - component: {fileID: 1467750215170637730}
   - component: {fileID: 1489369957433180871}
-  - component: {fileID: 6941633891704320044}
+  - component: {fileID: 498898665361753276}
   m_Layer: 6
   m_Name: CraftTable
   m_TagString: Untagged
@@ -256,7 +256,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6941633891704320044
+--- !u!114 &498898665361753276
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,7 +271,7 @@ MonoBehaviour:
   isInUse: 0
   isGrabed: 0
   BlockCode: 14
-  rb: {fileID: 8424819385504529361}
+  rb: {fileID: 0}
   savePosition: {x: 0, y: 0, z: 0}
   saveRotation: {x: 0, y: 0, z: 0, w: 0}
   strength: 20
@@ -282,14 +282,16 @@ MonoBehaviour:
   p1: {fileID: 0}
   isAbleGrabed: 0
   PV: {fileID: 3411019273798802887}
-  colorBlock1: {r: 0.6117647, g: 0.48235297, b: 0.45882356, a: 1}
-  colorBlock2: {r: 0.73333335, g: 0.7254902, b: 0.73333335, a: 1}
-  colorBlock3: {r: 0, g: 0, b: 0, a: 1}
-  colorBlock4: {r: 0, g: 0, b: 0, a: 1}
-  colorBlock5: {r: 0, g: 0, b: 0, a: 1}
+  colorBlock3: {r: 0.8207547, g: 0.8158659, b: 0.615566, a: 1}
+  colorBlock4: {r: 0.9150943, g: 0.4774876, b: 0, a: 1}
+  colorBlock5: {r: 0.9870485, g: 1, b: 0, a: 1}
+  colorBlock6: {r: 0.8962264, g: 0, b: 0, a: 1}
+  colorBlock7: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
+  colorBlock19: {r: 0.5471698, g: 0.38205424, b: 0.28648984, a: 1}
   inputList: 
   a: 0
   SwordRecipe: 010000000200000002000000
+  RepairKitRecipe: 030000000300000007000000
 --- !u!1 &2742615420322203889
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +553,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

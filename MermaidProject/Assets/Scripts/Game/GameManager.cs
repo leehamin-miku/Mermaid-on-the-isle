@@ -166,8 +166,15 @@ public class GameManager : MonoBehaviourPunCallbacks
                 case 18:
                     blockName = "RepairKit";
                     RepairKit repairKit = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<RepairKit>();
+                    repairKit.strength = block.block.strength;
                     repairKit.a = (block.block as RepairKit).a;
                     repairKit.transform.SetParent(sog.transform);
+                    break;
+                case 19:
+                    blockName = "Wood";
+                    Block wood = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    wood.strength = block.block.strength;
+                    wood.transform.SetParent(sog.transform);
                     break;
                 default:
                     blockName = null;

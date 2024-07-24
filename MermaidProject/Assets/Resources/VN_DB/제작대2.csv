@@ -1,0 +1,11 @@
+﻿ActionName,Target,Parameter
+SpriteChange,0,`0`0`1
+노아,깜빡잠들었었네,Noah2
+노아,오늘 배웠던걸 시험해볼까?,Noah2
+문제,다음 중 제작대의 재료가 될 수 있는것으로 틀린 것은?,book
+Question,1. 나무`제작대오답,
+Question,2. 수리키트`제작대정답,
+Question,3. 돌`제작대오답,
+QuestionEnd,,
+노아,"""과연... 정답은...!""",
+ConnectSubDialogue,,

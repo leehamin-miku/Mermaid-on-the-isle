@@ -40,7 +40,6 @@ public class PlayerController : Block
     // Update is called once per frame
     void Update()
     {
-
         if (PV.IsMine&&VNRunning==false)
         {
             if (isAbleMove)
@@ -52,7 +51,6 @@ public class PlayerController : Block
                     h2 = Input.GetAxis("Vertical");
                     r1 = Input.GetAxis("Mouse X");
                 }
-                 
 
                 if (h2 > 0) h2 = 1.5f;
 

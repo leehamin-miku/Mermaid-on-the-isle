@@ -6,6 +6,7 @@ using Photon.Pun;
 using Unity.VisualScripting;
 using Photon.Pun.Demo.Procedural;
 using EasyTransition;
+using System.Data.Common;
 
 public class VNManager : MonoBehaviourPunCallbacks
 {
@@ -28,6 +29,8 @@ public class VNManager : MonoBehaviourPunCallbacks
 
     public static TMP_Text ChatText;
     public static TMP_Text CharacterName;
+    public static SpriteRenderer ChatWindowSR;
+    public static SpriteRenderer HalfStandingSpriteRenderer;
 
     public static string writerText = "";
 
@@ -44,6 +47,8 @@ public class VNManager : MonoBehaviourPunCallbacks
         CharacterName = GameObject.Find("CharacterName").GetComponent<TextMeshPro>();
         ChoiceManager = AnswerGroup.GetComponent<ChoiceManager>();
         StandingGroup = GameObject.Find("StandingGroup");
+        HalfStandingSpriteRenderer = GameObject.Find("HalfStanding").GetComponent<SpriteRenderer>();
+        ChatWindowSR = GameObject.Find("VN_TextWindowSample").GetComponent<SpriteRenderer>();
     }
 
     int i = 0;
@@ -232,6 +237,26 @@ public class VNManager : MonoBehaviourPunCallbacks
 				coList.Add(temp);
 				i++;
 			}
+            else if(ActionName == "ChatWindow")
+            {
+                CoroutineAbs temp = new ChatWindow(Parameter);
+                temp.co = StartCoroutine(temp.Action());
+                coList.Add(temp);
+                i++;
+            } //챗윈도우 나타나게 하고 사라지게 하는 액션 on/off
+            else if(ActionName == "Thinking") //레더박스 + 챗윈도우 액션
+            {
+                CoroutineAbs temp = new Thinking(Target);
+                temp.co = StartCoroutine(temp.Action());
+                coList.Add(temp);
+
+                CoroutineAbs temp2 = new NormalChat("", "...");
+                temp2.co = StartCoroutine(temp2.Action());
+                coList.Add(temp2);
+                i++;
+                break;
+                
+            }
             else if (ActionName == "Exit")
             {
                 StandingGroup.transform.GetChild(int.Parse(Target)).GetComponent<SpriteRenderer>().sprite = null;
@@ -355,6 +380,11 @@ public class VNManager : MonoBehaviourPunCallbacks
                 GameObject.Find("Shop").GetComponent<Shop>().shopItemList.Add(Parameter);
                 i++;
             }
+            else if (ActionName == "GetItem")
+            {
+                PhotonNetwork.Instantiate("Prefab/Game/" + Parameter, GameObject.Find("IslandSquare").transform.position, Quaternion.identity).transform.SetParent(GameObject.Find("SaveObjectGroup").transform); ;
+                i++;
+            }
             else if (ActionName == "ConnectDialogue")
             {
                 Dialogue = CSVReader.Read("VN_DB/" + Parameter);
@@ -418,6 +448,7 @@ public class VNManager : MonoBehaviourPunCallbacks
             else
             {
                 HalfStandingChange(Parameter);
+                Debug.Log(Target);
                 CoroutineAbs temp = new NormalChat(ActionName, Target);
                 temp.co = StartCoroutine(temp.Action());
                 coList.Add(temp);
@@ -511,7 +542,7 @@ public class VNManager : MonoBehaviourPunCallbacks
 
 
     // 상반신 sprite를 바꾼다.
-    public SpriteRenderer HalfStandingSpriteRenderer;       // 기존 이미지
+          // 기존 이미지
 
     public void HalfStandingChange(string after_img)
     {
@@ -783,7 +814,6 @@ public class VNManager : MonoBehaviourPunCallbacks
 				StandingGroup.transform.GetChild(TopLetterBox).GetComponent<SpriteRenderer>().sprite = null;
                 StandingGroup.transform.GetChild(BottomLetterBox).GetComponent<SpriteRenderer>().sprite = null;
 			}
-			yield return null;
 		}
 
 		override public void EndAction() {
@@ -801,4 +831,172 @@ public class VNManager : MonoBehaviourPunCallbacks
 			}
 		}
 	}
+    public class ChatWindow : CoroutineAbs
+    {
+        float alpha = 0.7f;
+        string Parameter;
+        public ChatWindow(string Parameter)
+        {
+            this.Parameter = Parameter;
+        }
+
+        public override IEnumerator Action()
+        {
+            float timer = 0;
+            if (Parameter == "On")
+            {
+                while (timer <= 0.5f)
+                {
+                    timer += Time.deltaTime;
+                    ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, timer * 2*alpha);
+                    HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, timer * 2);
+                    ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, timer*2);
+                    CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, timer * 2);
+                    yield return null;
+                }
+                ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, alpha);
+                HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 1);
+                ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 1);
+                CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, 1);
+            }
+            else if (Parameter == "Off")
+            {
+                while (timer <= 0.5f)
+                {
+                    timer += Time.deltaTime;
+                    ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, alpha*(1- timer * 2));
+                    HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 1 - timer * 2);
+                    ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 1-timer * 2);
+                    CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, 1-timer * 2);
+                    yield return null;
+                }
+                ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, 0);
+                HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 0);
+                ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 0);
+                CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, 0);
+            }
+        }
+
+        override public void EndAction()
+        {
+            if (Parameter == "On")
+            {
+                ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, alpha);
+                HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 1);
+                ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 1);
+                CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, 1);
+            }
+            else if (Parameter == "Off")
+            {
+                ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, 0);
+                HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 0);
+                ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 0);
+                CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, 0);
+            }
+        }
+    }
+
+    public class Thinking : CoroutineAbs
+    {
+        float alpha = 0.5f;
+        string Target;
+        static bool isOnAction = false; //끝나고 닫는거 까먹 ㄴㄴㄴㄴ
+        int TopLetterBox, BottomLetterBox;
+        public Thinking(string Target)
+        {
+            
+                this.Target = Target;
+                string[] temp;
+                temp = Target.Split('`');
+                TopLetterBox = int.Parse(temp[0]);
+                BottomLetterBox = int.Parse(temp[1]);
+        }
+
+        public override IEnumerator Action()
+        {
+            isOnAction ^= true;
+            float timer = 0;
+            if (isOnAction)
+            {
+                StandingGroup.transform.GetChild(TopLetterBox).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/LetterBox");
+                StandingGroup.transform.GetChild(BottomLetterBox).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/LetterBox");
+                StandingGroup.transform.GetChild(TopLetterBox).transform.position = new Vector3(0f, 6.5f, 0f);
+                StandingGroup.transform.GetChild(BottomLetterBox).transform.position = new Vector3(0f, -6.5f, 0f);
+                StandingGroup.transform.GetChild(TopLetterBox).transform.localScale = new Vector3(1, 1, 1);
+                StandingGroup.transform.GetChild(BottomLetterBox).transform.localScale = new Vector3(1, 1, 1);
+                ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, 0);
+                HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 0);
+                ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 0);
+                CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, 0);
+                while (timer <= 1)
+                {
+                    timer += Time.deltaTime;
+                    StandingGroup.transform.GetChild(TopLetterBox).transform.position = new Vector3(0f, Mathf.Lerp(6.5f, 4.81f, timer), 0f);
+                    StandingGroup.transform.GetChild(BottomLetterBox).transform.position = new Vector3(0f, Mathf.Lerp(-6.5f, -4.81f, timer), 0f);
+                    yield return null;
+                }
+                StandingGroup.transform.GetChild(TopLetterBox).transform.position = new Vector3(0f, 4.81f, 0f);
+                StandingGroup.transform.GetChild(BottomLetterBox).transform.position = new Vector3(0f, -4.81f, 0f);
+                StandingGroup.transform.GetChild(TopLetterBox).transform.localScale = new Vector3(1, 1, 1);
+                StandingGroup.transform.GetChild(BottomLetterBox).transform.localScale = new Vector3(1, 1, 1);
+                ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, alpha);
+                HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 1);
+                ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 1);
+                CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, 1);
+            }
+            else
+            {
+                StandingGroup.transform.GetChild(TopLetterBox).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/LetterBox");
+                StandingGroup.transform.GetChild(BottomLetterBox).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/VN/LetterBox");
+                StandingGroup.transform.GetChild(TopLetterBox).transform.position = new Vector3(0f, 6.5f, 0f);
+                StandingGroup.transform.GetChild(BottomLetterBox).transform.position = new Vector3(0f, -6.5f, 0f);
+                StandingGroup.transform.GetChild(TopLetterBox).transform.localScale = new Vector3(1, 1, 1);
+                StandingGroup.transform.GetChild(BottomLetterBox).transform.localScale = new Vector3(1, 1, 1);
+                ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, 0);
+                HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 0);
+                ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 0);
+                CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, 0);
+                while (timer <= 1)
+                {
+                    timer += Time.deltaTime;
+                    StandingGroup.transform.GetChild(TopLetterBox).transform.position = new Vector3(0f, Mathf.Lerp(6.5f, 4.81f, 1 - timer), 0f);
+                    StandingGroup.transform.GetChild(BottomLetterBox).transform.position = new Vector3(0f, Mathf.Lerp(-6.5f, -4.81f, 1 - timer), 0f);
+                    yield return null;
+                }
+                StandingGroup.transform.GetChild(TopLetterBox).transform.position = new Vector3(0f, 4.81f, 0f);
+                StandingGroup.transform.GetChild(BottomLetterBox).transform.position = new Vector3(0f, -4.81f, 0f);
+                StandingGroup.transform.GetChild(TopLetterBox).transform.localScale = new Vector3(1, 1, 1);
+                StandingGroup.transform.GetChild(BottomLetterBox).transform.localScale = new Vector3(1, 1, 1);
+                ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, alpha);
+                HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 1);
+                ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 1);
+                CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, 1);
+                StandingGroup.transform.GetChild(TopLetterBox).GetComponent<SpriteRenderer>().sprite = null;
+                StandingGroup.transform.GetChild(BottomLetterBox).GetComponent<SpriteRenderer>().sprite = null;
+
+            }
+
+        }
+        override public void EndAction()
+        {
+            if (isOnAction) {
+                ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, alpha);
+                HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 1);
+                ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 1);
+                CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, 1);
+                StandingGroup.transform.GetChild(TopLetterBox).transform.position = new Vector3(0f, 4.81f, 0f);
+                StandingGroup.transform.GetChild(BottomLetterBox).transform.position = new Vector3(0f, -4.81f, 0f);
+                StandingGroup.transform.GetChild(TopLetterBox).transform.localScale = new Vector3(1, 1, 1);
+                StandingGroup.transform.GetChild(BottomLetterBox).transform.localScale = new Vector3(1, 1, 1);
+            }
+            else {
+                ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, alpha);
+                HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 1);
+                ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 1);
+                CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, 1);
+                StandingGroup.transform.GetChild(TopLetterBox).GetComponent<SpriteRenderer>().sprite = null;
+                StandingGroup.transform.GetChild(BottomLetterBox).GetComponent<SpriteRenderer>().sprite = null;
+        }
+        }
+    }
 }
