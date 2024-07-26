@@ -12,7 +12,9 @@ public class TideTimer : MonoBehaviour
     [PunRPC]
     public void SetTimeMark(int a)
     {
-        GetComponent<TextMeshProUGUI>().text = "해일까지 남은시간\n"+ "0" + (totalTime - a) / 60 + ":" + (totalTime - a) % 60;
+        string minute = (totalTime - a) / 60 < 10 ? "0" + ((totalTime - a) / 60).ToString() : ((totalTime - a) / 60).ToString();
+        string second = (totalTime - a) % 60 < 10 ? "0" + ((totalTime - a) % 60).ToString() : ((totalTime - a) % 60).ToString();
+        GetComponent<TextMeshProUGUI>().text = "해일까지 남은시간\n" + minute + ':' + second;
     }
 
 

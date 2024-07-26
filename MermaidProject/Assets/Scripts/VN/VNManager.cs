@@ -302,10 +302,10 @@ public class VNManager : MonoBehaviourPunCallbacks
                     string[] a = Parameter.Split('`');
                     //a[0] = 구분
                     //a[1] = 쓰나미의 갯수 (한번에 많이 소환하기 위한)
-                    //a[2] =  다음 Tidal 까지의 시간
+                    //a[2] = 다음 Tidal 까지의 시간
 
                     //구분=0일때 일반 쓰나미
-                    //구분=1일때 제로쓰나미
+                    //구분=1일때 제로 쓰나미
                     //구분=2일때 상어 크리쳐
 
                     //예상시간, Tidal사이의 시간
@@ -382,9 +382,16 @@ public class VNManager : MonoBehaviourPunCallbacks
             }
             else if (ActionName == "GetItem")
             {
-                PhotonNetwork.Instantiate("Prefab/Game/" + Parameter, GameObject.Find("IslandSquare").transform.position, Quaternion.identity).transform.SetParent(GameObject.Find("SaveObjectGroup").transform); ;
+                PhotonNetwork.Instantiate("Prefab/Game/" + Parameter, GameObject.Find("IslandSquare").transform.position, Quaternion.identity).transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
                 i++;
             }
+            else if (ActionName == "GetMoney") {
+				if (PhotonNetwork.IsMasterClient) {
+					GameObject.Find("TotalMoney").GetComponent<MoneyManager>().PV.RPC("MoneyChange", RpcTarget.MasterClient, int.Parse(Parameter));
+					Debug.Log(Parameter + "원 추가!");
+				}
+                i++;
+			}
             else if (ActionName == "ConnectDialogue")
             {
                 Dialogue = CSVReader.Read("VN_DB/" + Parameter);
