@@ -7,6 +7,7 @@ AddShopItem,,Wood
 LetterBox,1`2,On
 AddTextbook,건축재료 시멘트 제작법`시멘트1,
 AddTextbook,무언가를 만들 때 가장 좋은 방법:제작대`제작대1,
+AddTextbook,당신도 부자가 될 수 있다`돼지저금통1,
 ReadTextbook,,
 LetterBox,1`2,Off
 SetNextDialogue,,1n1n1

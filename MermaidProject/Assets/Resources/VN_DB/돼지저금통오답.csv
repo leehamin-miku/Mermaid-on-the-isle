@@ -1,0 +1,11 @@
+﻿ActionName,Target,Parameter
+문제,오답입니다,
+노아,"으,,, 다시 복습해보자.",Noah2
+노아,"구리 조개부터 화폐로 사용되고, 금 조개는 3 구리 조개, 루비 조개는 5 구리 조개의 가치를 가진다…",Noah2
+노아,저금통에 저장해 상점에서 화폐로 이용할 수 있다…,Noah2
+노아,다시는 잊지 말자! 노아 파이팅!,Noah2
+AddShopItem,,PiggyBankBlueprint
+GetItem,,PiggyBankBlueprint
+,상점과 섬에 돼지저금통 청사진이 추가되었습니다!,
+,,
+ConnectNextDialogue,,
