@@ -91,6 +91,7 @@ MonoBehaviour:
   - StartObject
   - UseCountChange
   - StartQuestionCoroutine
+  - GameOver
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

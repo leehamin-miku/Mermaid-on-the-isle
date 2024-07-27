@@ -16,6 +16,7 @@ public class Data
         public List<SaveBlockStruct> saveBlockList;
         public string roomName;
         public int progressStatus;
+        public bool shopOpened;
     }
 
     public struct SaveBlockStruct

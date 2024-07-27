@@ -6,6 +6,8 @@
 노아,다시는 잊지 말자! 노아 파이팅!,Noah2
 AddShopItem,,PiggyBankBlueprint
 GetItem,,PiggyBankBlueprint
-,상점과 섬에 돼지저금통 청사진이 추가되었습니다!,
-,,
+ ,상점과 섬에 돼지저금통 청사진이 추가되었습니다!,
+노아,그러고 보니 닫혀있던 상점이 새로 열린다고 했었지...,Noah2
+노아,한번 가볼까...,Noah2
+ShopOpen,,
 ConnectNextDialogue,,

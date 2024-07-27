@@ -41,7 +41,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //이새끼 대체 뭐임?
         PhotonNetwork.ConnectUsingSettings();
 
-        if (GameObject.Find("RoomExplode") != null)
+        if (GameObject.Find("GameOver") != null)
+        {
+            Destroy(GameObject.Find("GameOber"));
+            noticeWindow.SetActive(true);
+            noticeWindow.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Game Over\n노아의 꽃이 파도에 휘말려 사라져버렸습니다";
+        }
+        else if (GameObject.Find("RoomExplode") != null)
         {
             Destroy(GameObject.Find("RoomExplode"));
             noticeWindow.SetActive(true);

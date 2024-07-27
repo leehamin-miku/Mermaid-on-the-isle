@@ -2,4 +2,10 @@
 문제,정답입니다,
 노아,"""정답이다. 공구리 술사!""",Noah2
 노아,"""스폰지를 혼화재로 쓰는 콘크리트는 들어본적도 없으니깐 말야!""",Noah2
+ ,시멘트에 대해서 배웠으므로 시멘트 공장의 청사진을 받았습니다!,
+GetItem,,BM1Blueprint
+ ,문제를 맞추었으므로 추가 보상을 받았습니다!,
+GetItem,,BM1Blueprint
+ ,상점에 시멘트 공장 청사진이 추가되었습니다,
+AddShopItem,,BM1Blueprint
 ConnectNextDialogue,,

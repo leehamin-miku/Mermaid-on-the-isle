@@ -304,13 +304,22 @@ public class VNManager : MonoBehaviourPunCallbacks
                     //a[1] = 쓰나미의 갯수 (한번에 많이 소환하기 위한)
                     //a[2] = 다음 Tidal 까지의 시간
 
-                    //구분=0일때 일반 쓰나미
-                    //구분=1일때 제로 쓰나미
-                    //구분=2일때 상어 크리쳐
+                        //구분=0일때 일반 쓰나미
+                        //구분=1일때 제로 쓰나미
+                        //구분=2일때 상어 크리쳐
 
-                    //예상시간, Tidal사이의 시간
+                        //예상시간, Tidal사이의 시간
 
+                    
                     if (int.Parse(a[0]) == 0)
+                    {
+                        Vector2 vec = Random.insideUnitCircle.normalized * 30;
+                        GameObject tsunami = new GameObject();
+                        tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
+                        tsunami.AddComponent<TsunamiObject>();
+                        tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(Vector3.zero, 0, float.Parse(a[2]));
+                    }
+                    else if (int.Parse(a[0]) == 1)
                     {
                         Vector2 vec = Random.insideUnitCircle.normalized * 30;
                         for (int w = 0; w < int.Parse(a[1]); w++)
@@ -322,14 +331,6 @@ public class VNManager : MonoBehaviourPunCallbacks
                             tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(new Vector3(vec.x, vec.y), 10, float.Parse(a[2]));
                         }
                         PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
-                    }
-                    else if (int.Parse(a[0]) == 1)
-                    {
-                        Vector2 vec = Random.insideUnitCircle.normalized * 30;
-                        GameObject tsunami = new GameObject();
-                        tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
-                        tsunami.AddComponent<TsunamiObject>();
-                        tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(Vector3.zero, 0, float.Parse(a[2]));
                     }
                     else if (int.Parse(a[0]) == 2)
                     {
@@ -452,6 +453,10 @@ public class VNManager : MonoBehaviourPunCallbacks
                 i++;
                 break;
             }//fade, rectangle, circle
+            else if (ActionName == "ShopOpen")
+            {
+                GameObject.Find("ShopParent").transform.GetChild(0).gameObject.SetActive(true);
+            }
             else
             {
                 HalfStandingChange(Parameter);

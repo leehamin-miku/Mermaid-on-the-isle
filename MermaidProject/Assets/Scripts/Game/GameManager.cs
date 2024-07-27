@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameObject.Find("Shop").GetComponent<Shop>().shopItemList = ss.shopItemList.ToList();
         GameObject.Find("LobbySquare").GetComponent<GameStart>().progressStatus = ss.progressStatus;
         GameObject.Find("VN").GetComponent<VNManager>().textbookList = ss.textbookList.ToList();
+        GameObject.Find("ShopParent").SetActive(ss.shopOpened);
 
 
 
@@ -109,7 +110,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                     BM1 bm1 = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<BM1>();
                     bm1.strength = block.block.strength;
                     bm1.a = (block.block as BM1).a;
-                    bm1.waitingLen = (block.block as BM1).waitingLen;
+                    bm1.waitingLen1 = (block.block as BM1).waitingLen1;
+                    bm1.waitingLen2 = (block.block as BM1).waitingLen2;
                     bm1.transform.SetParent(sog.transform);
                     break;
                 case 9:
