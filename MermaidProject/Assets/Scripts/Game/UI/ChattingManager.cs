@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,8 @@ public class ChattingManager : MonoBehaviour
     [SerializeField] private TMP_InputField chatInput;
 
     [SerializeField] public bool isFocused = false;
-
+    string playerName = PhotonNetwork.NickName;
+    string colorCodeStart = null;
 
     private void Start()
     {
@@ -35,7 +37,22 @@ public class ChattingManager : MonoBehaviour
             {
                 if (!string.IsNullOrEmpty(chatInput.text))
                 {
-                    SendChat(chatInput.text, PlayerController.colorNumber);
+                    switch (PlayerController.colorNumber)
+                    {
+                        case 0:
+                            colorCodeStart = "<color=red>";
+                            break;
+                        case 1:
+                            colorCodeStart = "<color=yellow>";
+                            break;
+                        case 2:
+                            colorCodeStart = "<color=green>";
+                            break;
+                        case 3:
+                            colorCodeStart = "<color=blue>";
+                            break;
+                    }
+                    SendChat(colorCodeStart + playerName + " : </color>" + chatInput.text);
                     chatInput.text = ""; // 입력 필드를 비웁니다.
                 }
                 EventSystem.current.SetSelectedGameObject(null);
@@ -65,38 +82,19 @@ public class ChattingManager : MonoBehaviour
     }
 
     [PunRPC]
-    void Chatting(string context, int a)
+    void Chatting(string context)
     {
-        string colorCodeStart = null;
-        string[] temp = new string[2];
-        string playerName = PhotonNetwork.NickName + " : ";
-
-        switch (a)
-        {
-            case 0:
-                colorCodeStart = "<color=red>";
-                break;
-            case 1:
-                colorCodeStart = "<color=yellow>";
-                break;
-            case 2:
-                colorCodeStart = "<color=green>";
-                break;
-            case 3:
-                colorCodeStart = "<color=blue>";
-                break;
-        }
         print(MaxChatLogLine(chatDisplay.text));
         if(MaxChatLogLine(chatDisplay.text) >= 7)
         {
             chatDisplay.text = chatDisplay.text.Substring(chatDisplay.text.IndexOf('\n') + 1);
         }
-        chatDisplay.text += colorCodeStart + playerName + "</color>" + context + '\n';
+        chatDisplay.text += context + '\n';
     }
 
-    void SendChat(string context, int a)
+    void SendChat(string context)
     {
-        PV.RPC("Chatting", RpcTarget.All, context, a);
+        PV.RPC("Chatting", RpcTarget.All, context);
     }
     [PunRPC]
     public void SystemChatting(string context)
