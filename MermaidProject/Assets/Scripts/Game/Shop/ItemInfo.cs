@@ -9,6 +9,7 @@ using UnityEngine;
 public class ItemInfo : MonoBehaviour
 {
     bool subBool;
+    public bool solded;
     [SerializeField] public PhotonView PV;
     public int price;
     public string name;
@@ -31,7 +32,7 @@ public class ItemInfo : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (item != null&&collision.GetComponent<Block>().BlockCode == 0&& collision.GetComponent<Block>().PV.IsMine)
+        if (!solded&&collision.GetComponent<Block>().BlockCode == 0&& collision.GetComponent<Block>().PV.IsMine)
         {
             transform.GetChild(0).GetComponent<TextMeshPro>().text = name+" "+ price+"$";
             subBool = false;
@@ -39,7 +40,7 @@ public class ItemInfo : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (item != null && collision.GetComponent<Block>().BlockCode == 0 && collision.GetComponent<Block>().PV.IsMine)
+        if (!solded && collision.GetComponent<Block>().BlockCode == 0 && collision.GetComponent<Block>().PV.IsMine)
         {
             transform.GetChild(0).GetComponent<TextMeshPro>().text = name + " " + price+"$\n우클릭으로 구매";
             subBool = true;
@@ -50,15 +51,18 @@ public class ItemInfo : MonoBehaviour
     public void BuyThisItem()
     {
         //구매가 확정되었을때, 모두에게서 호출되는 함수
-        if (PhotonNetwork.IsMasterClient)
-        {
-            item.GetComponent<Block>().StartObject();
-        }
+        
         transform.GetChild(0).GetComponent<TextMeshPro>().text = "sold out";
         item.GetComponent<Block>().rb.isKinematic = false;
         item.GetComponent<Block>().isAbleGrabed = true;
-        item = null;
+        solded = true;
         subBool = false;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            item.GetComponent<Block>().StartObject();
+            item.GetComponent<Block>().rb.AddForce(Vector2.down);
+            item = null;
+        }
     }
 
     [PunRPC]
@@ -66,6 +70,7 @@ public class ItemInfo : MonoBehaviour
     {
         transform.GetChild(0).GetComponent<TextMeshPro>().text = name + " " + price + "$";
         subBool = false;
+        solded = false;
         item.GetComponent<Block>().rb.isKinematic = true;
         item.GetComponent<Block>().isAbleGrabed = false;
     }

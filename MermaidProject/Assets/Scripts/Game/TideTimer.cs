@@ -94,8 +94,8 @@ public class TideTimer : MonoBehaviour
 
         int a = Random.Range(12, 18); //일반 조개
 
-        int e = Random.Range(2, 4); // 돌
-        int f = Random.Range(0, 3); // 나무
+        int e = Random.Range(5, 8); // 돌
+        int f = Random.Range(2, 5); // 나무
 
         Transform save = GameObject.Find("SaveObjectGroup").transform;
         while (a > 0)
@@ -137,7 +137,7 @@ public class TideTimer : MonoBehaviour
         while (e > 0)
         {
             Vector3 position = Random.insideUnitSphere * 40 + GameObject.Find("Island").transform.position;
-            if (Physics2D.CircleCast(new Vector2(position.x, position.y), 2f, Vector2.down, 0.1f, LayerMask.GetMask("Sea")) == true && Physics2D.CircleCast(new Vector2(position.x, position.y), 2f, Vector2.down, 0.1f, LayerMask.GetMask("Island")) == true)
+            if (Physics2D.CircleCast(new Vector2(position.x, position.y), 1f, Vector2.down, 0.1f, LayerMask.GetMask("Sea")) == true && Physics2D.CircleCast(new Vector2(position.x, position.y), 1f, Vector2.down, 0.1f, LayerMask.GetMask("Island")) == true)
             {
                 e--;
                 PhotonNetwork.Instantiate("Prefab/Game/Rock", new Vector3(position.x, position.y), Quaternion.Euler(0, 0, Random.Range(0, 360))).transform.SetParent(save);
@@ -146,7 +146,7 @@ public class TideTimer : MonoBehaviour
         while (f > 0)
         {
             Vector3 position = Random.insideUnitSphere * 40 + GameObject.Find("Island").transform.position;
-            if (Physics2D.CircleCast(new Vector2(position.x, position.y), 2f, Vector2.down, 0.1f, LayerMask.GetMask("Sea")) == true && Physics2D.CircleCast(new Vector2(position.x, position.y), 2f, Vector2.down, 0.1f, LayerMask.GetMask("Island")) == true)
+            if (Physics2D.CircleCast(new Vector2(position.x, position.y), 1f, Vector2.down, 0.1f, LayerMask.GetMask("Sea")) == true && Physics2D.CircleCast(new Vector2(position.x, position.y), 1f, Vector2.down, 0.1f, LayerMask.GetMask("Island")) == true)
             {
                 f--;
                 PhotonNetwork.Instantiate("Prefab/Game/Wood", new Vector3(position.x, position.y), Quaternion.Euler(0, 0, Random.Range(0, 360))).transform.SetParent(save);

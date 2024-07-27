@@ -221,15 +221,16 @@ MonoBehaviour:
   rb: {fileID: 0}
   savePosition: {x: 0, y: 0, z: 0}
   saveRotation: {x: 0, y: 0, z: 0, w: 0}
-  strength: 30
-  maxStrenth: 30
+  strength: 40
+  maxStrenth: 40
   mass: 3
   drag: 3
   angularDrag: 3
   p1: {fileID: 0}
   isAbleGrabed: 0
   PV: {fileID: 3411019273798802887}
-  waitingLen: 0
+  waitingLen1: 0
+  waitingLen2: 0
   a: 0
 --- !u!1 &2742615420322203889
 GameObject:

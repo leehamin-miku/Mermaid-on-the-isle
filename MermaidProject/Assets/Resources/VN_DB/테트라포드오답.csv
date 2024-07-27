@@ -1,0 +1,10 @@
+﻿ActionName,Target,Parameter
+문제,오답입니다,
+노아,아아... 노아 바보!,Noah2
+노아,시멘트도 자갈도 물도 콘크리트에 들어가는 재료니깐 시펀지가 오답인거겠지. 애초에 너무 쌩뚱맞잖아!,Noah2
+노아,이런 쉬운문제를 틀리다니...,Noah2
+ ,시멘트에 대해서 배웠으므로 시멘트 공장의 청사진을 받았습니다!,
+GetItem,BM1Blueprint,
+ ,상점에 시멘트 공장 청사진이 추가되었습니다,
+AddShopItem,,BM1Blueprint
+ConnectNextDialogue,,

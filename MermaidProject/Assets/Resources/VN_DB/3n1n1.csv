@@ -1,0 +1,9 @@
+﻿ActionName,Target,Parameter
+SpriteChange,0,심해`0`0`1
+Sound,BGM_Golden Hours,0
+ ,이런 방식이 아니라면 나도 조금 더 멋진 것을 맛보고 싶었다,
+ ,아무것도 심지 않은 땅에 노아가 무언가를 기대하는 것은...,
+ ,이런 사람이 감정론자라고 불리는거겠지,
+SetNextDialogue,,3n1n2
+Transition,,fade
+ConnectSubDialogue,,

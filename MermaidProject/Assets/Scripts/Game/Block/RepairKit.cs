@@ -9,7 +9,7 @@ using UnityEngine;
 public class RepairKit: Block
 {
     //저장 대상
-    public int a = 5;
+    public int a = 7;
     public void Update()
     {
         if (p1!=null)

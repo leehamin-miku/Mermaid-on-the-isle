@@ -166,7 +166,7 @@ public class VNManager : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    textbookList.Remove(Target);
+                    textbookList.Remove(Parameter);
                 }
 
                 i++;
@@ -313,7 +313,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                     
                     if (int.Parse(a[0]) == 0)
                     {
-                        Vector2 vec = Random.insideUnitCircle.normalized * 30;
+                        Vector2 vec = Random.insideUnitCircle.normalized * 40;
                         GameObject tsunami = new GameObject();
                         tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
                         tsunami.AddComponent<TsunamiObject>();
@@ -321,7 +321,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                     }
                     else if (int.Parse(a[0]) == 1)
                     {
-                        Vector2 vec = Random.insideUnitCircle.normalized * 30;
+                        Vector2 vec = Random.insideUnitCircle.normalized * 40;
                         for (int w = 0; w < int.Parse(a[1]); w++)
                         {
                             //이 오브젝트들은 마스터에게만 존재함
@@ -334,7 +334,22 @@ public class VNManager : MonoBehaviourPunCallbacks
                     }
                     else if (int.Parse(a[0]) == 2)
                     {
-                        Vector2 vec = Random.insideUnitCircle.normalized * 30;
+                        Vector2 vec = Random.insideUnitCircle.normalized * 40;
+                        Vector2 vec2 = -vec;
+                        for (int w = 0; w < int.Parse(a[1]); w++)
+                        {
+                            //이 오브젝트들은 마스터에게만 존재함
+                            GameObject tsunami = new GameObject();
+                            tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
+                            tsunami.AddComponent<TsunamiObject>();
+                            tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(new Vector3(vec.x, vec.y), 10, float.Parse(a[2]));
+                            tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(new Vector3(vec2.x, vec2.y), 10, float.Parse(a[2]));
+                        }
+                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
+                    }
+                    else if (int.Parse(a[0]) == 3)
+                    {
+                        Vector2 vec = Random.insideUnitCircle.normalized * 40;
                         GameObject tsunami = new GameObject();
                         tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
                         tsunami.AddComponent<TsunamiObject>();

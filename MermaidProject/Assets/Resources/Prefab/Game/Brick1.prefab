@@ -185,8 +185,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   savePosition: {x: 0, y: 0, z: 0}
   saveRotation: {x: 0, y: 0, z: 0, w: 0}
-  strength: 10
-  maxStrenth: 10
+  strength: 30
+  maxStrenth: 30
   mass: 7
   drag: 10
   angularDrag: 15
