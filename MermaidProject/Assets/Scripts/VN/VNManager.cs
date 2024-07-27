@@ -100,7 +100,6 @@ public class VNManager : MonoBehaviourPunCallbacks
     }
 
 
-
     public void StartNextDialogue()
     {
         
@@ -357,7 +356,6 @@ public class VNManager : MonoBehaviourPunCallbacks
                     }
                 }
                 i++;
-
             }
             else if (ActionName == "Island")
             {
@@ -398,8 +396,12 @@ public class VNManager : MonoBehaviourPunCallbacks
             }
             else if (ActionName == "GetItem")
             {
-                PhotonNetwork.Instantiate("Prefab/Game/" + Parameter, GameObject.Find("IslandSquare").transform.position, Quaternion.identity).transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    PhotonNetwork.Instantiate("Prefab/Game/" + Parameter, GameObject.Find("IslandSquare").transform.position, Quaternion.identity).transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
+                }
                 i++;
+
             }
             else if (ActionName == "GetMoney") {
 				if (PhotonNetwork.IsMasterClient) {

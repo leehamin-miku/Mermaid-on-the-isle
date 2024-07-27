@@ -61,6 +61,7 @@ public class ItemInfo : MonoBehaviour
         {
             item.GetComponent<Block>().StartObject();
             item.GetComponent<Block>().rb.AddForce(Vector2.down);
+            item.GetComponent<Block>().PV.RPC("PVFucIsNotGrabed", RpcTarget.All);
             item = null;
         }
     }
@@ -71,7 +72,11 @@ public class ItemInfo : MonoBehaviour
         transform.GetChild(0).GetComponent<TextMeshPro>().text = name + " " + price + "$";
         subBool = false;
         solded = false;
-        item.GetComponent<Block>().rb.isKinematic = true;
-        item.GetComponent<Block>().isAbleGrabed = false;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            item.GetComponent<Block>().rb.isKinematic = true;
+            item.GetComponent<Block>().PV.RPC("PVFucIsGrabed", RpcTarget.All);
+        }
+        
     }
 }
