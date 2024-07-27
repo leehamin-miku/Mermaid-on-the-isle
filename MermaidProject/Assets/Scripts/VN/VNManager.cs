@@ -474,6 +474,7 @@ public class VNManager : MonoBehaviourPunCallbacks
             else if (ActionName == "ShopOpen")
             {
                 GameObject.Find("ShopParent").transform.GetChild(0).gameObject.SetActive(true);
+                i++;
             }
             else
             {
