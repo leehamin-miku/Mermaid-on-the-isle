@@ -345,6 +345,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                             tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(new Vector3(vec2.x, vec2.y), 10, float.Parse(a[2]));
                         }
                         PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
+                        PV.RPC("AddSign", RpcTarget.All, vec2 + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
                     }
                     else if (int.Parse(a[0]) == 3)
                     {
