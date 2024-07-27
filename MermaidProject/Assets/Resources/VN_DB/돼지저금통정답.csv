@@ -3,9 +3,11 @@
 노아,쉽네 쉬워~,Noah2
 노아,"구리 조개부터 화폐로 사용되고, 금 조개는 3 구리 조개, 루비 조개는 5 구리 조개의 가치를 가지니까 보일때마다 챙겨야겠다!",Noah2
 노아,저금통에 잘 저금해두었다가 필요할 때 사용해야지~,
-AddShopItem,,PiggyBankBlueprint
-,상점과 섬에 돼지저금통 청사진이 추가되었습니다!,
-GetItem,,PiggyBankBlueprint
  ,노아는 돼지저금통에 대해서 더 깊이 이해하였으므로 보상을 받았습니다! (+ 10원),
 GetMoney,,10
+노아,그러고보니 상점의 리모델링이 끝나서 오늘부터 열린다고 했지?,
+노아,나중에 가봐야겠다. 섬에서 필요한 물건을 팔지도 몰라,
+,상점과 섬에 돼지저금통 청사진이 추가되었습니다!,
+AddShopItem,,PiggyBankBlueprint
+GetItem,,PiggyBankBlueprint
 ConnectNextDialogue,,

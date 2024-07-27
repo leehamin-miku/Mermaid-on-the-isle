@@ -1,5 +1,13 @@
 ﻿ActionName,Target,Parameter
-노아,디아로그2입니다,Noah2
-SmoothSpriteChange,0,Noah2
-노아,디아로그여기까지 넘어오셔야해요,Noah2
-Island,20,dialogue3
+노아,디아로그2,Noah2
+노아,오늘은 무엇을 공부해볼까?,Noah2
+AddShopItem,,Wood
+AddShopItem,,Wood
+AddShopItem,,Wood
+LetterBox,1`2,On
+AddTextbook,무언가를 만들 때 가장 좋은 방법:제작대`제작대1,
+AddTextbook,당신도 부자가 될 수 있다`돼지저금통1,
+ReadTextbook,,
+LetterBox,1`2,Off
+SetNextDialogue,,2n1n1
+ConnectSubDialogue,,

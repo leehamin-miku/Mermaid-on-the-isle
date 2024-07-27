@@ -321,7 +321,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 4224
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
