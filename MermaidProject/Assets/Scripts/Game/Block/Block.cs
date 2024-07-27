@@ -104,11 +104,11 @@ public class Block : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             DestroyAction();
-            if (p1 != null)
-            {
-                p1.GetComponent<FixedJoint2D>().connectedBody = null;
-                p1.GetComponent<FixedJoint2D>().enabled = false;
-            }
+        }
+        if (p1 != null)
+        {
+            p1.GetComponent<FixedJoint2D>().connectedBody = null;
+            p1.GetComponent<FixedJoint2D>().enabled = false;
         }
     }
 

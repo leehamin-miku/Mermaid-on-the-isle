@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Brick1 : Block
 {
-    private void OnDestroy()
+    public override void DestroyAction()
     {
         if (PhotonNetwork.IsMasterClient)
         {
