@@ -302,13 +302,15 @@ public class VNManager : MonoBehaviourPunCallbacks
                     //a[1] = 쓰나미의 갯수 (한번에 많이 소환하기 위한)
                     //a[2] = 다음 Tidal 까지의 시간
 
-                        //구분=0일때 일반 쓰나미
-                        //구분=1일때 제로 쓰나미
-                        //구분=2일때 상어 크리쳐
+                    //구분=0일때 제로 쓰나미
+                    //구분=1일때 일반 쓰나미
+                    //구분=2일때 양방향 쓰나미
+                    //구분=3일때 상어 크리쳐
+                    //구분=4일때 범고래 크리쳐
+                    //구분=5일때 왕고래 크리쳐
+                    //예상시간, Tidal사이의 시간
 
-                        //예상시간, Tidal사이의 시간
 
-                    
                     if (int.Parse(a[0]) == 0)
                     {
                         Vector2 vec = Random.insideUnitCircle.normalized * 40;
@@ -352,7 +354,23 @@ public class VNManager : MonoBehaviourPunCallbacks
                         GameObject tsunami = new GameObject();
                         tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
                         tsunami.AddComponent<TsunamiObject>();
-                        tsunami.GetComponent<TsunamiObject>().SummonCreature(new Vector3(vec.x, vec.y), 5, float.Parse(a[2]));
+                        tsunami.GetComponent<TsunamiObject>().SummonCreature("Shark", new Vector3(vec.x, vec.y), 5, float.Parse(a[2]));
+                    }
+                    else if (int.Parse(a[0]) == 4)
+                    {
+                        Vector2 vec = Random.insideUnitCircle.normalized * 40;
+                        GameObject tsunami = new GameObject();
+                        tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
+                        tsunami.AddComponent<TsunamiObject>();
+                        tsunami.GetComponent<TsunamiObject>().SummonCreature("Orca", new Vector3(vec.x, vec.y), 5, float.Parse(a[2]));
+                    }
+                    else if (int.Parse(a[0]) == 5)
+                    {
+                        Vector2 vec = Random.insideUnitCircle.normalized * 40;
+                        GameObject tsunami = new GameObject();
+                        tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
+                        tsunami.AddComponent<TsunamiObject>();
+                        tsunami.GetComponent<TsunamiObject>().SummonCreature("BlueWhale", new Vector3(vec.x, vec.y), 1, float.Parse(a[2]));
                     }
                 }
                 i++;

@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3117839484728254516}
   - component: {fileID: 1467750215170637730}
   - component: {fileID: 9139808991233782285}
-  - component: {fileID: -1767395553980584959}
+  - component: {fileID: 6916949741542244564}
   m_Layer: 6
-  m_Name: Shark
+  m_Name: Orca
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,7 +156,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.318382}
   serializedVersion: 2
   m_Radius: 1.0795957
---- !u!114 &-1767395553980584959
+--- !u!114 &6916949741542244564
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,12 +165,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 474602149339255915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbbee3f7cbaca9b4d94a444dcebc3dd1, type: 3}
+  m_Script: {fileID: 11500000, guid: 7117a0d9795299242b584487ea688e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isInUse: 0
   isGrabed: 0
-  BlockCode: 50
+  BlockCode: 51
   rb: {fileID: 8424819385504529361}
   savePosition: {x: 0, y: 0, z: 0}
   saveRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -182,7 +182,7 @@ MonoBehaviour:
   p1: {fileID: 0}
   isAbleGrabed: 0
   PV: {fileID: 3411019273798802887}
-  HP: 1
+  HP: 3
 --- !u!1 &2742615420322203889
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +256,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 14
-  m_Sprite: {fileID: 21300000, guid: a5995ccccd3adf74da3eb9996e0de566, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aa5ae214cacc1834fa225d1efc0acb8a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

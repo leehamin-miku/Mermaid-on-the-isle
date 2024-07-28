@@ -3,19 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shark : TsunamiUnit
+public class Orca : TsunamiUnit
 {
     private GameObject ClosestPlayer;
-    private Vector3 SharkPosition;
+    private Vector3 OrcaPosition;
     private Vector3 FlowerPosition;
     public override void StartTunamiUnit()
     {
         base.StartTunamiUnit();
-        print("a");
-        StartCoroutine(SharkAi());
-
-        //샤크 코루틴 시작
-        //인공지능 구현해야함
+        StartCoroutine(OrcaAi());
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -25,7 +21,7 @@ public class Shark : TsunamiUnit
         }
     }
 
-    private IEnumerator SharkAi()
+    private IEnumerator OrcaAi()
     {
         Vector3 ClosestPlayerPosition;
         FlowerPosition = GameObject.Find("Island").transform.position;
@@ -35,28 +31,28 @@ public class Shark : TsunamiUnit
         {
             StartCoroutine(FindClosestPlayerPosition());
             ClosestPlayerPosition = ClosestPlayer.transform.position;
-            if (Vector3.Distance(ClosestPlayerPosition,SharkPosition) < DetectDistance)
+            if (Vector3.Distance(ClosestPlayerPosition, OrcaPosition) < DetectDistance)
             {
-                rb.AddForce((ClosestPlayerPosition - SharkPosition).normalized * Power, ForceMode2D.Impulse);
+                rb.AddForce((ClosestPlayerPosition - OrcaPosition).normalized * Power, ForceMode2D.Impulse);
             }
             else
             {
-                rb.AddForce((FlowerPosition - SharkPosition).normalized * Power, ForceMode2D.Impulse);
+                rb.AddForce((FlowerPosition - OrcaPosition).normalized * Power, ForceMode2D.Impulse);
             }
-            yield return new WaitForSeconds(Random.Range(1f, 3f));
+            yield return new WaitForSeconds(Random.Range(3f, 6f));
         }        
     }
 
     private IEnumerator FindClosestPlayerPosition()
     {
-        SharkPosition = transform.position;
+        OrcaPosition = transform.position;
         GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
         float ClosestDistance = 99999f;
 
         foreach (GameObject p in Players)
         {
             Vector3 PlayerPosition = p.transform.position;
-            float distance = Vector3.Distance(SharkPosition, PlayerPosition);
+            float distance = Vector3.Distance(OrcaPosition, PlayerPosition);
             if (distance < ClosestDistance)
             {
                 ClosestPlayer = p;

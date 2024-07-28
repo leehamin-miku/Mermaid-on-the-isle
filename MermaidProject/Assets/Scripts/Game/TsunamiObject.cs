@@ -39,7 +39,7 @@ public class TsunamiObject : MonoBehaviour
         }
         
     }
-    public void SummonCreature(Vector3 TsunamiLocateFromFlower, int amount, float interTime)
+    public void SummonCreature(string CreatureName, Vector3 TsunamiLocateFromFlower, int amount, float interTime)
     {
         this.TsunamiLocateFromFlower = TsunamiLocateFromFlower;
         this.interTime = interTime;
@@ -49,7 +49,7 @@ public class TsunamiObject : MonoBehaviour
         for (int i=0; i<amount; i++)
         {
             Vector3 a = UnityEngine.Random.insideUnitCircle;
-            GameObject go = PhotonNetwork.Instantiate("Prefab/Game/Creature/Shark", TsunamiPosition + a, Quaternion.identity);
+            GameObject go = PhotonNetwork.Instantiate("Prefab/Game/Creature/" + CreatureName, TsunamiPosition + a, Quaternion.identity);
             go.transform.parent = GameObject.Find("CreatureGroup").transform;
             tsunamiList.Add(go);
         }

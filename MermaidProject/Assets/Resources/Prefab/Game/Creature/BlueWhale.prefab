@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 3411019273798802887}
   - component: {fileID: 3117839484728254516}
   - component: {fileID: 1467750215170637730}
-  - component: {fileID: 9139808991233782285}
-  - component: {fileID: -1767395553980584959}
+  - component: {fileID: 8811808754740802624}
+  - component: {fileID: 9070278836658917393}
   m_Layer: 6
-  m_Name: Shark
+  m_Name: BlueWhale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -121,8 +121,35 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!58 &9139808991233782285
-CircleCollider2D:
+--- !u!114 &8811808754740802624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474602149339255915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c91bfb79879d90242b469bff3a3711b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInUse: 0
+  isGrabed: 0
+  BlockCode: 52
+  rb: {fileID: 8424819385504529361}
+  savePosition: {x: 0, y: 0, z: 0}
+  saveRotation: {x: 0, y: 0, z: 0, w: 0}
+  strength: 1
+  maxStrenth: 1
+  mass: 50
+  drag: 3
+  angularDrag: 2
+  p1: {fileID: 0}
+  isAbleGrabed: 0
+  PV: {fileID: 3411019273798802887}
+  HP: 20
+--- !u!61 &9070278836658917393
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -136,7 +163,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -153,36 +180,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.318382}
+  m_Offset: {x: 0, y: -1.1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 1.0795957
---- !u!114 &-1767395553980584959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474602149339255915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbbee3f7cbaca9b4d94a444dcebc3dd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isInUse: 0
-  isGrabed: 0
-  BlockCode: 50
-  rb: {fileID: 8424819385504529361}
-  savePosition: {x: 0, y: 0, z: 0}
-  saveRotation: {x: 0, y: 0, z: 0, w: 0}
-  strength: 1
-  maxStrenth: 1
-  mass: 1
-  drag: 3
-  angularDrag: 2
-  p1: {fileID: 0}
-  isAbleGrabed: 0
-  PV: {fileID: 3411019273798802887}
-  HP: 1
+  m_Size: {x: 6, y: 6}
+  m_EdgeRadius: 1
 --- !u!1 &2742615420322203889
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +220,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4922494605398922924}
@@ -256,7 +266,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 14
-  m_Sprite: {fileID: 21300000, guid: a5995ccccd3adf74da3eb9996e0de566, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b5ee2f3455cbbfd4880f054e0e4e1117, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
