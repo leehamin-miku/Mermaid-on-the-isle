@@ -19,22 +19,41 @@ public class PlayerController : Block
     [SerializeField] Color yellow;
     [SerializeField] Color green;
     [SerializeField] Color blue;
-    Block grabBlock;
-    
+    Sprite[] spriteArr = new Sprite[8];
+
     public SpriteRenderer SR;
+
+    public SpriteRenderer body;
+    public SpriteRenderer body2;
+    public SpriteRenderer star;
+
+
+    int j = 0;
+    float a = 0;
     public override void Awake()
     {
         base.Awake();
+        for (int i = 0; i < 5; i++)
+        {
+            spriteArr[i] = Resources.Load<Sprite>("Image/Game/노아탑뷰" + i);
+        }
+        spriteArr[5] = Resources.Load<Sprite>("Image/Game/노아탑뷰3");
+        spriteArr[6] = Resources.Load<Sprite>("Image/Game/노아탑뷰2");
+        spriteArr[7] = Resources.Load<Sprite>("Image/Game/노아탑뷰1");
+        body = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        body2 = transform.GetChild(2).GetComponent<SpriteRenderer>();
+        star = transform.GetChild(3).GetComponent<SpriteRenderer>();
         ChangeColor(colorNumber);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        if (PV.IsMine) {
+        if (PV.IsMine)
+        {
             GameObject.Find("TotalMoney").GetComponent<MoneyManager>().PV.RPC("MoneyMarkRequest", RpcTarget.MasterClient);
             GameObject.Find("VN").GetComponent<VNManager>().PlayerController = this;
             GameObject.Find("GameManager").GetComponent<ChattingManager>().PlayerController = this;
-            GameObject.Find("GameManager").GetComponent<ChattingManager>().PV.RPC("SystemChatting", RpcTarget.All,"<color=yellow>"+PhotonNetwork.NickName+"님이 입장했습니다</color>");
-        } 
+            GameObject.Find("GameManager").GetComponent<ChattingManager>().PV.RPC("SystemChatting", RpcTarget.All, "<color=yellow>" + PhotonNetwork.NickName + "님이 입장했습니다</color>");
+        }
     }
 
     // Update is called once per frame
@@ -54,9 +73,8 @@ public class PlayerController : Block
 
                 if (h2 > 0) h2 = 1.5f;
 
-                GetComponent<Rigidbody2D>().AddTorque(-r1 * Time.deltaTime * 4, ForceMode2D.Impulse);
+                rb.AddTorque(-r1 * Time.deltaTime *  20);
                 GetComponent<Rigidbody2D>().AddRelativeForce(15 * new Vector2(h1, h2) * Time.deltaTime, ForceMode2D.Impulse);
-                transform.GetChild(1).transform.localPosition = Vector2.Lerp(transform.GetChild(1).transform.localPosition, new Vector2(h1, h2).normalized * 4, Time.deltaTime * 3);
                 if (Input.GetMouseButtonDown(0))
                 {
                     //PV.RPC("ToggleAction", RpcTarget.AllBuffered);
@@ -65,7 +83,7 @@ public class PlayerController : Block
             }
 
 
-            
+
             if (GetComponent<FixedJoint2D>().enabled)
             {
                 if (Input.GetMouseButtonUp(1) && GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().isInUse)
@@ -77,6 +95,20 @@ public class PlayerController : Block
                     GetComponent<FixedJoint2D>().connectedBody.GetComponent<Block>().UseDownAction();
                 }
             }
+        }
+        if (rb.velocity.magnitude > 0.3f)
+        {
+            a += Time.deltaTime;
+        }
+
+        if (a > 0.3f)
+        {
+            a -= 0.3f;
+            j++;
+            j %= 8;
+            Debug.Log(j);
+            body.sprite = spriteArr[j];
+            body2.sprite = spriteArr[j];
         }
     }
     private void FixedUpdate()
@@ -101,16 +133,16 @@ public class PlayerController : Block
         switch (a)
         {
             case 0:
-                GetComponent<SpriteRenderer>().color = red;
+                star.color = red;
                 break;
             case 1:
-                GetComponent<SpriteRenderer>().color = yellow;
+                star.color = yellow;
                 break;
             case 2:
-                GetComponent<SpriteRenderer>().color = green;
+                star.color = green;
                 break;
             case 3:
-                GetComponent<SpriteRenderer>().color = blue;
+                star.color = blue;
                 break;
         }
         colorNumber = a;
