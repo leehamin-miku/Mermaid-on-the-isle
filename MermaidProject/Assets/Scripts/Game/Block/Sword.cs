@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,6 +11,13 @@ public class Sword : Block
     //플레이어의 공기저항과 관련되어 있으니 꼭 확인해야함
     int Durability = 3;
     bool isReady = true;
+    public void Update()
+    {
+        if (p1 != null)
+        {
+            transform.GetChild(1).GetComponent<TextMeshPro>().text = "남은 내구도 " + Durability;
+        }
+    }
     public override void UseDownAction()
     {
         base.UseDownAction();
@@ -18,14 +26,16 @@ public class Sword : Block
             isReady = false;
             PV.RPC("StartSwing", RpcTarget.All);
             StartCoroutine(CoolTime(0.5f));
-            RaycastHit2D hit = Physics2D.CircleCast(transform.position + p1.transform.up, 1.5f, p1.transform.up, 0.1f, LayerMask.GetMask("Block"));
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position + p1.transform.up, 0.5f, p1.transform.up, 0.1f, LayerMask.GetMask("Block"));
             if (hit.collider != null)
             {
                 if (hit.collider.GetComponent<TsunamiUnit>() != null)
                 {
                     
                     hit.collider.GetComponent<TsunamiUnit>().PV.RPC("ChangeHP", RpcTarget.MasterClient, -1);
-                    hit.collider.GetComponent<TsunamiUnit>().PV.RPC("AddRB", RpcTarget.MasterClient, (hit.collider.transform.position-p1.transform.position).normalized);
+                    Vector2 vec = new Vector2((hit.collider.transform.position - p1.transform.position).x, (hit.collider.transform.position - p1.transform.position).y);
+                    vec = vec.normalized;
+                    hit.collider.GetComponent<TsunamiUnit>().PV.RPC("AddRB", RpcTarget.MasterClient, vec);
                     PV.RPC("DurabilityChange", RpcTarget.All, -1);
                 }
             }
@@ -53,6 +63,7 @@ public class Sword : Block
         }
         else
         {
+            transform.GetChild(1).GetComponent<TextMeshPro>().text = "";
             GetComponent<Collider2D>().enabled = true;
             p1.GetComponent<FixedJoint2D>().connectedBody = null;
             transform.position = p1.transform.position;
@@ -76,10 +87,10 @@ public class Sword : Block
         while (a < b)
         {
             a += Time.deltaTime;
-            transform.GetChild(0).transform.localRotation = new Quaternion(0, 0, a, 0);
+            transform.GetChild(0).transform.localRotation = Quaternion.Euler(0f, 0f, a*100);
             yield return null;
         }
-        transform.GetChild(0).transform.localRotation = new Quaternion(0, 0, 0, 0);
+        transform.GetChild(0).transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
     IEnumerator CoolTime(float a)
     {
@@ -92,7 +103,7 @@ public class Sword : Block
     public void DurabilityChange(int a)
     {
         Durability += a;
-        if (PV.IsMine&&a<=0)
+        if (PV.IsMine&&Durability<=0)
         {
             PhotonNetwork.Destroy(this.gameObject);
         }

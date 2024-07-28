@@ -15,7 +15,7 @@ public class TsunamiUnit : Block
 
     //마스터한테서 호출되는 함수
     [PunRPC]
-    public void ChangeHp(int a)
+    public void ChangeHP(int a)
     {
         HP += a;
         if (HP <= 0)
