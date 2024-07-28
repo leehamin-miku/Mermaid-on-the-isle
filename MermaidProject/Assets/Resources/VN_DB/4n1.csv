@@ -1,3 +1,9 @@
 ﻿ActionName,Target,Parameter
-노아,4일차에요. 당신은 무한루프에 빠졌어요,Noah2
-Lobby,,4n1
+노아,4일차. 바다가 심상치 않아. 무기가 필요할 것 같아,Noah2
+노아,제작대에 나무 하나에 금조개 두개\n또는 루비조개 두개를 조합하는것으로\n무기를 만들 수 있지,Noah2
+노아,꽃을 위해선 이런게 분명히 필요할거야,Noah2
+노아,오늘은 무엇을 공부해볼까?,
+AddTextbook,새로운 방파제 제작법`테트라포드1,
+ReadTextbook,,
+SetNextDialogue,,4n1n1
+ConnectSubDialogue,,

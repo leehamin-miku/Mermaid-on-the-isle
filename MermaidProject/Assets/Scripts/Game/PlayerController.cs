@@ -86,6 +86,7 @@ public class PlayerController : Block
             Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, transform.GetChild(1).position + new Vector3(0, 0, -10), Time.deltaTime * 3);
             //Camera.main.transform.position = transform.GetChild(1).position + new Vector3(0, 0, -10);
             //Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, transform.rotation, Time.deltaTime * 2);
+            Camera.main.transform.position = transform.position + new Vector3(0, 0, -10);
             Camera.main.transform.rotation = transform.rotation;
         }
 

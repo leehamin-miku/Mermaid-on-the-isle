@@ -21,7 +21,8 @@ public class CraftTable : Block
 
     public List<int> inputList = new List<int>();
     public float a = 0;
-    [SerializeField] List<int> SwordRecipe = new List<int>() {1, 2, 2};
+    [SerializeField] List<int> SwordGoldRecipe = new List<int>() {5, 5, 19};
+    [SerializeField] List<int> SwordRubyRecipe = new List<int>() {6, 6, 19};
     [SerializeField] List<int> RepairKitRecipe = new List<int>() { 3, 3, 7 };
     public override void CollisionEnterAction(Collision2D collision)
     {
@@ -55,11 +56,16 @@ public class CraftTable : Block
                 if (a >= 20f)
                 {
                     a = 0;
-                    if (inputList.SequenceEqual(SwordRecipe))
+                    if (inputList.SequenceEqual(SwordGoldRecipe))
                     {
                         Debug.Log("Ä® Á¦ÀÛ ¿Ï·á");
-                        PhotonNetwork.Instantiate("Prefab/Game/Sword", transform.position - transform.up, transform.rotation);
-                    } else if (inputList.SequenceEqual(RepairKitRecipe))
+                        PhotonNetwork.Instantiate("Prefab/Game/SwordGold", transform.position - transform.up, transform.rotation);
+                    } else if (inputList.SequenceEqual(SwordRubyRecipe))
+                    {
+                        Debug.Log("Ä® Á¦ÀÛ ¿Ï·á");
+                        PhotonNetwork.Instantiate("Prefab/Game/SwordRuby", transform.position - transform.up, transform.rotation);
+                    }
+                    else if (inputList.SequenceEqual(RepairKitRecipe))
                     {
                         Debug.Log("Ä® Á¦ÀÛ ¿Ï·á");
                         PhotonNetwork.Instantiate("Prefab/Game/RepairKit", transform.position - transform.up, transform.rotation);

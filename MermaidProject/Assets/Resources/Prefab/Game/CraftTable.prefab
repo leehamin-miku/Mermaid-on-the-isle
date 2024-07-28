@@ -274,8 +274,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   savePosition: {x: 0, y: 0, z: 0}
   saveRotation: {x: 0, y: 0, z: 0, w: 0}
-  strength: 40
-  maxStrenth: 40
+  strength: 30
+  maxStrenth: 30
   mass: 10
   drag: 10
   angularDrag: 10
@@ -290,7 +290,8 @@ MonoBehaviour:
   colorBlock19: {r: 0.5471698, g: 0.38205424, b: 0.28648984, a: 1}
   inputList: 
   a: 0
-  SwordRecipe: 010000000200000002000000
+  SwordGoldRecipe: 050000000500000013000000
+  SwordRubyRecipe: 060000000600000013000000
   RepairKitRecipe: 030000000300000007000000
 --- !u!1 &2742615420322203889
 GameObject:

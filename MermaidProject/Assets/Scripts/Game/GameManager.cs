@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         DataManager.Instance.LoadGameData();
         Data.SaveStruct ss = DataManager.Instance.data.saveFile[a];
         GameObject.Find("TotalMoney").GetComponent<MoneyManager>().money = ss.money;
+        GameObject.Find("TotalMoney").GetComponent<MoneyManager>().PV.RPC("MoneyMarkRequest", RpcTarget.MasterClient);
         GameObject.Find("VN").GetComponent<VNManager>().nextDialogue = ss.nextDialogue;
         GameObject.Find("Shop").GetComponent<Shop>().shopItemList = ss.shopItemList.ToList();
         GameObject.Find("LobbySquare").GetComponent<GameStart>().progressStatus = ss.progressStatus;
@@ -178,6 +179,20 @@ public class GameManager : MonoBehaviourPunCallbacks
                     Block wood = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
                     wood.strength = block.block.strength;
                     wood.transform.SetParent(sog.transform);
+                    break;
+                case 20:
+                    blockName = "SwordGold";
+                    Sword sg = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Sword>();
+                    sg.strength = block.block.strength;
+                    sg.Durability = (block.block as Sword).Durability;
+                    sg.transform.SetParent(sog.transform);
+                    break;
+                case 21:
+                    blockName = "SwordRuby";
+                    Sword sr = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Sword>();
+                    sr.strength = block.block.strength;
+                    sr.Durability = (block.block as Sword).Durability;
+                    sr.transform.SetParent(sog.transform);
                     break;
                 default:
                     blockName = null;

@@ -9,7 +9,8 @@ using UnityEngine;
 public class Sword : Block
 {
     //플레이어의 공기저항과 관련되어 있으니 꼭 확인해야함
-    int Durability = 3;
+    public int Durability = 3;
+    public int Power = 1;
     bool isReady = true;
     public void Update()
     {
@@ -32,7 +33,7 @@ public class Sword : Block
                 if (hit.collider.GetComponent<TsunamiUnit>() != null)
                 {
                     
-                    hit.collider.GetComponent<TsunamiUnit>().PV.RPC("ChangeHP", RpcTarget.MasterClient, -1);
+                    hit.collider.GetComponent<TsunamiUnit>().PV.RPC("ChangeHP", RpcTarget.MasterClient, -Power);
                     Vector2 vec = new Vector2((hit.collider.transform.position - p1.transform.position).x, (hit.collider.transform.position - p1.transform.position).y);
                     vec = vec.normalized;
                     hit.collider.GetComponent<TsunamiUnit>().PV.RPC("AddRB", RpcTarget.MasterClient, vec);
@@ -87,7 +88,7 @@ public class Sword : Block
         while (a < b)
         {
             a += Time.deltaTime;
-            transform.GetChild(0).transform.localRotation = Quaternion.Euler(0f, 0f, a*100);
+            transform.GetChild(0).transform.localRotation = Quaternion.Euler(0f, 0f, a*160);
             yield return null;
         }
         transform.GetChild(0).transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
@@ -107,6 +108,17 @@ public class Sword : Block
         {
             PhotonNetwork.Destroy(this.gameObject);
         }
+    }
+
+    public override Block DeepCopySub(Block block)
+    {
+        Sword sw = new Sword();
+        sw.savePosition = block.savePosition;
+        sw.saveRotation = block.saveRotation;
+        sw.strength = block.strength;
+        sw.Durability = Durability;
+        sw.Power = Power;
+        return sw;
     }
 
 }

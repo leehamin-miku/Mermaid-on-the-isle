@@ -354,7 +354,8 @@ public class VNManager : MonoBehaviourPunCallbacks
                         GameObject tsunami = new GameObject();
                         tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
                         tsunami.AddComponent<TsunamiObject>();
-                        tsunami.GetComponent<TsunamiObject>().SummonCreature("Shark", new Vector3(vec.x, vec.y), 5, float.Parse(a[2]));
+                        tsunami.GetComponent<TsunamiObject>().SummonCreature("Shark", new Vector3(vec.x, vec.y), int.Parse(a[1]), float.Parse(a[2]));
+                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
                     }
                     else if (int.Parse(a[0]) == 4)
                     {
@@ -362,7 +363,8 @@ public class VNManager : MonoBehaviourPunCallbacks
                         GameObject tsunami = new GameObject();
                         tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
                         tsunami.AddComponent<TsunamiObject>();
-                        tsunami.GetComponent<TsunamiObject>().SummonCreature("Orca", new Vector3(vec.x, vec.y), 5, float.Parse(a[2]));
+                        tsunami.GetComponent<TsunamiObject>().SummonCreature("Orca", new Vector3(vec.x, vec.y), int.Parse(a[1]), float.Parse(a[2]));
+                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
                     }
                     else if (int.Parse(a[0]) == 5)
                     {
@@ -370,7 +372,8 @@ public class VNManager : MonoBehaviourPunCallbacks
                         GameObject tsunami = new GameObject();
                         tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
                         tsunami.AddComponent<TsunamiObject>();
-                        tsunami.GetComponent<TsunamiObject>().SummonCreature("BlueWhale", new Vector3(vec.x, vec.y), 1, float.Parse(a[2]));
+                        tsunami.GetComponent<TsunamiObject>().SummonCreature("BlueWhale", new Vector3(vec.x, vec.y), int.Parse(a[1]), float.Parse(a[2]));
+                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
                     }
                 }
                 i++;
@@ -555,6 +558,9 @@ public class VNManager : MonoBehaviourPunCallbacks
                 {
                     PV.RPC("StopAllCoAndNextScript", RpcTarget.All);
                     yield return new WaitForSeconds(0.5f);
+                } else if (Input.GetMouseButton(2))
+                {
+                    PV.RPC("StopAllCoAndNextScript", RpcTarget.All);
                 }
             }
             yield return null;
