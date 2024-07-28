@@ -12,7 +12,7 @@ public class ItemInfo : MonoBehaviour
     public bool solded;
     [SerializeField] public PhotonView PV;
     public int price;
-    public string name;
+    public string itemName;
     public GameObject item;
 
     void Update()
@@ -53,12 +53,12 @@ public class ItemInfo : MonoBehaviour
         //구매가 확정되었을때, 모두에게서 호출되는 함수
         
         transform.GetChild(0).GetComponent<TextMeshPro>().text = "sold out";
-        item.GetComponent<Block>().rb.isKinematic = false;
-        item.GetComponent<Block>().isAbleGrabed = true;
+        
         solded = true;
         subBool = false;
         if (PhotonNetwork.IsMasterClient)
         {
+            item.GetComponent<Block>().rb.isKinematic = false;
             item.GetComponent<Block>().StartObject();
             item.GetComponent<Block>().rb.AddForce(Vector2.down);
             item.GetComponent<Block>().PV.RPC("PVFucIsNotGrabed", RpcTarget.All);
@@ -67,9 +67,12 @@ public class ItemInfo : MonoBehaviour
     }
 
     [PunRPC]
-    public void ArrangeSubFuc()
+    public void ArrangeSubFuc(string itemName, int price)
     {
-        transform.GetChild(0).GetComponent<TextMeshPro>().text = name + " " + price + "$";
+        this.itemName = itemName;
+        this.price = price;
+
+        transform.GetChild(0).GetComponent<TextMeshPro>().text = itemName + " " + price + "$";
         subBool = false;
         solded = false;
         if (PhotonNetwork.IsMasterClient)

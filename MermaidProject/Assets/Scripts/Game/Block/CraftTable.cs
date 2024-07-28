@@ -124,7 +124,11 @@ public class CraftTable : Block
 
     public override Block DeepCopySub(Block block)
     {
-        (block as CraftTable).inputList = inputList.ToList();
-        return block;
+        CraftTable ct = new CraftTable();
+        ct.savePosition = block.savePosition;
+        ct.saveRotation = block.saveRotation;
+        ct.inputList = inputList.ToList();
+        ct.strength = block.strength;
+        return ct;
     }
 }

@@ -50,10 +50,15 @@ public class BM1 : Block
     }
     public override Block DeepCopySub(Block block)
     {
-        (block as BM1).a = a;
-        (block as BM1).waitingLen1 = waitingLen1;
-        (block as BM1).waitingLen2 = waitingLen2;
-        return block;
+        BM1 bm1 = new BM1();
+        bm1.a = a;
+        bm1.waitingLen1 = waitingLen1;
+        bm1.waitingLen2 = waitingLen2;
+        bm1.BlockCode = BlockCode;
+        bm1.strength = block.strength;
+        bm1.savePosition = block.savePosition;
+        bm1.saveRotation = block.saveRotation;
+        return bm1;
     }
 
 }

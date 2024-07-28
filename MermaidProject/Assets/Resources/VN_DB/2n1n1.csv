@@ -1,9 +1,9 @@
 ﻿ActionName,Target,Parameter
 SpriteChange,0,심해`0`0`1
-Sound,BGM_Golden Hours,0
- ,이런 방식이 아니라면 나도 조금 더 맛있는 것을 먹고 싶었다,
- ,아무것도 심지 않은 땅에 노아가 무언가를 기대하는 것은...,
- ,이런 사람이 감정론자라고 불리는거겠지,
+ ,추가예정인 VN입니다,
+ ,밸런스 조절이 아직 많이 필요한데 인력은 부족합니다,
+ ,모 pm이 디자인도 그리고 글도 쓰고 ppt도 만들고 코딩도 다 하고 밸런스도 잡고 에휴,
+ ,이런거 다음엔 안할겁니다,
 SetNextDialogue,,2n1n2
 Transition,,fade
 ConnectSubDialogue,,

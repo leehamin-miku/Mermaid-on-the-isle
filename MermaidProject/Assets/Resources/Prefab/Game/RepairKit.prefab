@@ -200,7 +200,7 @@ MonoBehaviour:
   p1: {fileID: 0}
   isAbleGrabed: 1
   PV: {fileID: 3411019273798802887}
-  a: 5
+  a: 7
 --- !u!61 &8760692348381140518
 BoxCollider2D:
   m_ObjectHideFlags: 0

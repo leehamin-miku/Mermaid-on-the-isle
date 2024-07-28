@@ -80,8 +80,11 @@ public class RepairKit: Block
     }
     public override Block DeepCopySub(Block block)
     {
-        (block as RepairKit).a = a;
-        return block;
+        RepairKit rk = new RepairKit();
+        rk.savePosition = block.savePosition;
+        rk.saveRotation = block.saveRotation;
+        rk.a = a;
+        return rk;
     }
 
 }

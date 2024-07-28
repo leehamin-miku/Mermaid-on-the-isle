@@ -165,7 +165,7 @@ public class VNManager : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    textbookList.Remove(Parameter);
+                    Debug.Log(textbookList.Remove(Parameter));
                 }
 
                 i++;
@@ -176,14 +176,13 @@ public class VNManager : MonoBehaviourPunCallbacks
                 if (PhotonNetwork.IsMasterClient)
                 {
                     StopCoroutine(masterControlCoroutine);
+                    for (int j = 0; j < textbookList.Count; j++)
+                    {
+                        Questions[j] = (j + 1) + ". " + textbookList[j];
+                        Debug.Log(Questions[j]);
+                    }
+                    PV.RPC("StartQuestionCoroutine", RpcTarget.All, (string[])Questions);
                 }
-
-                for (int j = 0; j < textbookList.Count; j++)
-                {
-                    Questions[j] = (j + 1) + ". " + textbookList[j];
-                    Debug.Log(Questions[j]);
-                }
-                PV.RPC("StartQuestionCoroutine", RpcTarget.All, (string[])Questions);
                 i++;
                 break;
             }//현재 교과서 리스트에서 선택지 가져오는 엑션

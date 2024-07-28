@@ -125,7 +125,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                     BM2 bm2 = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<BM2>();
                     bm2.strength = block.block.strength;
                     bm2.a = (block.block as BM2).a;
-                    bm2.waitingLen = (block.block as BM2).waitingLen;
+                    bm2.waitingLen1 = (block.block as BM2).waitingLen1;
+                    bm2.waitingLen2 = (block.block as BM2).waitingLen2;
                     bm2.transform.SetParent(sog.transform);
                     break;
                 case 11:

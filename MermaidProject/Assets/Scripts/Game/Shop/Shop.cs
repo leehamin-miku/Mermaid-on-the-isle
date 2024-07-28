@@ -65,9 +65,7 @@ public class Shop : MonoBehaviour
             }
             transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().item = PhotonNetwork.Instantiate("Prefab/Game/" + prefabName, transform.GetChild(0).GetChild(i).position, Quaternion.identity);
             transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().item.transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
-            transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().name = ItemName;
-            transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().price = price;
-            transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().PV.RPC("ArrangeSubFuc", RpcTarget.All);
+            transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().PV.RPC("ArrangeSubFuc", RpcTarget.All, ItemName, price);
         }
         
     }
@@ -131,9 +129,7 @@ public class Shop : MonoBehaviour
             }
             transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().item = PhotonNetwork.Instantiate("Prefab/Game/" + prefabName, transform.GetChild(0).GetChild(i).position, Quaternion.identity);
             transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().item.transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
-            transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().name = ItemName;
-            transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().price = price;
-            transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().PV.RPC("ArrangeSubFuc", RpcTarget.All);
+            transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().PV.RPC("ArrangeSubFuc", RpcTarget.All, ItemName, price);
         }
     }
 }
