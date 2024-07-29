@@ -15,17 +15,17 @@ public class BM2 : Block
 
     public override void CollisionEnterAction(Collision2D collision)
     {
-        if (PhotonNetwork.IsMasterClient && collision.collider.GetComponent<Block>().BlockCode == 1 && collision.collider.GetComponent<Block>().isGrabed)
+        if (PhotonNetwork.IsMasterClient && collision.collider.GetComponent<Block>().BlockCode == 7 && collision.collider.GetComponent<Block>().isGrabed)
         {
 
             collision.gameObject.GetComponent<Block>().PV.RPC("DestroyFuc", RpcTarget.All);
             waitingLen1++;
         }
-        if (PhotonNetwork.IsMasterClient && collision.collider.GetComponent<Block>().BlockCode == 1 && collision.collider.GetComponent<Block>().isGrabed)
+        else if (PhotonNetwork.IsMasterClient && collision.collider.GetComponent<Block>().BlockCode == 3 && collision.collider.GetComponent<Block>().isGrabed)
         {
 
             collision.gameObject.GetComponent<Block>().PV.RPC("DestroyFuc", RpcTarget.All);
-            waitingLen1++;
+            waitingLen2++;
         }
     }
 
@@ -39,9 +39,9 @@ public class BM2 : Block
                 transform.GetChild(0).Rotate(new Vector3(0, 0, Time.deltaTime * 200));
             }
 
-            if (a >= 15)
+            if (a >= 20)
             {
-                a -= 15f;
+                a -= 20f;
                 waitingLen1--;
                 waitingLen2--;
                 PhotonNetwork.Instantiate("Prefab/Game/Brick2", transform.position - transform.up, transform.rotation).transform.SetParent(GameObject.Find("SaveObjectGroup").transform);

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3117839484728254516}
   - component: {fileID: 1467750215170637730}
   - component: {fileID: -2037884425488265604}
-  - component: {fileID: -154096802025730655}
+  - component: {fileID: 6290468573241026708}
   m_Layer: 6
   m_Name: BM2
   m_TagString: Untagged
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.5, y: 0.5, z: 0}
---- !u!114 &-154096802025730655
+--- !u!114 &6290468573241026708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 474602149339255915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82e89c3f7c4537e4ea5402fc3646baf7, type: 3}
+  m_Script: {fileID: 11500000, guid: 743ffa8fdf9617548a1b585d79784967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isInUse: 0

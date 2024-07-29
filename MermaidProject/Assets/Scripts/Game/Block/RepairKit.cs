@@ -54,7 +54,7 @@ public class RepairKit: Block
             p1.GetComponent<FixedJoint2D>().enabled = false;
 
             rb.rotation = p1.rb.rotation;
-            transform.position = p1.transform.position+p1.transform.up/2;
+            transform.position = p1.transform.position+p1.transform.up;
 
             p1.GetComponent<FixedJoint2D>().enabled = true;
 

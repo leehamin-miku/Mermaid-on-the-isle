@@ -58,14 +58,14 @@ public class CraftTable : Block
                     a = 0f;
                     if (inputList.SequenceEqual(SwordGoldRecipe))
                     {
-                        PhotonNetwork.Instantiate("Prefab/Game/SwordGold", transform.position - transform.up, transform.rotation);
+                        PhotonNetwork.Instantiate("Prefab/Game/SwordGold", transform.position - transform.up, transform.rotation).transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
                     } else if (inputList.SequenceEqual(SwordRubyRecipe))
                     {
-                        PhotonNetwork.Instantiate("Prefab/Game/SwordRuby", transform.position - transform.up, transform.rotation);
+                        PhotonNetwork.Instantiate("Prefab/Game/SwordRuby", transform.position - transform.up, transform.rotation).transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
                     }
                     else if (inputList.SequenceEqual(RepairKitRecipe))
                     {
-                        PhotonNetwork.Instantiate("Prefab/Game/RepairKit", transform.position - transform.up, transform.rotation);
+                        PhotonNetwork.Instantiate("Prefab/Game/RepairKit", transform.position - transform.up, transform.rotation).transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
                     }
                     else
                     {
