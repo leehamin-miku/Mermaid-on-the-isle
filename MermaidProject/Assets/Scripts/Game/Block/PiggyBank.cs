@@ -10,7 +10,7 @@ public class PiggyBank : Block
 
     public override void CollisionEnterAction(Collision2D collision)
     {
-        if (PhotonNetwork.IsMasterClient&&(collision.collider.GetComponent<Block>().BlockCode == 5|| collision.collider.GetComponent<Block>().BlockCode == 6||collision.collider.GetComponent<Block>().BlockCode == 7)&& collision.collider.GetComponent<Block>().isGrabed)
+        if (PhotonNetwork.IsMasterClient&&(collision.collider.GetComponent<Block>().BlockCode == 4|| collision.collider.GetComponent<Block>().BlockCode == 5||collision.collider.GetComponent<Block>().BlockCode == 6)&& collision.collider.GetComponent<Block>().isGrabed)
         {
             int moneyAmount = 0;
             switch (collision.collider.GetComponent<Block>().BlockCode)
