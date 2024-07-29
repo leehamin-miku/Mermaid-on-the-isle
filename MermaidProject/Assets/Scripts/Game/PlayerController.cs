@@ -72,8 +72,12 @@ public class PlayerController : Block
                 }
 
                 if (h2 > 0) h2 = 1.5f;
+                if (r1 == 0)
+                {
+                    rb.angularVelocity = 0;
+                }
 
-                rb.AddTorque(-r1 * Time.deltaTime *  30);
+                rb.AddTorque(-r1 * Time.deltaTime *  2, ForceMode2D.Impulse);
                 GetComponent<Rigidbody2D>().AddRelativeForce(15 * new Vector2(h1, h2) * Time.deltaTime, ForceMode2D.Impulse);
                 if (Input.GetMouseButtonDown(0))
                 {
