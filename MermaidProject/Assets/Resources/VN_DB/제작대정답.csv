@@ -5,5 +5,6 @@
 AddShopItem,,CraftTableBlueprint
  ,상점에 제작대 청사진이 추가되었습니다!,
 GetItem,,CraftTableBlueprint
- ,노아는 제작대에 대해서 더 깊이 이해하였으므로 보상을 받았습니다!,
+ ,노아는 제작대에 대해서 더 깊이 이해하였으므로 보상을 받았습니다!+5원,
+GetMoney,,5
 ConnectNextDialogue,,

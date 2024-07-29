@@ -55,26 +55,22 @@ public class CraftTable : Block
                 transform.GetChild(5).Rotate(new Vector3(0, 0, Time.deltaTime * 200));
                 if (a >= 20f)
                 {
-                    a = 0;
+                    a = 0f;
                     if (inputList.SequenceEqual(SwordGoldRecipe))
                     {
-                        Debug.Log("칼 제작 완료");
                         PhotonNetwork.Instantiate("Prefab/Game/SwordGold", transform.position - transform.up, transform.rotation);
                     } else if (inputList.SequenceEqual(SwordRubyRecipe))
                     {
-                        Debug.Log("칼 제작 완료");
                         PhotonNetwork.Instantiate("Prefab/Game/SwordRuby", transform.position - transform.up, transform.rotation);
                     }
                     else if (inputList.SequenceEqual(RepairKitRecipe))
                     {
-                        Debug.Log("칼 제작 완료");
                         PhotonNetwork.Instantiate("Prefab/Game/RepairKit", transform.position - transform.up, transform.rotation);
                     }
                     else
                     {
                         Debug.Log("레시피에 없는 제작법");
                     }
-                    a = 0;
                     PV.RPC("InitIngredientMark", RpcTarget.AllBuffered);
                     inputList.Clear();
                 }

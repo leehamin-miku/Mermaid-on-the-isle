@@ -1,6 +1,6 @@
 ﻿ActionName,Target,Parameter
-노아,시간아 멈추어라,Noah2
-노아,너는 한없이 아름답다,Noah2
+노아,상점의 역할에 대해서 많이 고민하고 있어요,Noah2
+노아,괜찮게 만든 시스템인데 그다지 들어갈 곳이 없는 것 같아서...,Noah2
 SetNextDialogue,,4n1n2
 Transition,,fade
 ConnectSubDialogue,,

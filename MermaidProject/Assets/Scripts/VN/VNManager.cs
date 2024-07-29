@@ -427,7 +427,6 @@ public class VNManager : MonoBehaviourPunCallbacks
             else if (ActionName == "GetMoney") {
 				if (PhotonNetwork.IsMasterClient) {
 					GameObject.Find("TotalMoney").GetComponent<MoneyManager>().PV.RPC("MoneyChange", RpcTarget.MasterClient, int.Parse(Parameter));
-					Debug.Log(Parameter + "¿ø Ãß°¡!");
 				}
                 i++;
 			}

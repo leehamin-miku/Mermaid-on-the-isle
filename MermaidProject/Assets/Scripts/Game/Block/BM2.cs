@@ -39,9 +39,9 @@ public class BM2 : Block
                 transform.GetChild(0).Rotate(new Vector3(0, 0, Time.deltaTime * 200));
             }
 
-            if (a >= 10)
+            if (a >= 15)
             {
-                a -= 10f;
+                a -= 15f;
                 waitingLen1--;
                 waitingLen2--;
                 PhotonNetwork.Instantiate("Prefab/Game/Brick2", transform.position - transform.up, transform.rotation).transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
