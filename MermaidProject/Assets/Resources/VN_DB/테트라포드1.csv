@@ -1,7 +1,7 @@
 ﻿ActionName,Target,Parameter
 RemoveTextbook,,새로운 방파제 제작법`테트라포드1
-노아,"새로운 방파제에 대해서 공부해보자"",Noah2
-노아,"얘는 좀 단단하다네?",Noah2
+노아,새로운 방파제에 대해서 공부해보자,Noah2
+노아,얘는 좀 단단하다네?,Noah2
 SetSubDialogue,,테트라포드2
 Transition,,fade
 ConnectNextDialogue,,

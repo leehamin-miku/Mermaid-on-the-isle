@@ -12,7 +12,7 @@ public class VNManager : MonoBehaviourPunCallbacks
 {
     //마스터가 사용하는 변수
     //세이브 대상
-    public string nextDialogue = "1n1";
+    public string nextDialogue = "4n1";
     public string nextSubDialogue = "";
     public List<CoroutineAbs> coList = new List<CoroutineAbs>();
 
@@ -156,7 +156,7 @@ public class VNManager : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    textbookList.Add(Target);
+                    textbookList.Add(Parameter);
                 }
 
                 i++;
