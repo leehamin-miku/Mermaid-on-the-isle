@@ -34,7 +34,7 @@ public class ItemInfo : MonoBehaviour
     {
         if (!solded&&collision.GetComponent<Block>().BlockCode == 0&& collision.GetComponent<Block>().PV.IsMine)
         {
-            transform.GetChild(0).GetComponent<TextMeshPro>().text = name+" "+ price+"$";
+            transform.GetChild(0).GetComponent<TextMeshPro>().text = itemName+" "+ price+"$";
             subBool = false;
         }
     }
@@ -42,7 +42,7 @@ public class ItemInfo : MonoBehaviour
     {
         if (!solded && collision.GetComponent<Block>().BlockCode == 0 && collision.GetComponent<Block>().PV.IsMine)
         {
-            transform.GetChild(0).GetComponent<TextMeshPro>().text = name + " " + price+"$\n우클릭으로 구매";
+            transform.GetChild(0).GetComponent<TextMeshPro>().text = itemName + " " + price+"$\n우클릭으로 구매";
             subBool = true;
         }
     }

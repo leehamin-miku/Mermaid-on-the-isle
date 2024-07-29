@@ -18,6 +18,7 @@ public class Orca : TsunamiUnit
         if (collision.collider.GetComponent<Block>() != null&& collision.collider.GetComponent<Block>().BlockCode!=0&& collision.collider.GetComponent<TsunamiUnit>() == null)
         {
             collision.collider.GetComponent<Block>().PV.RPC("ChangeStrength", Photon.Pun.RpcTarget.All, -2);
+            ChangeHP(-1);
         }
     }
 
@@ -25,8 +26,8 @@ public class Orca : TsunamiUnit
     {
         Vector3 ClosestPlayerPosition;
         FlowerPosition = GameObject.Find("Island").transform.position;
-        float DetectDistance = 5f;
-        float Power = 13f;
+        float DetectDistance = 2f;
+        float Power = 7f;
         while (true)
         {
             StartCoroutine(FindClosestPlayerPosition());

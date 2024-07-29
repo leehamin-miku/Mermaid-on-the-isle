@@ -73,7 +73,7 @@ public class PlayerController : Block
 
                 if (h2 > 0) h2 = 1.5f;
 
-                rb.AddTorque(-r1 * Time.deltaTime *  20);
+                rb.AddTorque(-r1 * Time.deltaTime *  30);
                 GetComponent<Rigidbody2D>().AddRelativeForce(15 * new Vector2(h1, h2) * Time.deltaTime, ForceMode2D.Impulse);
                 if (Input.GetMouseButtonDown(0))
                 {

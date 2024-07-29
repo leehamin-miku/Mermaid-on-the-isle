@@ -182,7 +182,7 @@ MonoBehaviour:
   p1: {fileID: 0}
   isAbleGrabed: 0
   PV: {fileID: 3411019273798802887}
-  HP: 3
+  HP: 4
 --- !u!1 &2742615420322203889
 GameObject:
   m_ObjectHideFlags: 0

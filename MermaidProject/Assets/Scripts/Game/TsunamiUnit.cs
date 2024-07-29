@@ -18,6 +18,7 @@ public class TsunamiUnit : Block
     public void ChangeHP(int a)
     {
         HP += a;
+        PV.RPC("AttackedSub", RpcTarget.All);
         if (HP <= 0)
         {
             PhotonNetwork.Destroy(this.gameObject);
@@ -26,9 +27,26 @@ public class TsunamiUnit : Block
     [PunRPC]
     public void AddRB(Vector2 vec)
     {
-        rb.AddForce(vec);
+        rb.AddForce(vec, ForceMode2D.Impulse);
     }
 
+    [PunRPC]
+    public void AttackedSub()
+    {
+        StartCoroutine(Attacked());
+    }
+
+    public IEnumerator Attacked()
+    {
+        float a = 0;
+        while (a < 0.3)
+        {
+            a += Time.deltaTime;
+            GetComponent<SpriteRenderer>().color = Color.red;
+            yield return null;
+        }
+        GetComponent<SpriteRenderer>().color = Color.white;
+    }
 
     //´êÀ¸¸é ¾îÂ¼±¸ µîµî
 }

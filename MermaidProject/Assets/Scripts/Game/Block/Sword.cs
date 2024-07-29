@@ -36,7 +36,7 @@ public class Sword : Block
                     hit.collider.GetComponent<TsunamiUnit>().PV.RPC("ChangeHP", RpcTarget.MasterClient, -Power);
                     Vector2 vec = new Vector2((hit.collider.transform.position - p1.transform.position).x, (hit.collider.transform.position - p1.transform.position).y);
                     vec = vec.normalized;
-                    hit.collider.GetComponent<TsunamiUnit>().PV.RPC("AddRB", RpcTarget.MasterClient, vec);
+                    hit.collider.GetComponent<TsunamiUnit>().PV.RPC("AddRB", RpcTarget.MasterClient, vec*10);
                     PV.RPC("DurabilityChange", RpcTarget.All, -1);
                 }
             }
