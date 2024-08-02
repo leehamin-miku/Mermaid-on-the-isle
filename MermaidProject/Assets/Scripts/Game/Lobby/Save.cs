@@ -57,8 +57,9 @@ public class Save : MonoBehaviour
 
         }
         ss.saveBlockList = saveBlockList.ToList();
-        DataManager.Instance.data.saveFile[a] = ss;
-        DataManager.Instance.SaveGameData();
+        Data data = DataManager.Instance.data;
+        data.saveFile[a] = ss;
+        DataManager.Instance.SaveGameData(data);
     }
 
     bool isTigger = false;

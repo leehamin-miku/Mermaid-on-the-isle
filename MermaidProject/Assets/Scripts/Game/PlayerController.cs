@@ -106,7 +106,6 @@ public class PlayerController : Block
             a -= 0.3f;
             j++;
             j %= 8;
-            Debug.Log(j);
             body.sprite = spriteArr[j];
             body2.sprite = spriteArr[j];
         }

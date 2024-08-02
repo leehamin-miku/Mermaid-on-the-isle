@@ -1,8 +1,0 @@
-﻿ActionName,Target,Parameter
-노아,공부는 여기까지로 하고... 일단 섬으로 가자,Noah2
-AddTide,,4`0`3
-AddTide,,5`0`3
-GetItem,,Sword
-GetItem,,Sword
-GetItem,,Sword
-Island,5,1n2
