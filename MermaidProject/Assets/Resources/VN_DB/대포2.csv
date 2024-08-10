@@ -1,0 +1,12 @@
+﻿ActionName,Target,Parameter
+SpriteChange,0,`0`0`1
+노아,깜빡잠들었었네,Noah2
+노아,오늘 배웠던걸 시험해볼까?,Noah2
+문제,다음 중 대포에 대한 설명으로 적절한 것은?,book
+Question,1. 어떠한 물건이든 투사할 수 있다,
+Question,2. 안정적인 정4면체`테트라포드오답,
+Question,3. 까칠한 마름쇠 모양`테트라포드정답,
+Question,4. 수학적인 토러스 모양`테트라포드오답,
+QuestionEnd,,
+노아,"""과연... 정답은...!""",
+ConnectSubDialogue,,

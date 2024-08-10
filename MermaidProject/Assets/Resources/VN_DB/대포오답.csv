@@ -1,0 +1,8 @@
+﻿ActionName,Target,Parameter
+문제,오답입니다,
+노아,아아... 노아 바보! 기억력이 심각하구나,Noah2
+ ,테트라포드에 대해서 배웠으므로 시멘트 공장의 청사진을 받았습니다!,
+GetItem,,BM2Blueprint
+ ,상점에 테트라포드 청사진이 추가되었습니다,
+AddShopItem,,BM2Blueprint
+ConnectNextDialogue,,

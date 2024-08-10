@@ -194,6 +194,24 @@ public class GameManager : MonoBehaviourPunCallbacks
                     sr.Durability = (block.block as Sword).Durability;
                     sr.transform.SetParent(sog.transform);
                     break;
+                case 22:
+                    blockName = "Ingot";
+                    Block ingot = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    ingot.strength = block.block.strength;
+                    ingot.transform.SetParent(sog.transform);
+                    break;
+                case 23:
+                    blockName = "Cannon";
+                    Cannon cannon = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Cannon>();
+                    cannon.strength = block.block.strength;
+                    cannon.transform.SetParent(sog.transform);
+                    break;
+                case 24:
+                    blockName = "CannonBlueprint";
+                    Block cannonBlueprint = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, block.block.savePosition, block.block.saveRotation).GetComponent<Block>();
+                    cannonBlueprint.strength = block.block.strength;
+                    cannonBlueprint.transform.SetParent(sog.transform);
+                    break;
                 default:
                     blockName = null;
                     break;

@@ -1,0 +1,9 @@
+﻿ActionName,Target,Parameter
+RemoveTextbook,,중세 최강의 공성병기:대포`대포1
+ 노아,오늘은 대포에 대하여 공부해보자,Noah2
+ ,대포는 화약의 폭발력으로 탄자를 추진시켜 투사하는 병기를 의미한다\n투사체는 포물선을 그리며 날라가고 착탄하여 큰 피해를 준다,
+ ,"투사체, 즉 포탄은 이론상\n1. 포에 들어갈 수 있고\n2.내부에서 폭발력을 버텨낼 수 있는 어떠한 것이라도 쏠 수 있다",
+ ,"<color=yellow>마침 적당한 조약돌이 있다면 그것을 대포에 넣는 것으로 잠시 뒤에 발포 할 수 있다</color>",
+SetSubDialogue,,대포2
+Transition,,fade
+ConnectNextDialogue,,

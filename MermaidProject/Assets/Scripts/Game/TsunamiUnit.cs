@@ -6,6 +6,7 @@ using UnityEngine;
 public class TsunamiUnit : Block
 {
     [SerializeField] int HP;
+    Coroutine coroutine;
     // Start is called before the first frame update
     public virtual void StartTunamiUnit()
     {
@@ -33,7 +34,11 @@ public class TsunamiUnit : Block
     [PunRPC]
     public void AttackedSub()
     {
-        StartCoroutine(Attacked());
+        if(coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(Attacked());
     }
 
     public IEnumerator Attacked()
@@ -46,6 +51,7 @@ public class TsunamiUnit : Block
             yield return null;
         }
         GetComponent<SpriteRenderer>().color = Color.white;
+        coroutine = null;
     }
 
     //´êÀ¸¸é ¾îÂ¼±¸ µîµî

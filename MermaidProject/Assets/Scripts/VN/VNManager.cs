@@ -266,6 +266,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                 // Parameter = 바뀔 이미지의 이름
                 CoroutineAbs temp = new SmoothSpriteChange(Target, Parameter);
                 temp.co = StartCoroutine(temp.Action());
+                Debug.Log(temp.co);
                 coList.Add(temp);
                 i++;
             }
@@ -571,7 +572,7 @@ public class VNManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void StopAllCoAndNextScript()
     {
-
+        
         foreach (CoroutineAbs co in coList)
         {
             StopCoroutine(co.co);
@@ -662,6 +663,7 @@ public class VNManager : MonoBehaviourPunCallbacks
 
         public override IEnumerator Action()
         {
+            float a = 0;
             Sprite newSprite = Resources.Load<Sprite>("Image/VN/" + Parameter);
             Transform standing = StandingGroup.transform.GetChild(int.Parse(Target));
             standing.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = newSprite;
@@ -669,10 +671,11 @@ public class VNManager : MonoBehaviourPunCallbacks
             standing.GetChild(0).position = standing.position;
             standing.GetChild(0).localScale = new Vector3(1, 1, 1);
 
-            while (standing.GetComponent<SpriteRenderer>().color.a > 0)
+            while (a < 0.3f)
             {
-                standing.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, standing.GetComponent<SpriteRenderer>().color.a - Time.deltaTime / .5f);
-                standing.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, standing.GetChild(0).GetComponent<SpriteRenderer>().color.a + Time.deltaTime / .5f);
+                a += Time.deltaTime;
+                standing.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1-a*2);
+                standing.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.4f+a*2);
                 yield return null;
             }
 
