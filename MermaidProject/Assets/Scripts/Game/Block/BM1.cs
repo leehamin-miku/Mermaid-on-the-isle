@@ -28,12 +28,21 @@ public class BM1 : Block
         }
     }
 
+    AudioSource soundEffect;
     public override IEnumerator RunningCoroutine()
     {
+        soundEffect = GetComponent<AudioSource>();
+        bool isWorking = false;
+        
         while (true)
         {
             if (waitingLen1 > 0&& waitingLen2 > 0)
             {
+                if(!isWorking)
+                {
+                    StartCoroutine(startSound());
+                    isWorking = true;
+                }
                 a += Time.deltaTime;
                 transform.GetChild(0).Rotate(new Vector3(0, 0, Time.deltaTime * 200));
             }
@@ -44,6 +53,11 @@ public class BM1 : Block
                 waitingLen1--;
                 waitingLen2--;
                 PhotonNetwork.Instantiate("Prefab/Game/Brick1", transform.position - transform.up, transform.rotation).transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
+                if (isWorking)
+                {
+                    StartCoroutine(EndSound());
+                    isWorking = false;
+                }
             }
             yield return null;
         }
@@ -61,4 +75,29 @@ public class BM1 : Block
         return bm1;
     }
 
+    private IEnumerator startSound()
+    {
+        float timer = 0;
+        soundEffect.volume = 0;
+        soundEffect.Play();
+        while (timer <= 1)
+        {
+            timer += Time.deltaTime / 1.5f;
+            soundEffect.volume = Mathf.Lerp(0, 1, timer);
+            yield return null;
+        }
+        yield return null;
+    }
+    private IEnumerator EndSound()
+    {
+        float timer = 0;
+        while (timer <= 1)
+        {
+            timer += Time.deltaTime / 1.5f;
+            soundEffect.volume = Mathf.Lerp(1, 0, timer);
+            yield return null;
+        }
+        soundEffect.Stop();
+        yield return null;
+    }
 }
