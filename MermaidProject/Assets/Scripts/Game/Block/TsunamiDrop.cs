@@ -7,6 +7,8 @@ public class TsunamiDrop : TsunamiUnit
 {
     public Vector2 TsunamiLocateFromFlower;
     bool isAbleAttack = true;
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (PV.IsMine)
@@ -21,6 +23,10 @@ public class TsunamiDrop : TsunamiUnit
     }
     public override void StartTunamiUnit()
     {
+        GameObject islandSoundManager = GameObject.Find("IslandSoundManager");
+        IslandSoundManager TsunamiSound = islandSoundManager.GetComponent<IslandSoundManager>();
+        TsunamiSound.TsunamiSoundEffectStart();
+
         base.StartTunamiUnit();
         rb.AddForce(-TsunamiLocateFromFlower, ForceMode2D.Impulse);
     }

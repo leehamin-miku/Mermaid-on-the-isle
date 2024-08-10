@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-    
+using UnityEngine.Audio;
+
 public class VNSoundManager : MonoBehaviour {
     public static VNSoundManager instance;
 
     public AudioClip[] BGMClips;
     [SerializeField] AudioSource BGMPlayer;
+    [SerializeField] AudioMixerGroup BGMMixer;
 
     public AudioClip[] SEClips;
     [SerializeField] AudioSource[] SEPlayer;
-
+    [SerializeField] AudioMixerGroup SFXMixer;
     private void Awake() {
         if (instance == null) {
             instance = this;
@@ -28,6 +30,7 @@ public class VNSoundManager : MonoBehaviour {
         for (int i = 0; i < BGMClips.Length; i++) {
             if (name == BGMClips[i].name) {
                 BGMPlayer.clip = BGMClips[i];
+                BGMPlayer.outputAudioMixerGroup = BGMMixer;
                 BGMPlayer.Play();
                 if (loofnum++ > 10) {
                     print(BGMClips.Length);
@@ -45,6 +48,7 @@ public class VNSoundManager : MonoBehaviour {
                 for (int j = 0; j < SEPlayer.Length; j++) {
                     if (!SEPlayer[j].isPlaying) {
                         SEPlayer[j].clip = SEClips[i];
+                        SEPlayer[j].outputAudioMixerGroup = SFXMixer;
                         SEPlayer[j].Play();
                         return;
                     }

@@ -13,6 +13,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject joinWindow;
     [SerializeField] GameObject noticeWindow;
     [SerializeField] GameObject loadWindow;
+    [SerializeField] GameObject SettingWindow;
 
     [SerializeField] InputField newStartRoomName;
     [SerializeField] InputField newStartNickName;
@@ -174,5 +175,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         newStartWindow.SetActive(false);
         noticeWindow.SetActive(false);
         loadWindow.SetActive(false);
+        SettingWindow.SetActive(false);
     }
 }

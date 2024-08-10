@@ -9,6 +9,7 @@ public class GameLoad : MonoBehaviour
     [SerializeField] GameObject joinWindow;
     [SerializeField] GameObject noticeWindow;
     [SerializeField] GameObject loadWindow;
+    [SerializeField] GameObject settingWindow;
     private void OnMouseEnter()
     {
         GetComponent<TextMeshPro>().color = Color.gray;
@@ -23,5 +24,6 @@ public class GameLoad : MonoBehaviour
         newStartWindow.SetActive(false);
         noticeWindow.SetActive(false);
         loadWindow.SetActive(true);
+        settingWindow.SetActive(false);
     }
 }

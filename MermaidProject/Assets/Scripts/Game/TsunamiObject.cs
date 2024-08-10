@@ -83,7 +83,7 @@ public class TsunamiObject : MonoBehaviour
 
     public void StartTsunami()
     {
-        foreach(GameObject go in tsunamiList)
+        foreach (GameObject go in tsunamiList)
         {
             go.GetComponent<TsunamiUnit>().StartTunamiUnit();
         }

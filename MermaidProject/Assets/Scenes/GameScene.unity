@@ -5715,6 +5715,7 @@ MonoBehaviour:
   BGMClips:
   - {fileID: 8300000, guid: efd0d734f84f5fd4fb983878c8eca45a, type: 3}
   BGMPlayer: {fileID: 1278082688}
+  BGMMixer: {fileID: 3465633730814630432, guid: d8b2b96e3fd96904ca6f9979ffa0bba7, type: 2}
   SEClips:
   - {fileID: 8300000, guid: e5c0c8ae246b72f49bd4dcb8264c1588, type: 3}
   - {fileID: 8300000, guid: cc974b2e832d89e49aadcbced0fb3b96, type: 3}
@@ -5723,6 +5724,7 @@ MonoBehaviour:
   - {fileID: 1278082687}
   - {fileID: 1278082686}
   - {fileID: 1278082685}
+  SFXMixer: {fileID: -7579072101376312809, guid: d8b2b96e3fd96904ca6f9979ffa0bba7, type: 2}
 --- !u!82 &1278082685
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7091,6 +7093,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &1432682149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1432682152}
+  - component: {fileID: 1432682150}
+  m_Layer: 0
+  m_Name: IslandSoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1432682150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432682149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2f16b389388c947928a070560acabd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tsunamiClip: {fileID: 8300000, guid: aed05125e68c766489152f754c01ee07, type: 3}
+  islandBGMClip: {fileID: 8300000, guid: efd0d734f84f5fd4fb983878c8eca45a, type: 3}
+  BGMMixer: {fileID: 3465633730814630432, guid: d8b2b96e3fd96904ca6f9979ffa0bba7, type: 2}
+  SFXMixer: {fileID: -7579072101376312809, guid: d8b2b96e3fd96904ca6f9979ffa0bba7, type: 2}
+--- !u!4 &1432682152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432682149}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.043450937}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1455340231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10770,3 +10820,4 @@ SceneRoots:
   - {fileID: 1295822348}
   - {fileID: 387264980}
   - {fileID: 1316375598}
+  - {fileID: 1432682152}

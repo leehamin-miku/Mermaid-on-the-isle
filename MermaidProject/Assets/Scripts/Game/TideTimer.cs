@@ -42,8 +42,14 @@ public class TideTimer : MonoBehaviour
             {
                 tsunami.GetComponent<TsunamiObject>().DestroyTsunami();
             }
+
+            GameObject islandSoundManager = GameObject.Find("IslandSoundManager");
+            IslandSoundManager islandBGM = islandSoundManager.GetComponent<IslandSoundManager>();
+            islandBGM.islandBGMEnd();
+
             DestroyMap();
-            for(int i=0; i<4; i++)
+
+            for (int i=0; i<4; i++)
             {
                 if (GameObject.Find("Shop").transform.GetChild(0).GetChild(i).GetComponent<ItemInfo>().item != null)
                 {

@@ -272,7 +272,7 @@ public class VNManager : MonoBehaviourPunCallbacks
             }
             else if (ActionName == "Sound") {
                 // Target = 파일 이름
-                // Parameter == 0 -> BGM 재생, == 1 -> SE 재생, == 그 외 -> 모든 Sound 정지
+                // Parameter == 0 -> BGM 재생, == 1 -> SE 재생
                 VNSoundManager.instance.PlaySound(Target, int.Parse(Parameter));
                 i++;
             }
@@ -385,6 +385,11 @@ public class VNManager : MonoBehaviourPunCallbacks
                 //상점 초기화
                 //타이머 시작
                 //다이올로그 이름에 대해선 마스터에게만 적용
+
+                GameObject islandSoundManager = GameObject.Find("IslandSoundManager");
+                IslandSoundManager islandBGM = islandSoundManager.GetComponent<IslandSoundManager>();
+                islandBGM.islandBGMStart();
+
                 if (PhotonNetwork.IsMasterClient)
                 {
                     GameObject.Find("Shop").GetComponent<Shop>().InitializeShop();
