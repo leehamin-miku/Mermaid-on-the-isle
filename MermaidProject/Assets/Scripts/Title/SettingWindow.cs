@@ -26,35 +26,34 @@ public class SettingWindow : MonoBehaviour
 
     private void MasterVolumeControl(float volume)
     {
-        volume = MasterVolumeSize.value;
+        DataManager.Instance.data.BV = MasterVolumeSize.value;
 
-        if (volume == -40f) audioMixer.SetFloat("Master", -80);
-        else
-        {
-            audioMixer.SetFloat("Master", volume);
-            print(volume);
-        }
+        //if (volume == -40f) audioMixer.SetFloat("Master", -80);
+        //else
+        //{
+        //    audioMixer.SetFloat("Master", volume);
+        //    print(volume);
+        //}
     }
 
     private void BGMControl(float volume)
     {
-        volume = BGMSize.value;
+        DataManager.Instance.data.BV = BGMSize.value;
 
-        if (volume == -40f) audioMixer.SetFloat("BGM", -80);
-        else audioMixer.SetFloat("BGM", volume);
+        //if (volume == -40f) audioMixer.SetFloat("BGM", -80);
+        //else audioMixer.SetFloat("BGM", volume);
     }
 
     private void SoundEffectControl(float volume)
     {
-        volume = SoundEffectSize.value;
+        DataManager.Instance.data.SV = SoundEffectSize.value;
 
-        if (volume == -40f) audioMixer.SetFloat("SFX", -80);
-        else audioMixer.SetFloat("SFX", volume);
+        //if (volume == -40f) audioMixer.SetFloat("SFX", -80);
+        //else audioMixer.SetFloat("SFX", volume);
     }
 
     public static float MS;
     public void MouseSensitivityControl(float sensitivity) {
-        sensitivity = MouseSensitivity.value;
-        MS = sensitivity;
+        DataManager.Instance.data.MS = MouseSensitivity.value;
     }
 }

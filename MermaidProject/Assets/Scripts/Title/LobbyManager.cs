@@ -31,6 +31,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject loadObject2;
     [SerializeField] Button loadButton;
 
+    [SerializeField] Slider MS;
+    [SerializeField] Slider MV;
+    [SerializeField] Slider BV;
+    [SerializeField] Slider SV;
+
     // 방 목록을 가지고 있는 Dictionaly 변수
     Dictionary<string, RoomInfo> dicRoomInfo = new Dictionary<string, RoomInfo>();
 
@@ -66,6 +71,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         loadObject1.GetComponent<LoadObject>().DataMark();
         loadObject2.GetComponent<LoadObject>().DataMark();
         loadWindow.SetActive(false);
+
+        SettingWindow.SetActive(true);
+        MS.value = DataManager.Instance.data.MS;
+        MV.value = DataManager.Instance.data.MV;
+        SV.value = DataManager.Instance.data.SV;
+        BV.value = DataManager.Instance.data.BV;
+        SettingWindow.SetActive(false);
 
 
     }
@@ -158,6 +170,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
+        DataManager.Instance.SaveGameData(DataManager.Instance.data);
         PhotonNetwork.LoadLevel("GameScene");
         Debug.Log("방 입장 성공");
     }

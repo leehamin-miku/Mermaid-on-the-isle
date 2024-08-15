@@ -60,7 +60,7 @@ public class PlayerController : Block
         }
 
         GameObject Datamanager = GameObject.Find("DataManager");
-        mouseSensitivity = SettingWindow.MS;
+        mouseSensitivity = DataManager.Instance.data.MS;
     }
 
     // Update is called once per frame

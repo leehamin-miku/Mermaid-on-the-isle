@@ -7,9 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    public AudioMixer audioMixer;
     void Start()
     {
         GameObject Pl = PhotonNetwork.Instantiate("Prefab/Game/Player", new Vector3(-85, -121), Quaternion.identity);
@@ -50,11 +52,24 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameObject.Find("VN").GetComponent<VNManager>().textbookList = ss.textbookList.ToList();
         GameObject.Find("ShopParent").SetActive(ss.shopOpened);
 
-
+        if (DataManager.Instance.data.MV == -40f) audioMixer.SetFloat("Master", -80);
+        else
+        {
+            audioMixer.SetFloat("Master", DataManager.Instance.data.MV);
+        }
+        if (DataManager.Instance.data.BV == -40f) audioMixer.SetFloat("Master", -80);
+        else
+        {
+            audioMixer.SetFloat("Master", DataManager.Instance.data.BV);
+        }
+        if (DataManager.Instance.data.SV == -40f) audioMixer.SetFloat("Master", -80);
+        else
+        {
+            audioMixer.SetFloat("Master", DataManager.Instance.data.SV);
+        }
 
         GameObject sog = GameObject.Find("SaveObjectGroup");
         List<Data.SaveBlockStruct> blockList = ss.saveBlockList.ToList();
-        //³ë°¡´Ù ¤¡¤¡ ¹ä¸Ô°í¿È
         foreach (Data.SaveBlockStruct block in blockList)
         {
             string blockName = "";
