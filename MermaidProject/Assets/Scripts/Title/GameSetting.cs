@@ -4,7 +4,7 @@ using System.Data.Common;
 using TMPro;
 using UnityEngine;
 
-public class Setting : MonoBehaviour
+public class GameSetting : MonoBehaviour
 {
     [SerializeField] GameObject newStartWindow;
     [SerializeField] GameObject joinWindow;

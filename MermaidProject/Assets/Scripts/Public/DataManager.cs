@@ -28,7 +28,7 @@ public class DataManager : MonoBehaviour
     string GameDataFileName = "Mermaid.json";
 
     // --- 저장용 클래스 변수 --- //
-    public Data data;
+    public Data data = new Data();
 
 
     // 불러오기
