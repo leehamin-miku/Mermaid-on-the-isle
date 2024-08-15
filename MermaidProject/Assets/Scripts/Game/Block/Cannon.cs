@@ -35,7 +35,7 @@ public class Cannon : Block
                 isShooting = false;
                 GameObject go = PhotonNetwork.Instantiate("Prefab/Game/CannonBall", transform.position + transform.up*2, transform.rotation);
                 go.GetComponent<CannonBall>().Shot();
-                GetComponent<Rigidbody2D>().AddForce(-transform.up*3, ForceMode2D.Impulse);
+                GetComponent<Rigidbody2D>().AddForce(-transform.up*40, ForceMode2D.Impulse);
                 soundEffect.Play();
             }
             yield return null;

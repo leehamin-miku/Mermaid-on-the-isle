@@ -7,8 +7,8 @@ public class CannonBall : MonoBehaviour
 {
     public void Shot()
     {
-        GetComponent<Rigidbody2D>().AddForce(transform.up * 20, ForceMode2D.Impulse);
-        StartCoroutine(DestroyDelay(5f));
+        GetComponent<Rigidbody2D>().AddForce(transform.up * 300, ForceMode2D.Impulse);
+        StartCoroutine(DestroyDelay(10f));
     }
 
     IEnumerator DestroyDelay(float a)
