@@ -10,7 +10,7 @@ using UnityEngine;
 public class PlayerController : Block
 {
     public int colorNumber = 0;
-    public int mouseSensitivity = 4;
+    public float mouseSensitivity = 4;
 	public bool isAbleMove = true;
     public bool isFocusOnChattingInputField = false;
     bool VNRunning = false;
@@ -27,6 +27,7 @@ public class PlayerController : Block
     public SpriteRenderer body;
     public SpriteRenderer body2;
     public SpriteRenderer star;
+
 
 
     int j = 0;
@@ -57,6 +58,9 @@ public class PlayerController : Block
             GameObject.Find("GameManager").GetComponent<ChattingManager>().PlayerController = this;
             GameObject.Find("GameManager").GetComponent<ChattingManager>().PV.RPC("SystemChatting", RpcTarget.All, "<color=yellow>" + PhotonNetwork.NickName + "님이 입장했습니다</color>");
         }
+
+        GameObject Datamanager = GameObject.Find("DataManager");
+        mouseSensitivity = SettingWindow.MS;
     }
 
     // Update is called once per frame

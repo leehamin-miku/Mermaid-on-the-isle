@@ -425,6 +425,7 @@ MonoBehaviour:
   isAbleGrabed: 0
   PV: {fileID: 520826043651063484}
   colorNumber: 1
+  mouseSensitivity: 4
   isAbleMove: 1
   isFocusOnChattingInputField: 0
   red: {r: 0.69803923, g: 0, b: 0.06666667, a: 1}
