@@ -10,14 +10,18 @@ public class SettingWindow : MonoBehaviour
     public Slider MasterVolumeSize;
     public Slider BGMSize;
     public Slider SoundEffectSize;
+    public Slider MouseSensitivity;
 
 
-    private void Start()
+
+	private void Start()
     {
         MasterVolumeSize.onValueChanged.AddListener(MasterVolumeControl);
         BGMSize.onValueChanged.AddListener(BGMControl);
         SoundEffectSize.onValueChanged.AddListener(SoundEffectControl);
-    }
+        MouseSensitivity.onValueChanged.AddListener(MouseSensitivityControl);
+
+	}
 
     private void MasterVolumeControl(float volume)
     {
@@ -45,5 +49,9 @@ public class SettingWindow : MonoBehaviour
 
         if (volume == -40f) audioMixer.SetFloat("SFX", -80);
         else audioMixer.SetFloat("SFX", volume);
+    }
+
+    public void MouseSensitivityControl(float sensitivity) {
+        sensitivity = MouseSensitivity.value;
     }
 }

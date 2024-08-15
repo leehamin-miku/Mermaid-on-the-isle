@@ -10,7 +10,8 @@ using UnityEngine;
 public class PlayerController : Block
 {
     public int colorNumber = 0;
-    public bool isAbleMove = true;
+    public int mouseSensitivity = 4;
+	public bool isAbleMove = true;
     public bool isFocusOnChattingInputField = false;
     bool VNRunning = false;
     bool isMatser;
@@ -47,7 +48,9 @@ public class PlayerController : Block
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        if (PV.IsMine)
+		
+
+		if (PV.IsMine)
         {
             GameObject.Find("TotalMoney").GetComponent<MoneyManager>().PV.RPC("MoneyMarkRequest", RpcTarget.MasterClient);
             GameObject.Find("VN").GetComponent<VNManager>().PlayerController = this;
@@ -73,7 +76,7 @@ public class PlayerController : Block
 
                 if (h2 > 0) h2 = 1.5f;
 
-                rb.AddTorque(-r1 * Time.deltaTime *  4, ForceMode2D.Impulse);
+                rb.AddTorque(-r1 * Time.deltaTime * mouseSensitivity, ForceMode2D.Impulse);
                 GetComponent<Rigidbody2D>().AddRelativeForce(15 * new Vector2(h1, h2) * Time.deltaTime, ForceMode2D.Impulse);
                 if (Input.GetMouseButtonDown(0))
                 {

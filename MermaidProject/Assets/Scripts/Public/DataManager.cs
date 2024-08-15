@@ -59,4 +59,11 @@ public class DataManager : MonoBehaviour
         Debug.Log(JsonConvert.SerializeObject(data));
         File.WriteAllText(filePath, JsonConvert.SerializeObject(data));
     }
+
+    // 마우스 감도 인게임으로 넘기기
+
+    public SettingWindow sw;
+    public void MouseSensitivityToInGame() {
+        float sensitivity = sw.MouseSensitivity.value;
+    }
 }
