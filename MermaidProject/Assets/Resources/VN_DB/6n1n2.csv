@@ -1,0 +1,6 @@
+﻿ActionName,Target,Parameter
+노아,6일차 - 2입니다. 많은 양의 벽들을 부수기 위해 많은 해일이 있습니다.,Noah2
+노아,"그러므로 6,7일차를 대비해 많은 벽을 만들라는 조언이 있으면 좋을지도 모르겠습니다.",Noah2
+AddTide,,1`15`1
+AddTide,,2`15`1
+Island,60,6n2

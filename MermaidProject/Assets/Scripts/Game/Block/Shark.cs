@@ -25,9 +25,12 @@ public class Shark : TsunamiUnit
             ChangeHP(-1);
         }
     }
+    
+    AudioSource soundEffect;
 
     private IEnumerator SharkAi()
     {
+        soundEffect = GetComponent<AudioSource>();
         Vector3 ClosestPlayerPosition;
         FlowerPosition = GameObject.Find("Island").transform.position;
         float DetectDistance = 5f;
@@ -44,6 +47,7 @@ public class Shark : TsunamiUnit
             {
                 rb.AddForce((FlowerPosition - SharkPosition).normalized * Power, ForceMode2D.Impulse);
             }
+            soundEffect.Play();
             yield return new WaitForSeconds(Random.Range(1f, 3f));
         }        
     }

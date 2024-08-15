@@ -25,12 +25,14 @@ public class Orca : TsunamiUnit
         }
     }
 
+    AudioSource soundEffect;
     private IEnumerator OrcaAi()
     {
+        soundEffect = GetComponent<AudioSource>();
         Vector3 ClosestPlayerPosition;
         FlowerPosition = GameObject.Find("Island").transform.position;
         float DetectDistance = 2f;
-        float Power = 7f;
+        float Power = 45f;
         while (true)
         {
             StartCoroutine(FindClosestPlayerPosition());
@@ -43,6 +45,7 @@ public class Orca : TsunamiUnit
             {
                 rb.AddForce((FlowerPosition - OrcaPosition).normalized * Power, ForceMode2D.Impulse);
             }
+            soundEffect.Play();
             yield return new WaitForSeconds(Random.Range(3f, 6f));
         }        
     }

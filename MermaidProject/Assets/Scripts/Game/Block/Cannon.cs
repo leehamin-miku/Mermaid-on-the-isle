@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Cannon : Block
 {
+
+    AudioSource soundEffect;
     float a = 0;
     bool isShooting = false;
     public override void CollisionEnterAction(Collision2D collision)
@@ -19,6 +21,7 @@ public class Cannon : Block
 
     public override IEnumerator RunningCoroutine()
     {
+        soundEffect = GetComponent<AudioSource>();
         while (true)
         {
             if (isShooting)
@@ -33,6 +36,7 @@ public class Cannon : Block
                 GameObject go = PhotonNetwork.Instantiate("Prefab/Game/CannonBall", transform.position + transform.up*2, transform.rotation);
                 go.GetComponent<CannonBall>().Shot();
                 GetComponent<Rigidbody2D>().AddForce(-transform.up*3, ForceMode2D.Impulse);
+                soundEffect.Play();
             }
             yield return null;
         }

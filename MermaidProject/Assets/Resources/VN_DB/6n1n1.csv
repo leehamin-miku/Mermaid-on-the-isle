@@ -1,0 +1,5 @@
+﻿ActionName,Target,Parameter
+노아,6일차 - 1입니다.,Noah2
+SetNextDialogue,,6n1n2
+Transition,,fade
+ConnectSubDialogue,,

@@ -308,7 +308,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                     //구분=2일때 양방향 쓰나미
                     //구분=3일때 상어 크리쳐
                     //구분=4일때 범고래 크리쳐
-                    //구분=5일때 왕고래 크리쳐
+                    //구분=5일때 왕고래 보스전(모든 몹 출현)
                     //예상시간, Tidal사이의 시간
 
 
@@ -374,6 +374,9 @@ public class VNManager : MonoBehaviourPunCallbacks
                         tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
                         tsunami.AddComponent<TsunamiObject>();
                         tsunami.GetComponent<TsunamiObject>().SummonCreature("BlueWhale", new Vector3(vec.x, vec.y), int.Parse(a[1]), float.Parse(a[2]));
+                        tsunami.GetComponent<TsunamiObject>().SummonCreature("Orca", new Vector3(vec.x, vec.y), 5, float.Parse(a[2]));
+                        tsunami.GetComponent<TsunamiObject>().SummonCreature("Shark", new Vector3(vec.x, vec.y), 5, float.Parse(a[2]));
+                        tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(new Vector3(vec.x, vec.y), 5, float.Parse(a[2]));
                         PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
                     }
                 }

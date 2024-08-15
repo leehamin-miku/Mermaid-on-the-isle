@@ -52,8 +52,9 @@ public class SettingWindow : MonoBehaviour
         //else audioMixer.SetFloat("SFX", volume);
     }
 
-    public static float MS;
+    public static float MS = 4;
     public void MouseSensitivityControl(float sensitivity) {
         DataManager.Instance.data.MS = MouseSensitivity.value;
     }
+
 }

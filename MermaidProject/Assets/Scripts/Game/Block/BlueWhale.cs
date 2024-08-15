@@ -25,8 +25,10 @@ public class BlueWhale : TsunamiUnit
         }
     }
 
+    AudioSource soundEffect;
     private IEnumerator BlueWhaleAi()
     {
+        soundEffect = GetComponent<AudioSource>();
         BlueWhalePosition = transform.position;
         FlowerPosition = GameObject.Find("Island").transform.position;
         float Power = 500f;
@@ -34,7 +36,10 @@ public class BlueWhale : TsunamiUnit
         {
             BlueWhalePosition = transform.position;
             rb.AddForce((FlowerPosition - BlueWhalePosition).normalized * Power, ForceMode2D.Impulse);
-            yield return new WaitForSeconds(Random.Range(1f, 5f));
+            soundEffect.Play();
+            yield return new WaitForSeconds(Random.Range(4f, 5f));
         }        
     }
+
+    
 }

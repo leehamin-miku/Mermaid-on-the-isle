@@ -1,0 +1,10 @@
+﻿ActionName,Target,Parameter
+노아,5일차 - 2입니다. 범고래가 출몰합니다.,Noah2
+노아,몬스터들과의 전투가 메인인 일차입니다. 그렇기 때문에 헤일은 적게 옵니다.,Noah2
+GetItem,,Cannon
+GetItem,,Ingot
+AddTide,,1`5`2
+AddTide,,3`5`5
+AddTide,,4`5`5
+AddTide,,5`1`1
+Island,10,5n2

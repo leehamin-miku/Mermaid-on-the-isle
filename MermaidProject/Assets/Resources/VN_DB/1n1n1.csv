@@ -8,6 +8,6 @@ SpriteChange,0,심해`0`0`3
  ,게임을 시작하는 것은 도서관에서 푸른 구역 위로 서로 색깔이 다른 모든 플레이어가 올라가면 됩니다,
  ,도서관 뒤쪽에서 게임을 저장하거나 종료할 수 있습니다,
  ,"현재 고래가 있는 방향, 즉 해일이 오는 방향은 화면 ui의 하늘색 점으로 표시됩니다",
-SetNextDialogue,,1n1n2
+SetNextDialogue,,5n1n2
 Transition,,fade
 ConnectSubDialogue,,
