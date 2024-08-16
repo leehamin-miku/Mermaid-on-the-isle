@@ -1,0 +1,9 @@
+﻿ActionName,Target,Parameter
+RemoveTextbook,,해양생물의 이해 2`몬스터설명책2-1
+ ,"지피지기면 백전불태라고 했으니, 적을 알아보자.",Noah2
+ ,온순한 왕고래지만 화가났을때는 매우 위협적이다.,
+ ,왕고래는 절대 혼자다니지 않고 범고래나 상어 등\n친구들과 함께 다니므로\n왕고래와 적대하는 일은 없도록 하자.,
+ ,해일보다 좁은 폭의 파도가 당신을 덮친다면\n그것은 왕고래의 공격 신호임을 명심해라.,
+SetSubDialogue,,몬스터설명책2-2
+Transition,,fade
+ConnectNextDialogue,,

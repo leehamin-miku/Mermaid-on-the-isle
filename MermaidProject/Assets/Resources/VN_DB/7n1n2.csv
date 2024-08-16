@@ -2,9 +2,9 @@
 노아,7일차 - 2입니다. 고래가 나옵니다. 모든 몹들 다 나옵니다. ,Noah2
 노아,패턴에 대해 미리 설명해주는 이벤트가 있었으면 합니다. 해일 상어 해일 범고래 해일 고래 끝,Noah2
 AddTide,,1`5`2
-AddTide,,3`3`60
+AddTide,,3`3`10
 AddTide,,1`5`2
-AddTide,,4`3`60
+AddTide,,4`3`10
 AddTide,,1`5`2
 AddTide,,5`1`0
-Island,180,7n2
+Island,10,7n2

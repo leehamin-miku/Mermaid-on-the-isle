@@ -1,7 +1,7 @@
 ﻿ActionName,Target,Parameter
 노아,5일차입니다.,Noah2
 노아,오늘은 무엇을 공부해볼까?,Noah2
-AddTextbook,,새로운 방파제 제작법`테트라포드1
+AddTextbook,,중세 최강의 공성병기:대포`대포1
 ReadTextbook,,
 SetNextDialogue,,5n1n1
 ConnectSubDialogue,,

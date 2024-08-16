@@ -2,9 +2,9 @@
 문제,정답입니다,
 노아,정답이야,Noah2
  ,대포에 대하여 배웠다!,
-GetItem,,BM2Blueprint
+GetItem,,CannonBlueprint
  ,문제를 맞추었으므로 추가 보상을 받았습니다!(+10원),
-GetItem,,Brick2
+GetMoney,,10
  ,상점에 대포 청사진이 추가되었습니다,
-AddShopItem,,BM2Blueprint
+AddShopItem,,CannonBlueprint
 ConnectNextDialogue,,
