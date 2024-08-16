@@ -34,5 +34,5 @@ AddShopItem,,Wood
 노아,오늘은 무엇을 공부해볼까?,
 AddTextbook,,건축재료 시멘트 제작법`시멘트1
 ReadTextbook,,
-SetNextDialogue,,1n1n1
+SetNextDialogue,,7n1n1
 ConnectSubDialogue,,

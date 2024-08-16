@@ -37,7 +37,7 @@ public class BlueWhale : TsunamiUnit
             BlueWhalePosition = transform.position;
             rb.AddForce((FlowerPosition - BlueWhalePosition).normalized * Power, ForceMode2D.Impulse);
             soundEffect.Play();
-            yield return new WaitForSeconds(Random.Range(4f, 5f));
+            yield return new WaitForSeconds(Random.Range(4.5f, 5.5f));
         }        
     }
 
