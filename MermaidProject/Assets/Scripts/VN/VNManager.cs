@@ -331,7 +331,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                             tsunami.AddComponent<TsunamiObject>();
                             tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(new Vector3(vec.x, vec.y), 10, float.Parse(a[2]));
                         }
-                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
+                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y), false);
                     }
                     else if (int.Parse(a[0]) == 2)
                     {
@@ -346,8 +346,8 @@ public class VNManager : MonoBehaviourPunCallbacks
                             tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(new Vector3(vec.x, vec.y), 10, float.Parse(a[2]));
                             tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(new Vector3(vec2.x, vec2.y), 10, float.Parse(a[2]));
                         }
-                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
-                        PV.RPC("AddSign", RpcTarget.All, vec2 + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
+                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y), false);
+                        PV.RPC("AddSign", RpcTarget.All, vec2 + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y), false);
                     }
                     else if (int.Parse(a[0]) == 3)
                     {
@@ -356,7 +356,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                         tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
                         tsunami.AddComponent<TsunamiObject>();
                         tsunami.GetComponent<TsunamiObject>().SummonCreature("Shark", new Vector3(vec.x, vec.y), int.Parse(a[1]), float.Parse(a[2]));
-                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
+                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y),true);
                     }
                     else if (int.Parse(a[0]) == 4)
                     {
@@ -365,7 +365,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                         tsunami.transform.parent = GameObject.Find("TsunamiGroup").transform;
                         tsunami.AddComponent<TsunamiObject>();
                         tsunami.GetComponent<TsunamiObject>().SummonCreature("Orca", new Vector3(vec.x, vec.y), int.Parse(a[1]), float.Parse(a[2]));
-                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
+                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y), true);
                     }
                     else if (int.Parse(a[0]) == 5)
                     {
@@ -377,7 +377,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                         tsunami.GetComponent<TsunamiObject>().SummonCreature("Orca", new Vector3(vec.x, vec.y), 5, float.Parse(a[2]));
                         tsunami.GetComponent<TsunamiObject>().SummonCreature("Shark", new Vector3(vec.x, vec.y), 5, float.Parse(a[2]));
                         tsunami.GetComponent<TsunamiObject>().SummonFirstTsunami(new Vector3(vec.x, vec.y), 5, float.Parse(a[2]));
-                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y));
+                        PV.RPC("AddSign", RpcTarget.All, vec + new Vector2(GameObject.Find("Island").transform.position.x, GameObject.Find("Island").transform.position.y), true);
                     }
                 }
                 i++;
@@ -503,6 +503,25 @@ public class VNManager : MonoBehaviourPunCallbacks
             {
                 GameObject.Find("ShopParent").transform.GetChild(0).gameObject.SetActive(true);
                 i++;
+            } else if(ActionName == "Clear1")
+            {
+                GameObject go = new GameObject();
+                go.name = "GameClear";
+                DontDestroyOnLoad(go);
+                
+                i++;
+            }
+            else if (ActionName == "Clear2")
+            {
+                void ClearSubFuc()
+                {
+                    PhotonNetwork.LeaveRoom();
+                    TransitionManager.Instance().onTransitionCutPointReached -= ClearSubFuc;
+                }
+                TransitionManager.Instance().onTransitionCutPointReached += ClearSubFuc;
+                TransitionManager.Instance().Transition(GameObject.Find("TransitionManager").GetComponent<TransitionSetArchive>().fade, 0f);
+                i++;
+                break;
             }
             else
             {
@@ -593,12 +612,16 @@ public class VNManager : MonoBehaviourPunCallbacks
 
 
     [PunRPC]
-    public void AddSign(Vector2 vec)
+    public void AddSign(Vector2 vec, bool isCreature)
     {
         GameObject go = Instantiate(Resources.Load("Prefab/Game/Sign") as GameObject);
         go.transform.SetParent(GameObject.Find("SignGroup").transform);
         go.GetComponent<Sign>().target = vec;
         go.transform.localScale = new Vector3(20, 20, 1);
+        if (isCreature)
+        {
+            go.GetComponent<SpriteRenderer>().color = Color.red;
+        }
     }
 
 

@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -2195169852475468573}
   m_Layer: 14
   m_Name: Orca
-  m_TagString: Untagged
+  m_TagString: Creature
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

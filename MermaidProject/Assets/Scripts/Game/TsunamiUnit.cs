@@ -44,13 +44,13 @@ public class TsunamiUnit : Block
     public IEnumerator Attacked()
     {
         float a = 0;
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.red;
         while (a < 0.3)
         {
             a += Time.deltaTime;
-            GetComponent<SpriteRenderer>().color = Color.red;
             yield return null;
         }
-        GetComponent<SpriteRenderer>().color = Color.white;
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         coroutine = null;
     }
 

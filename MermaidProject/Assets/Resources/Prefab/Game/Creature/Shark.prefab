@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 5177339005852671815}
   m_Layer: 14
   m_Name: Shark
-  m_TagString: Untagged
+  m_TagString: Creature
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

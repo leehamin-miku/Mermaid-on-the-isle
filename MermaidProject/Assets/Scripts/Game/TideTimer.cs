@@ -9,12 +9,18 @@ public class TideTimer : MonoBehaviour
 {
     public int totalTime;
     int nowTime;
+    Coroutine creatureCo;
     [PunRPC]
     public void SetTimeMark(int a)
     {
         string minute = (totalTime - a) / 60 < 10 ? "0" + ((totalTime - a) / 60).ToString() : ((totalTime - a) / 60).ToString();
         string second = (totalTime - a) % 60 < 10 ? "0" + ((totalTime - a) % 60).ToString() : ((totalTime - a) % 60).ToString();
         GetComponent<TextMeshProUGUI>().text = "해일까지 남은시간\n" + minute + ':' + second;
+    }
+    [PunRPC]
+    public void CreatureCount(int a)
+    {
+        GetComponent<TextMeshProUGUI>().text = "남은 적 수 : "+a;
     }
 
 
@@ -29,6 +35,9 @@ public class TideTimer : MonoBehaviour
             StartCoroutine(TimerFuc());
         } else
         {
+
+            GetComponent<TextMeshProUGUI>().text = "";
+            StartCoroutine(CountCo());
             Transform ts = GameObject.Find("TsunamiGroup").transform;
             foreach(Transform tsunami in ts)
             {
@@ -186,4 +195,17 @@ public class TideTimer : MonoBehaviour
             }
         }
     }
+
+    IEnumerator CountCo()
+    {
+        Transform tf = GameObject.Find("CreatureGroup").transform;
+        while (tf.childCount>0)
+        {
+            GetComponent<PhotonView>().RPC("CreatureCount", RpcTarget.All, tf.childCount);
+            yield return null;
+        }
+    }
+
+
+    
 }

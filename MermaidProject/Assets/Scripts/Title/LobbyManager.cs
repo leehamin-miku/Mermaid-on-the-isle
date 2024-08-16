@@ -46,8 +46,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //PhotonNetwork.AutomaticallySyncScene = true;
         //이새끼 대체 뭐임?
         PhotonNetwork.ConnectUsingSettings();
-
-        if (GameObject.Find("GameOver") != null)
+        if (GameObject.Find("GameClear") != null)
+        {
+            Destroy(GameObject.Find("GameClear"));
+            noticeWindow.SetActive(true);
+            noticeWindow.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "게임 클리어!\n플레이해주셔서 감사합니다";
+        } else if (GameObject.Find("GameOver") != null)
         {
             Destroy(GameObject.Find("GameOber"));
             noticeWindow.SetActive(true);
@@ -59,12 +63,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             noticeWindow.SetActive(true);
             noticeWindow.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "호스트 노아와의 연결이 끊어졌습니다\nㅠㅠ";
         }
-        else if (GameObject.Find("GameClear") != null)
-        {
-            Destroy(GameObject.Find("GameClear"));
-            noticeWindow.SetActive(true);
-            noticeWindow.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "게임 클리어!\n플레이해주셔서 감사합니다";
-        }
+        
 
         loadWindow.SetActive(true);
         loadObject0.GetComponent<LoadObject>().DataMark();
