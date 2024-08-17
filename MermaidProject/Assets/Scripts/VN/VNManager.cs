@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using Photon.Pun.Demo.Procedural;
 using EasyTransition;
 using System.Data.Common;
+using UnityEngine.Audio;
 
 public class VNManager : MonoBehaviourPunCallbacks
 {
@@ -39,7 +40,6 @@ public class VNManager : MonoBehaviourPunCallbacks
     public bool isEnd = false;
     public bool VNRunning;
 
-    int Skip;
     // Start is called before the first frame update
     void Start()
     {
@@ -73,7 +73,7 @@ public class VNManager : MonoBehaviourPunCallbacks
     {
         Debug.Log(OutputValue);
         nextSubDialogue = OutputValue;
-        VNNextScript();
+        VNNextScript(false);
         SetController();
     }
 
@@ -88,7 +88,7 @@ public class VNManager : MonoBehaviourPunCallbacks
         PlayerController.PV.RPC("VNStart", RpcTarget.All);
         Dialogue = CSVReader.Read("VN_DB/" + DialogueName);
         i = 0;
-        VNNextScript();
+        VNNextScript(false);
     }
 
     public void SetController()
@@ -107,7 +107,7 @@ public class VNManager : MonoBehaviourPunCallbacks
         masterControlCoroutine = StartCoroutine(MasterController());
     }
 
-    public void VNNextScript()
+    public void VNNextScript(bool isSkip)
     {
 
         // Resources 폴더 내에 있는 dialogue 파일을 List 형태로 불러옴(CSV Reader 이용)
@@ -119,6 +119,7 @@ public class VNManager : MonoBehaviourPunCallbacks
         while (true)
         {
             Debug.Log(i);
+            Debug.Log(isSkip);
             ActionName = Dialogue[i]["ActionName"].ToString();
             Target = Dialogue[i]["Target"].ToString();
             Parameter = Dialogue[i]["Parameter"].ToString();
@@ -273,7 +274,8 @@ public class VNManager : MonoBehaviourPunCallbacks
             else if (ActionName == "Sound") {
                 // Target = 파일 이름
                 // Parameter == 0 -> BGM 재생, == 1 -> SE 재생
-                VNSoundManager.instance.PlaySound(Target, int.Parse(Parameter));
+                if(!isSkip)
+                    VNSoundManager.instance.PlaySound(Target, int.Parse(Parameter));
                 i++;
             }
             else if (ActionName == "Lobby")
@@ -518,7 +520,7 @@ public class VNManager : MonoBehaviourPunCallbacks
             {
                 void TransitionSub()
                 {
-                    VNNextScript();
+                    VNNextScript(false);
                     if (PhotonNetwork.IsMasterClient)
                     {
                         masterControlCoroutine = StartCoroutine(MasterController());
@@ -637,7 +639,7 @@ public class VNManager : MonoBehaviourPunCallbacks
                     yield return new WaitForSeconds(0.5f);
                 } else if (Input.GetMouseButton(2))
                 {
-                    PV.RPC("StopAllCoAndNextScript", RpcTarget.All);
+                    PV.RPC("StopAllCoAndNextScriptandSkip", RpcTarget.All);
                 }
             }
             yield return null;
@@ -649,16 +651,26 @@ public class VNManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void StopAllCoAndNextScript()
     {
-        
         foreach (CoroutineAbs co in coList)
         {
             StopCoroutine(co.co);
             co.EndAction();
         }
         coList.Clear();
-        VNNextScript();
+        VNNextScript(false);
     }
 
+    [PunRPC]
+    void StopAllCoAndNextScriptandSkip()
+    {
+        foreach (CoroutineAbs co in coList)
+        {
+            StopCoroutine(co.co);
+            co.EndAction();
+        }
+        coList.Clear();
+        VNNextScript(true);
+    }
 
 
     [PunRPC]
@@ -1122,7 +1134,8 @@ public class VNManager : MonoBehaviourPunCallbacks
         }
         override public void EndAction()
         {
-            if (isOnAction) {
+            if (isOnAction)
+            {
                 ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, alpha);
                 HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 1);
                 ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 1);
@@ -1132,14 +1145,15 @@ public class VNManager : MonoBehaviourPunCallbacks
                 StandingGroup.transform.GetChild(TopLetterBox).transform.localScale = new Vector3(1, 1, 1);
                 StandingGroup.transform.GetChild(BottomLetterBox).transform.localScale = new Vector3(1, 1, 1);
             }
-            else {
+            else
+            {
                 ChatWindowSR.color = new Color(ChatWindowSR.color.r, ChatWindowSR.color.g, ChatWindowSR.color.b, alpha);
                 HalfStandingSpriteRenderer.color = new Color(HalfStandingSpriteRenderer.color.r, HalfStandingSpriteRenderer.color.g, HalfStandingSpriteRenderer.color.b, 1);
                 ChatText.color = new Color(ChatText.color.r, ChatText.color.g, ChatText.color.b, 1);
                 CharacterName.color = new Color(CharacterName.color.r, CharacterName.color.g, CharacterName.color.b, 1);
                 StandingGroup.transform.GetChild(TopLetterBox).GetComponent<SpriteRenderer>().sprite = null;
                 StandingGroup.transform.GetChild(BottomLetterBox).GetComponent<SpriteRenderer>().sprite = null;
-        }
+            }
         }
     }
 }

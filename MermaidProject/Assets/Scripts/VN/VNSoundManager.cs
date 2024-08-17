@@ -26,7 +26,7 @@ public class VNSoundManager : MonoBehaviour {
 
     int loofnum = 0;
     void PlayBGM(string name) {
-		print(BGMClips.Length);
+        print(name);
         for (int i = 0; i < BGMClips.Length; i++) {
             if (name == BGMClips[i].name) {
                 BGMPlayer.clip = BGMClips[i];
@@ -74,6 +74,5 @@ public class VNSoundManager : MonoBehaviour {
         }
 		BGMPlayer.Stop();
 	}
-
 }
 

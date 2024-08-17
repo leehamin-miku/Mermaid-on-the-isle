@@ -3397,6 +3397,7 @@ MonoBehaviour:
   AnswerGroup: {fileID: 779106646}
   PlayerController: {fileID: 0}
   PV: {fileID: 748462131}
+  audioMixer: {fileID: 24100000, guid: d8b2b96e3fd96904ca6f9979ffa0bba7, type: 2}
   isEnd: 0
   VNRunning: 0
 --- !u!4 &748462130
