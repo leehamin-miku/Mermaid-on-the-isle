@@ -118,8 +118,6 @@ public class VNManager : MonoBehaviourPunCallbacks
         string[] Questions = {"", "", "", "", ""};
         while (true)
         {
-            Debug.Log(i);
-            Debug.Log(isSkip);
             ActionName = Dialogue[i]["ActionName"].ToString();
             Target = Dialogue[i]["Target"].ToString();
             Parameter = Dialogue[i]["Parameter"].ToString();
