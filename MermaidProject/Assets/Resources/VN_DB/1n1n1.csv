@@ -125,6 +125,6 @@ SpriteChange,6,몰가서글픔`0`-6`1.5
 [모르가나],"『하지만 노아, 만약 무언가를 배운다는 것이 꼭 지상으로 나가야하다는 말은 아니에요. 알고 있는건가요?』",몰가서글픔
 [모르가나],"『...그리고 바닷속이 따분하다는 말을 들으면, 누구도 어쩔 수 없잖아요. 치사한 노아』",몰가서글픔
 SmoothSpriteChange,6,null
-SetNextDialogue,,4n1n2
+SetNextDialogue,,1n1n2
 Transition,,fade
 ConnectSubDialogue,,
