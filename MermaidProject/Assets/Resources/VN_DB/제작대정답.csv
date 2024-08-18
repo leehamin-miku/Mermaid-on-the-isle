@@ -1,7 +1,7 @@
 ﻿ActionName,Target,Parameter
-문제,정답입니다,
-노아,이거지!,Noah2
-노아,수리키트는 투입품이 아니라 결과물이었지! 그리고 돌과 흰조개와 나무는 각각 여러 제품을 위해 쓰이고 말야,Noah2
+[문제],정답입니다,
+[노아],『이거지!』,노아도야1
+[노아],『수리키트는 투입품이 아니라 결과물이었지! 그리고 돌과 흰조개와 나무는 각각 여러 제품을 위해 쓰이고 말야』,노아도야1
 AddShopItem,,CraftTableBlueprint
  ,상점에 제작대 청사진이 추가되었습니다!,
 GetItem,,CraftTableBlueprint

@@ -1,6 +1,6 @@
 ﻿ActionName,Target,Parameter
-문제,정답입니다,
-노아,정답이야,Noah2
+[문제],정답입니다,
+[노아],『정답이야』,노아도야
  ,대포에 대하여 배웠다!,
 GetItem,,CannonBlueprint
  ,문제를 맞추었으므로 추가 보상을 받았습니다!(+10원),
