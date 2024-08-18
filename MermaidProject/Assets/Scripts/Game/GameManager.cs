@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                     break;
                 case 15:
                     blockName = "CraftTableBlueprint";
-                    Block craftTableBlueprint = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[3]), block.q).GetComponent<Block>();
+                    Block craftTableBlueprint = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[2]), block.q).GetComponent<Block>();
                     craftTableBlueprint.strength = block.strength;
                     craftTableBlueprint.transform.SetParent(sog.transform);
                     break;
@@ -193,46 +193,46 @@ public class GameManager : MonoBehaviourPunCallbacks
                     break;
                 case 18:
                     blockName = "RepairKit";
-                    RepairKit repairKit = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[3]), block.q).GetComponent<RepairKit>();
+                    RepairKit repairKit = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[2]), block.q).GetComponent<RepairKit>();
                     repairKit.strength = block.strength;
                     repairKit.a = block.w1;
                     repairKit.transform.SetParent(sog.transform);
                     break;
                 case 19:
                     blockName = "Wood";
-                    Block wood = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[3]), block.q).GetComponent<Block>();
+                    Block wood = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[2]), block.q).GetComponent<Block>();
                     wood.strength = block.strength;
                     wood.transform.SetParent(sog.transform);
                     break;
                 case 20:
                     blockName = "SwordGold";
-                    Sword sg = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[3]), block.q).GetComponent<Sword>();
+                    Sword sg = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[2]), block.q).GetComponent<Sword>();
                     sg.strength = block.strength;
                     sg.Durability = block.w1;
                     sg.transform.SetParent(sog.transform);
                     break;
                 case 21:
                     blockName = "SwordRuby";
-                    Sword sr = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[3]), block.q).GetComponent<Sword>();
+                    Sword sr = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[2]), block.q).GetComponent<Sword>();
                     sr.strength = block.strength;
                     sr.Durability = block.w1;
                     sr.transform.SetParent(sog.transform);
                     break;
                 case 22:
                     blockName = "Ingot";
-                    Block ingot = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[3]), block.q).GetComponent<Block>();
+                    Block ingot = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[2]), block.q).GetComponent<Block>();
                     ingot.strength = block.strength;
                     ingot.transform.SetParent(sog.transform);
                     break;
                 case 23:
                     blockName = "Cannon";
-                    Cannon cannon = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[3]), block.q).GetComponent<Cannon>();
+                    Cannon cannon = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[2]), block.q).GetComponent<Cannon>();
                     cannon.strength = block.strength;
                     cannon.transform.SetParent(sog.transform);
                     break;
                 case 24:
                     blockName = "CannonBlueprint";
-                    Block cannonBlueprint = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[3]), block.q).GetComponent<Block>();
+                    Block cannonBlueprint = PhotonNetwork.Instantiate("Prefab/Game/" + blockName, new Vector3(block.b[0], block.b[1], block.b[2]), block.q).GetComponent<Block>();
                     cannonBlueprint.strength = block.strength;
                     cannonBlueprint.transform.SetParent(sog.transform);
                     break;
