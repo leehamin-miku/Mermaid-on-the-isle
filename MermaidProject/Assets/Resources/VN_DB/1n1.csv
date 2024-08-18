@@ -29,7 +29,7 @@ Transition,,fade
 SpriteChange,0,null`0`0`5
 SpriteChange,3,null`0`0`1.5
 AddShopItem,,Wood
-[노아],『오늘은 무엇을 공부해볼까?』,Noah2
+[노아],『오늘은 무엇을 공부해볼까?』,노아일상표정2
 AddTextbook,,건축재료 시멘트 제작법`시멘트1
 ReadTextbook,,
 SetNextDialogue,,1n1n1

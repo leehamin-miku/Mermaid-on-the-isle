@@ -23,10 +23,11 @@ public class TsunamiDrop : TsunamiUnit
     }
     public override void StartTunamiUnit()
     {
-        GameObject islandSoundManager = GameObject.Find("IslandSoundManager");
-        IslandSoundManager TsunamiSound = islandSoundManager.GetComponent<IslandSoundManager>();
-        TsunamiSound.TsunamiSoundEffectStart();
+        GameObject IslandSoundManager = GameObject.Find("IslandSoundManager");
 
+        // PhotonView ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿È
+        PhotonView photonView = IslandSoundManager.GetComponent<PhotonView>();
+        photonView.RPC("TsunamiSoundEffectStart", RpcTarget.All);
         base.StartTunamiUnit();
         rb.AddForce(-TsunamiLocateFromFlower, ForceMode2D.Impulse);
     }

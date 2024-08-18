@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using Photon.Pun;
 
 public class IslandSoundManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class IslandSoundManager : MonoBehaviour
     private AudioSource islandBGM;
     private List<AudioSource> audioSources = new List<AudioSource>();
     private float lastPlayTime = 0f;
+    public PhotonView PV;
 
     private void Start()
     {
@@ -25,6 +27,7 @@ public class IslandSoundManager : MonoBehaviour
             source.outputAudioMixerGroup = SFXMixer;
         }
     }
+    [PunRPC]
     public void TsunamiSoundEffectStart()
     {
         if(Time.time - lastPlayTime >= 0.5f)
