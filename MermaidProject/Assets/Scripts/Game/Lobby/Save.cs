@@ -48,6 +48,7 @@ public class Save : MonoBehaviour
         ss.roomName = PhotonNetwork.CurrentRoom.Name;
         ss.progressStatus = GameObject.Find("LobbySquare").GetComponent<GameStart>().progressStatus;
         ss.textbookList = GameObject.Find("VN").GetComponent<VNManager>().textbookList.ToList();
+        ss.shopOpened = GameObject.Find("ShopParent").transform.GetChild(0).gameObject.activeInHierarchy;
         List<Data.SaveBlockStruct> saveBlockList = new List<Data.SaveBlockStruct>();
         Transform saveGroup = GameObject.Find("SaveObjectGroup").transform;
         foreach (Transform child in saveGroup)

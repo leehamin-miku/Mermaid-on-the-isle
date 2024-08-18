@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameObject.Find("Shop").GetComponent<Shop>().shopItemList = ss.shopItemList.ToList();
         GameObject.Find("LobbySquare").GetComponent<GameStart>().progressStatus = ss.progressStatus;
         GameObject.Find("VN").GetComponent<VNManager>().textbookList = ss.textbookList.ToList();
-        GameObject.Find("ShopParent").SetActive(ss.shopOpened);
+        GameObject.Find("ShopParent").transform.GetChild(0).gameObject.SetActive(ss.shopOpened);
 
         
         GameObject sog = GameObject.Find("SaveObjectGroup");
