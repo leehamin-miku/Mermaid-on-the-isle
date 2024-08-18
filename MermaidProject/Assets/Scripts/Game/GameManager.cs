@@ -16,6 +16,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         GameObject Pl = PhotonNetwork.Instantiate("Prefab/Game/Player", new Vector3(-85, -121), Quaternion.identity);
         Pl.GetComponent<Rigidbody2D>().AddForce(UnityEngine.Random.insideUnitCircle*2,ForceMode2D.Impulse);
+        if (DataManager.Instance.data.MV == -40f) audioMixer.SetFloat("Master", -80);
+        else
+        {
+            audioMixer.SetFloat("Master", DataManager.Instance.data.MV);
+        }
+        if (DataManager.Instance.data.BV == -40f) audioMixer.SetFloat("BGM", -80);
+        else
+        {
+            audioMixer.SetFloat("BGM", DataManager.Instance.data.BV);
+        }
+        if (DataManager.Instance.data.SV == -40f) audioMixer.SetFloat("SFX", -80);
+        else
+        {
+            audioMixer.SetFloat("SFX", DataManager.Instance.data.SV);
+        }
+
         if (GameObject.Find("LoadData0"))
         {
             Destroy(GameObject.Find("LoadData0"));
@@ -52,22 +68,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameObject.Find("VN").GetComponent<VNManager>().textbookList = ss.textbookList.ToList();
         GameObject.Find("ShopParent").SetActive(ss.shopOpened);
 
-        if (DataManager.Instance.data.MV == -40f) audioMixer.SetFloat("Master", -80);
-        else
-        {
-            audioMixer.SetFloat("Master", DataManager.Instance.data.MV);
-        }
-        if (DataManager.Instance.data.BV == -40f) audioMixer.SetFloat("Master", -80);
-        else
-        {
-            audioMixer.SetFloat("Master", DataManager.Instance.data.BV);
-        }
-        if (DataManager.Instance.data.SV == -40f) audioMixer.SetFloat("Master", -80);
-        else
-        {
-            audioMixer.SetFloat("Master", DataManager.Instance.data.SV);
-        }
-
+        
         GameObject sog = GameObject.Find("SaveObjectGroup");
         List<Data.SaveBlockStruct> blockList = ss.saveBlockList.ToList();
         foreach (Data.SaveBlockStruct block in blockList)

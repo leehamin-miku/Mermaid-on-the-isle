@@ -26,7 +26,7 @@ public class SettingWindow : MonoBehaviour
 
     private void MasterVolumeControl(float volume)
     {
-        DataManager.Instance.data.BV = MasterVolumeSize.value;
+        DataManager.Instance.data.MV = MasterVolumeSize.value;
 
         //if (volume == -40f) audioMixer.SetFloat("Master", -80);
         //else

@@ -35,5 +35,4 @@ public class Data
     public float SV = 100f;
     public float BV = 100f;
     public float MS = 4f;
-
 }
