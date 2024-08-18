@@ -31,8 +31,8 @@ public class Data
     }
 
     public SaveStruct[] saveFile = new SaveStruct[3]; //세브데이터 아마 3개 들어갈듯?
-    public float MV = 100f;
-    public float SV = 100f;
-    public float BV = 100f;
+    public float MV = 0f;
+    public float SV = 0f;
+    public float BV = 0f;
     public float MS = 4f;
 }
