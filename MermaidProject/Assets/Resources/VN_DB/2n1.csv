@@ -1,6 +1,6 @@
 ﻿ActionName,Target,Parameter
 SpriteChange,0,null`0`0`3
-SpriteChange,3,노아일상표정2`0`0`3
+SpriteChange,3,노아일상표정2`0`-7.8`2
 [노아],『...』,노아일상표정2
 [노아],『그닥 좋은 꿈을 꾼 것 같진 않네 도저히 침대에서 나올 기분이 아니야』,노아일상표정2
 SmoothSpriteChange,3,노아의기소침
