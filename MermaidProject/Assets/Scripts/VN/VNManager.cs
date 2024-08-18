@@ -441,7 +441,7 @@ public class VNManager : MonoBehaviourPunCallbacks
 
                 GameObject islandSoundManager = GameObject.Find("IslandSoundManager");
                 IslandSoundManager islandBGM = islandSoundManager.GetComponent<IslandSoundManager>();
-                islandBGM.islandBGMStart();
+                // islandBGM.islandBGMStart(); 섬 bgm 켜는거. 만약 쓴다면 끄는것도 넘겨야함
 
                 if (PhotonNetwork.IsMasterClient)
                 {
