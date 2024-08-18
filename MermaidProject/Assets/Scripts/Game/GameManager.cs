@@ -47,6 +47,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             LoadObjects(2);
         }
     }
+    [PunRPC]
+    void OpenShop(bool a)
+    {
+        GameObject.Find("ShopParent").transform.GetChild(0).gameObject.SetActive(a);
+    }
 
     void LoadObjects(int a)
     {
@@ -61,7 +66,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameObject.Find("Shop").GetComponent<Shop>().shopItemList = ss.shopItemList.ToList();
         GameObject.Find("LobbySquare").GetComponent<GameStart>().progressStatus = ss.progressStatus;
         GameObject.Find("VN").GetComponent<VNManager>().textbookList = ss.textbookList.ToList();
-        GameObject.Find("ShopParent").transform.GetChild(0).gameObject.SetActive(ss.shopOpened);
+        GetComponent<PhotonView>().RPC("OpenShop", RpcTarget.AllBuffered, ss.shopOpened);
 
         
         GameObject sog = GameObject.Find("SaveObjectGroup");
