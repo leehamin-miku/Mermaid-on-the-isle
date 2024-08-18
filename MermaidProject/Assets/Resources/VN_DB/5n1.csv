@@ -1,6 +1,5 @@
 ﻿ActionName,Target,Parameter
-노아,5일차입니다.,Noah2
-노아,오늘은 무엇을 공부해볼까?,Noah2
+[노아],『오늘은 무엇을 공부해볼까?』,노아일상표정2
 ReadTextbook,,
 SetNextDialogue,,5n1n1
 ConnectSubDialogue,,
