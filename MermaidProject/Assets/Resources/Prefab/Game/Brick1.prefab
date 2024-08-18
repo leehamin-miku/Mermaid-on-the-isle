@@ -190,8 +190,8 @@ MonoBehaviour:
   saveRotation: {x: 0, y: 0, z: 0, w: 0}
   strength: 20
   maxStrenth: 20
-  mass: 7
-  drag: 10
+  mass: 10
+  drag: 13
   angularDrag: 15
   p1: {fileID: 0}
   isAbleGrabed: 1

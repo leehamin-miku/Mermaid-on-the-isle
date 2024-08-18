@@ -26,6 +26,7 @@ public class CraftTable : Block
     [SerializeField] List<int> SwordGoldRecipe = new List<int>() {5, 5, 19};
     [SerializeField] List<int> SwordRubyRecipe = new List<int>() {6, 6, 19};
     [SerializeField] List<int> RepairKitRecipe = new List<int>() { 3, 3, 7 };
+    [SerializeField] List<int> IngotRecipe = new List<int>() {4, 4, 4};
     public override void CollisionEnterAction(Collision2D collision)
     {
         if (PhotonNetwork.IsMasterClient&&collision.collider.GetComponent<Block>().isGrabed&&inputList.Count < 3)
@@ -68,6 +69,10 @@ public class CraftTable : Block
                     else if (inputList.SequenceEqual(RepairKitRecipe))
                     {
                         PhotonNetwork.Instantiate("Prefab/Game/RepairKit", transform.position - transform.up, transform.rotation).transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
+                    }
+                    else if (inputList.SequenceEqual(IngotRecipe))
+                    {
+                        PhotonNetwork.Instantiate("Prefab/Game/Ingot", transform.position - transform.up, transform.rotation).transform.SetParent(GameObject.Find("SaveObjectGroup").transform);
                     }
                     else
                     {

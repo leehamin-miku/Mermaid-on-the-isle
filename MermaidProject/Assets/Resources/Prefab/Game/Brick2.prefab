@@ -223,12 +223,15 @@ MonoBehaviour:
   isGrabed: 0
   BlockCode: 2
   rb: {fileID: 0}
-  savePosition: {x: 0, y: 0, z: 0}
+  savePosition:
+  - 0
+  - 0
+  - 0
   saveRotation: {x: 0, y: 0, z: 0, w: 0}
   strength: 35
   maxStrenth: 35
-  mass: 10
-  drag: 15
+  mass: 15
+  drag: 20
   angularDrag: 15
   p1: {fileID: 0}
   isAbleGrabed: 1
