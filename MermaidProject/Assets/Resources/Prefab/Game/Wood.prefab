@@ -138,7 +138,10 @@ MonoBehaviour:
   isGrabed: 0
   BlockCode: 19
   rb: {fileID: 8424819385504529361}
-  savePosition: {x: 0, y: 0, z: 0}
+  savePosition:
+  - 0
+  - 0
+  - 0
   saveRotation: {x: 0, y: 0, z: 0, w: 0}
   strength: 0
   maxStrenth: 0

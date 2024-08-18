@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using static Data;
 
 
 public class Sword : Block
@@ -110,15 +111,11 @@ public class Sword : Block
         }
     }
 
-    public override Block DeepCopySub(Block block)
+    public override SaveBlockStruct DeepCopySub(SaveBlockStruct block)
     {
-        Sword sw = new Sword();
-        sw.savePosition = block.savePosition;
-        sw.saveRotation = block.saveRotation;
-        sw.strength = block.strength;
-        sw.Durability = Durability;
-        sw.Power = Power;
-        return sw;
+        block.w1 = Durability;
+        block.w2 = Power;
+        return block;
     }
 
 }

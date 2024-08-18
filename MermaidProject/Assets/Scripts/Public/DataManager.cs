@@ -54,9 +54,11 @@ public class DataManager : MonoBehaviour
     public void SaveGameData(Data data)
     {
         // 클래스를 Json 형식으로 전환 (true : 가독성 좋게 작성)
+        JsonSerializerSettings setting = new JsonSerializerSettings();
+        setting.Formatting = Formatting.Indented;
+        setting.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         string filePath = Application.persistentDataPath + "/" + GameDataFileName;
         // 이미 저장된 파일이 있다면 덮어쓰고, 없다면 새로 만들어서 저장
-        Debug.Log(JsonConvert.SerializeObject(data));
-        File.WriteAllText(filePath, JsonConvert.SerializeObject(data));
+        File.WriteAllText(filePath, JsonConvert.SerializeObject(data, setting));
     }
 }

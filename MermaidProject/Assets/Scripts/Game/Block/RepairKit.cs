@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using static Data;
+using static Unity.Burst.Intrinsics.X86;
 
 
 public class RepairKit: Block
@@ -45,11 +47,19 @@ public class RepairKit: Block
             }
         }
     }
+
+    [PunRPC]
+    void ColliderOn(bool a)
+    {
+        GetComponent<Collider2D>().enabled = a;
+    }
+
     public override void GrabedAction()
     {
         if (GetComponent<Collider2D>().enabled)
         {
             GetComponent<Collider2D>().enabled = false;
+            PV.RPC("ColliderOn", RpcTarget.Others, false);
 
             p1.GetComponent<FixedJoint2D>().enabled = false;
 
@@ -62,6 +72,7 @@ public class RepairKit: Block
         else
         {
             GetComponent<Collider2D>().enabled = true;
+            PV.RPC("ColliderOn", RpcTarget.Others, true);
             p1.GetComponent<FixedJoint2D>().connectedBody = null;
             transform.position = p1.transform.position;
             p1.GetComponent<FixedJoint2D>().connectedBody = rb;
@@ -78,13 +89,10 @@ public class RepairKit: Block
             PhotonNetwork.Destroy(this.gameObject);
         }
     }
-    public override Block DeepCopySub(Block block)
+    public override SaveBlockStruct DeepCopySub(SaveBlockStruct block)
     {
-        RepairKit rk = new RepairKit();
-        rk.savePosition = block.savePosition;
-        rk.saveRotation = block.saveRotation;
-        rk.a = a;
-        return rk;
+        block.w1 = a;
+        return block;
     }
 
 }

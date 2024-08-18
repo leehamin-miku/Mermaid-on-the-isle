@@ -21,13 +21,25 @@ public class Data
 
     public struct SaveBlockStruct
     {
-        public SaveBlockStruct(int blockCode, Block block)
+        public SaveBlockStruct(int blockCode, float[] b, Quaternion q, int strength, int w1, int w2, int w3, float a)
         {
             this.blockCode = blockCode;
-            this.block = block;
+            this.strength = strength;
+            this.q = q;
+            this.w1 = w1;
+            this.w2 = w2;
+            this.w3 = w3;
+            this.a = a;
+            this.b = b;
         }
         public int blockCode;
-        public Block block;
+        public int strength;
+        public int w1;
+        public int w2;
+        public int w3;
+        public float a;
+        public Quaternion q;
+        public float[] b;
     }
 
     public SaveStruct[] saveFile = new SaveStruct[3]; //세브데이터 아마 3개 들어갈듯?

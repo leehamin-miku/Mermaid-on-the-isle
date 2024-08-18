@@ -6,6 +6,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using static Data;
+using static Unity.Burst.Intrinsics.X86;
 
 
 public class CraftTable : Block
@@ -124,13 +126,32 @@ public class CraftTable : Block
         }
     }
 
-    public override Block DeepCopySub(Block block)
+    public override SaveBlockStruct DeepCopySub(SaveBlockStruct block)
     {
-        CraftTable ct = new CraftTable();
-        ct.savePosition = block.savePosition;
-        ct.saveRotation = block.saveRotation;
-        ct.inputList = inputList.ToList();
-        ct.strength = block.strength;
-        return ct;
+        if (inputList.Count == 0)
+        {
+            block.w1 = 0;
+            block.w2 = 0;
+            block.w3 = 0;
+        }
+        else if (inputList.Count == 1)
+        {
+            block.w1 = inputList[0];
+            block.w2 = 0;
+            block.w3 = 0;
+        }
+        else if (inputList.Count == 2)
+        {
+            block.w1 = inputList[0];
+            block.w2 = inputList[1];
+            block.w3 = 0;
+        }
+        else if (inputList.Count == 3)
+        {
+            block.w1 = inputList[0];
+            block.w2 = inputList[1];
+            block.w3 = inputList[2];
+        }
+        return block;
     }
 }

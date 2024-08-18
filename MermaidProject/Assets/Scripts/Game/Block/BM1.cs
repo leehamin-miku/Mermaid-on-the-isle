@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using static Data;
 
 
 public class BM1 : Block
@@ -62,17 +63,12 @@ public class BM1 : Block
             yield return null;
         }
     }
-    public override Block DeepCopySub(Block block)
+    public override SaveBlockStruct DeepCopySub(SaveBlockStruct block)
     {
-        BM1 bm1 = new BM1();
-        bm1.a = a;
-        bm1.waitingLen1 = waitingLen1;
-        bm1.waitingLen2 = waitingLen2;
-        bm1.BlockCode = BlockCode;
-        bm1.strength = block.strength;
-        bm1.savePosition = block.savePosition;
-        bm1.saveRotation = block.saveRotation;
-        return bm1;
+        block.w1 = waitingLen1;
+        block.w2 = waitingLen2;
+        block.a = a;
+        return block;
     }
 
     private IEnumerator startSound()
