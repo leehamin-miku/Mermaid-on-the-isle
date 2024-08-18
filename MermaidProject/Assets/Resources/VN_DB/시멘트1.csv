@@ -10,5 +10,7 @@ Thinking,0`1,
 Thinking,0`1,
  ,"<color=yellow>바다에서 쉽게 구할 수 있는 조개는 탄산칼슘으로 이루어져 있는데, 이를 돌과 함께 시멘트 공장에 넣는것으로 콘크리트를 얻을 수 있다</color>",
 SetSubDialogue,,시멘트2
+[노아],『그런데 뭔가 갑자기 무척이나 졸려...』,노아의기소침
+[노아],『...zzz』,노아인자
 Transition,,fade
 ConnectNextDialogue,,

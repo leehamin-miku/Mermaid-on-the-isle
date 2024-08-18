@@ -30,7 +30,7 @@ public class TsunamiDrop : TsunamiUnit
         photonView.RPC("TsunamiSoundEffectStart", RpcTarget.All);
         base.StartTunamiUnit();
         rb.AddForce(-TsunamiLocateFromFlower, ForceMode2D.Impulse);
-        StartCoroutine(DestroyDelay(10f));
+        StartCoroutine(DestroyDelay(4f));
     }
 
     IEnumerator DestroyDelay(float a)
