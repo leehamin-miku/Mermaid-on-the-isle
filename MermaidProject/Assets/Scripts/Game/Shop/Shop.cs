@@ -123,6 +123,11 @@ public class Shop : MonoBehaviour
                     ItemName = "블루프린트";
                     price = 7;
                     break;
+                case "PiggyBankBlueprint":
+                    prefabName = "PiggyBankBlueprint";
+                    ItemName = "돼지저금통 청사진";
+                    price = 7;
+                    break;
                 default:
                     Debug.Log("못찾았음 ㅈㅅ");
                     break;

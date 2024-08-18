@@ -2,6 +2,8 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Data;
+using static Unity.Burst.Intrinsics.X86;
 
 public class Cannon : Block
 {
@@ -41,14 +43,9 @@ public class Cannon : Block
             yield return null;
         }
     }
-    public override Block DeepCopySub(Block block)
+    public override SaveBlockStruct DeepCopySub(SaveBlockStruct block)
     {
-        Cannon cannon = new Cannon();
-        cannon.a = a;
-        cannon.BlockCode = BlockCode;
-        cannon.strength = block.strength;
-        cannon.savePosition = block.savePosition;
-        cannon.saveRotation = block.saveRotation;
-        return cannon;
+        block.a = a;
+        return block;
     }
 }

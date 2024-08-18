@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Data;
 
 public class Block : MonoBehaviourPunCallbacks
 {
@@ -11,7 +12,7 @@ public class Block : MonoBehaviourPunCallbacks
     public bool isGrabed = false;
     public int BlockCode;
     public Rigidbody2D rb;
-    public Vector3 savePosition;
+    public float[] savePosition = new float[3];
     public Quaternion saveRotation;
 
     //저장 대상
@@ -183,15 +184,15 @@ public class Block : MonoBehaviourPunCallbacks
         }
     }
 
-    public Block DeepCopy()
+    public SaveBlockStruct DeepCopy()
     {
-        Block block = new Block();
+        SaveBlockStruct block = new SaveBlockStruct();
         block.strength = strength;
-        block.savePosition = transform.position;
-        block.saveRotation = transform.rotation;
+        block.b = new float[3] { transform.position.x, transform.position.y, transform.position.z };
+        block.q = transform.rotation;
         return DeepCopySub(block);
     }
-    public virtual Block DeepCopySub(Block block)
+    public virtual SaveBlockStruct DeepCopySub(SaveBlockStruct block)
     {
         return block;
     }

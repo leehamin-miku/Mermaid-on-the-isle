@@ -52,8 +52,10 @@ public class Save : MonoBehaviour
         Transform saveGroup = GameObject.Find("SaveObjectGroup").transform;
         foreach (Transform child in saveGroup)
         {
-
-            saveBlockList.Add(new Data.SaveBlockStruct(child.GetComponent<Block>().BlockCode, child.GetComponent<Block>().DeepCopy()));
+            Data.SaveBlockStruct sbs = new Data.SaveBlockStruct();
+            sbs = child.GetComponent<Block>().DeepCopy();
+            sbs.blockCode = child.GetComponent<Block>().BlockCode;
+            saveBlockList.Add(sbs);
 
         }
         ss.saveBlockList = saveBlockList.ToList();
