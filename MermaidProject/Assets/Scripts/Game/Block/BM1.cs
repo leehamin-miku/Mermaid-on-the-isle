@@ -13,18 +13,21 @@ public class BM1 : Block
     public int waitingLen2 = 0; //마스터만 관리
     //저장 대상
     public float a = 0;
+    bool isCool = false;
 
     public override void CollisionEnterAction(Collision2D collision)
     {
-        if (PhotonNetwork.IsMasterClient && collision.collider.GetComponent<Block>().BlockCode == 7 && collision.collider.GetComponent<Block>().isGrabed)
+        if (PhotonNetwork.IsMasterClient&&isCool==false && collision.collider.GetComponent<Block>().BlockCode == 7 && collision.collider.GetComponent<Block>().isGrabed)
         {
 
             collision.gameObject.GetComponent<Block>().PV.RPC("DestroyFuc", RpcTarget.All);
+            StartCoroutine(CoolDown(0.5f));
             waitingLen1++;
-        } else if (PhotonNetwork.IsMasterClient && collision.collider.GetComponent<Block>().BlockCode == 3 && collision.collider.GetComponent<Block>().isGrabed)
+        } else if (PhotonNetwork.IsMasterClient&&isCool == false && collision.collider.GetComponent<Block>().BlockCode == 3 && collision.collider.GetComponent<Block>().isGrabed)
         {
 
             collision.gameObject.GetComponent<Block>().PV.RPC("DestroyFuc", RpcTarget.All);
+            StartCoroutine(CoolDown(0.5f));
             waitingLen2++;
         }
     }
@@ -95,5 +98,16 @@ public class BM1 : Block
         }
         soundEffect.Stop();
         yield return null;
+    }
+    public IEnumerator CoolDown(float a)
+    {
+        isCool = true;
+        float b = 0;
+        while (b <= a)
+        {
+            b += Time.deltaTime;
+            yield return null;
+        }
+        isCool = false;
     }
 }

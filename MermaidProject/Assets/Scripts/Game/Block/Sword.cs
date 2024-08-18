@@ -28,7 +28,7 @@ public class Sword : Block
             isReady = false;
             PV.RPC("StartSwing", RpcTarget.All);
             StartCoroutine(CoolTime(0.5f));
-            RaycastHit2D hit = Physics2D.CircleCast(transform.position + p1.transform.up, 0.5f, p1.transform.up, 0.1f, LayerMask.GetMask("Block"));
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position + p1.transform.up, 0.5f, p1.transform.up, 0.5f, LayerMask.GetMask("Creature"));
             if (hit.collider != null)
             {
                 if (hit.collider.GetComponent<TsunamiUnit>() != null)
@@ -49,11 +49,18 @@ public class Sword : Block
         
 
     }
+    [PunRPC]
+    void ColliderOn(bool a)
+    {
+        GetComponent<Collider2D>().enabled = a;
+    }
+
     public override void GrabedAction()
     {
         if (GetComponent<Collider2D>().enabled)
         {
             GetComponent<Collider2D>().enabled = false;
+            PV.RPC("ColliderOn", RpcTarget.Others, false);
 
             p1.GetComponent<FixedJoint2D>().enabled = false;
 
@@ -67,6 +74,7 @@ public class Sword : Block
         {
             transform.GetChild(1).GetComponent<TextMeshPro>().text = "";
             GetComponent<Collider2D>().enabled = true;
+            PV.RPC("ColliderOn", RpcTarget.Others, true);
             p1.GetComponent<FixedJoint2D>().connectedBody = null;
             transform.position = p1.transform.position;
             p1.GetComponent<FixedJoint2D>().connectedBody = rb;

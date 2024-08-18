@@ -30,5 +30,17 @@ public class TsunamiDrop : TsunamiUnit
         photonView.RPC("TsunamiSoundEffectStart", RpcTarget.All);
         base.StartTunamiUnit();
         rb.AddForce(-TsunamiLocateFromFlower, ForceMode2D.Impulse);
+        StartCoroutine(DestroyDelay(10f));
+    }
+
+    IEnumerator DestroyDelay(float a)
+    {
+        float b = 0;
+        while (b <= a)
+        {
+            b += Time.deltaTime; yield return null;
+        }
+        PhotonNetwork.Destroy(gameObject);
+
     }
 }

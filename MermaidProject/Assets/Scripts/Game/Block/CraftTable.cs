@@ -20,6 +20,7 @@ public class CraftTable : Block
     [SerializeField] Color colorBlock7;
     [SerializeField] Color colorBlock19;
 
+    bool isCool = false;
 
     public List<int> inputList = new List<int>();
     public float a = 0;
@@ -29,7 +30,7 @@ public class CraftTable : Block
     [SerializeField] List<int> IngotRecipe = new List<int>() {4, 4, 4};
     public override void CollisionEnterAction(Collision2D collision)
     {
-        if (PhotonNetwork.IsMasterClient&&collision.collider.GetComponent<Block>().isGrabed&&inputList.Count < 3)
+        if (PhotonNetwork.IsMasterClient&&collision.collider.GetComponent<Block>().isGrabed&&inputList.Count < 3&&isCool==false)
         {
             if(collision.collider.GetComponent<Block>().BlockCode == 7 || 
                 collision.collider.GetComponent<Block>().BlockCode == 19 || 
@@ -40,6 +41,7 @@ public class CraftTable : Block
             {
                 inputList.Add(collision.collider.GetComponent<Block>().BlockCode);
                 inputList.Sort();
+                StartCoroutine(CoolDown(0.5f));
                 PV.RPC("IngredientMarkChange", RpcTarget.AllBuffered, inputList.Count - 1, collision.collider.GetComponent<Block>().BlockCode);
                 collision.gameObject.GetComponent<Block>().PV.RPC("DestroyFuc", RpcTarget.All);
             }
@@ -158,5 +160,16 @@ public class CraftTable : Block
             block.w3 = inputList[2];
         }
         return block;
+    }
+    public IEnumerator CoolDown(float a)
+    {
+        isCool = true;
+        float b = 0;
+        while (b <= a)
+        {
+            b += Time.deltaTime;
+            yield return null;
+        }
+        isCool = false;
     }
 }

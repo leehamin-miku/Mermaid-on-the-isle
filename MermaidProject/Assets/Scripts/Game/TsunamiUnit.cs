@@ -54,5 +54,16 @@ public class TsunamiUnit : Block
         coroutine = null;
     }
 
+    IEnumerator DestroyDelay(float a)
+    {
+        float b = 0;
+        while (b <= a)
+        {
+            b+= Time.deltaTime; yield return null;
+        }
+        PhotonNetwork.Destroy(gameObject);
+
+    }
+
     //´êÀ¸¸é ¾îÂ¼±¸ µîµî
 }

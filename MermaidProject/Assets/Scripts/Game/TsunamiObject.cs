@@ -92,9 +92,13 @@ public class TsunamiObject : MonoBehaviour
     {
         foreach (GameObject go in tsunamiList)
         {
-            PhotonNetwork.Destroy(go);
+            if (go != null)
+            {
+                PhotonNetwork.Destroy(go);
+            }
         }
         Destroy(this.gameObject);
     }
+
 
 }

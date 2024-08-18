@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7cb724808c322458aa4d15f5035fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
+  m_SynchronizeVelocity: 0
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 1
   m_TeleportIfDistanceGreaterThan: 2
@@ -230,11 +230,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738730b98306b344786e8ce5b55fed69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRunning: 1
   isInUse: 0
   isGrabed: 0
   BlockCode: 0
   rb: {fileID: 0}
+  savePosition:
+  - 0
+  - 0
+  - 0
+  saveRotation: {x: 0, y: 0, z: 0, w: 0}
   strength: 0
   maxStrenth: 0
   mass: 0
